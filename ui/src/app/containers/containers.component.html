@@ -1,0 +1,7 @@
+@if (containers.isSuccess()) {
+  @for (container of containers.data(); track container.Id) {
+    <div>
+      <div>{{ container.Image }}</div>
+    </div>
+  }
+}

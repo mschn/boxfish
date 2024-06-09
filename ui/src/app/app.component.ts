@@ -13,10 +13,12 @@ export class AppComponent {
     {
       name: 'Home',
       link: '/',
+      icon: 'pi-home',
     },
     {
       name: 'Containers',
       link: '/containers',
+      icon: 'pi-box',
     },
   ];
 }

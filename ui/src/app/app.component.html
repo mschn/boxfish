@@ -1,8 +1,24 @@
-<h1>Hello</h1>
+<div class="flex flex-column w-full h-full">
+  <div class="flex flex-row bg-primary p-2 px-4">
+    <div class="text-xl">Dock her</div>
+  </div>
 
-<div>
-  <a routerLink="/">Home</a>
-  <a routerLink="/containers">Containers</a>
+  <div class="flex flex-row flex-1">
+    <div class="flex flex-column bg-gray-200 p-2">
+      @for (route of routes; track route.name) {
+        <a
+          [routerLink]="route.link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLinkActive="text-900"
+          class="p-3 font-bold border-round bg-transparent text-500 border-transparent no-underline w-full hover:bg-gray-300"
+        >
+          {{ route.name }}
+        </a>
+      }
+    </div>
+
+    <div class="flex-1 p-2">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
-
-<router-outlet></router-outlet>

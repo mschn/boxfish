@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
@@ -26,4 +27,15 @@ export class AppComponent {
       icon: 'pi-database',
     },
   ];
+
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
+  toggleDayNight() {
+    const theme = this.document.getElementById('app-theme') as HTMLLinkElement;
+    if (theme.href.includes('light')) {
+      theme.href = 'theme-dark.css';
+    } else {
+      theme.href = 'theme-light.css';
+    }
+  }
 }

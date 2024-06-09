@@ -1,12 +1,18 @@
 <div class="flex flex-column w-full h-full">
-  <div class="flex flex-row bg-primary p-2 px-4">
+  <div class="flex flex-row bg-primary p-2 px-4 align-items-center">
     <div class="text-xl">
-      <a routerLink="/" class="text-white no-underline">Dock her</a>
+      <a routerLink="/" class="text-0 no-underline">Dock her</a>
     </div>
+    <p-button
+      icon="pi pi-sun"
+      class="ml-auto"
+      size="small"
+      (onClick)="toggleDayNight()"
+    ></p-button>
   </div>
 
   <div class="flex flex-row flex-1">
-    <div class="flex flex-column bg-gray-200 p-2">
+    <div class="flex flex-column surface-200 p-2">
       @for (route of routes; track route.name) {
         <a
           [routerLink]="route.link"

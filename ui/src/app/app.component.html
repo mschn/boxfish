@@ -1,6 +1,8 @@
 <div class="flex flex-column w-full h-full">
   <div class="flex flex-row bg-primary p-2 px-4">
-    <div class="text-xl">Dock her</div>
+    <div class="text-xl">
+      <a routerLink="/" class="text-white no-underline">Dock her</a>
+    </div>
   </div>
 
   <div class="flex flex-row flex-1">
@@ -12,7 +14,7 @@
           routerLinkActive="text-900"
           class="p-3 font-bold border-round bg-transparent text-500 border-transparent no-underline w-full hover:bg-gray-300"
         >
-          <i class="pi {{ route.icon }}"></i>
+          <i class="pi {{ route.icon }} mr-2"></i>
           {{ route.name }}
         </a>
       }

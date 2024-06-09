@@ -11,14 +11,19 @@ import { ButtonModule } from 'primeng/button';
 export class AppComponent {
   routes = [
     {
-      name: 'Home',
-      link: '/',
-      icon: 'pi-home',
-    },
-    {
       name: 'Containers',
       link: '/containers',
       icon: 'pi-box',
+    },
+    {
+      name: 'Images',
+      link: '/images',
+      icon: 'pi-images',
+    },
+    {
+      name: 'Volumes',
+      link: '/volumes',
+      icon: 'pi-database',
     },
   ];
 }

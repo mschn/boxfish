@@ -1,7 +1,20 @@
 @if (containers.isSuccess()) {
-  @for (container of containers.data(); track container.Id) {
-    <div>
-      <div>{{ container.Image }}</div>
-    </div>
-  }
+  <p-table [value]="containers.data()">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Status</th>
+        <th>Ports</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-container>
+      <tr>
+        <td>{{ container.Names?.join("") }}</td>
+        <td>{{ container.Image }}</td>
+        <td>{{ container.State }}</td>
+        <td>{{ getContainerPorts(container) }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 }

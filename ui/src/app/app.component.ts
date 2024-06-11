@@ -33,6 +33,12 @@ export class AppComponent {
     },
   ];
 
+  constructor() {
+    if (this.isDarkTheme()) {
+      this.toggleDayNight();
+    }
+  }
+
   getHtmlTheme() {
     return this.#document.getElementById('app-theme') as HTMLLinkElement;
   }
@@ -46,5 +52,9 @@ export class AppComponent {
       theme.href = 'theme-light.css';
       this.darkTheme = false;
     }
+  }
+
+  isDarkTheme(): boolean {
+    return window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches;
   }
 }

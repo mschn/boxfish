@@ -1,1 +1,18 @@
-<p>images works!</p>
+@if (images.isSuccess()) {
+  <div class="border-1 border-200 border-round">
+    <p-table [value]="images.data()">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Version</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-image>
+        <tr>
+          <td>{{ getName(image) }}</td>
+          <td>{{ getVersion(image) }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+}

@@ -13,6 +13,15 @@ fastify.route({
   },
 });
 
+fastify.route({
+  method: "GET",
+  url: "/images",
+  handler: async (request, reply) => {
+    const images = await docker.listImages({ all: true });
+    return images;
+  },
+});
+
 fastify.addHook("preHandler", (req, res, done) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "*");

@@ -3,30 +3,37 @@
     <div class="text-xl">
       <a routerLink="/" class="text-0 no-underline">Dock her</a>
     </div>
-    <p-button
-      icon="pi pi-sun"
-      class="ml-auto"
-      size="small"
-      (onClick)="toggleDayNight()"
-    ></p-button>
   </div>
 
   <div class="flex flex-row flex-1">
-    <div class="flex flex-column surface-200 p-2">
+    <div class="flex flex-column surface-200 p-3">
       @for (route of routes; track route.name) {
         <a
           [routerLink]="route.link"
           [routerLinkActiveOptions]="{ exact: true }"
           routerLinkActive="text-900"
-          class="p-3 font-bold border-round bg-transparent text-500 border-transparent no-underline w-full hover:bg-gray-300"
+          class="p-3 font-bold border-round bg-transparent text-500 border-transparent no-underline w-full hover:surface-300"
         >
           <i class="pi {{ route.icon }} mr-2"></i>
           {{ route.name }}
         </a>
       }
+
+      <div class="my-3 border-top-1 border-300"></div>
+
+      <div class="flex flex-row p-3 align-items-center">
+        <label for="darktheme-switch" class="mr-3"
+          ><i class="pi {{ darkTheme ? 'pi-moon' : 'pi-sun' }}"></i
+        ></label>
+        <p-inputSwitch
+          inputId="darktheme-switch"
+          [ngModel]="darkTheme"
+          (ngModelChange)="toggleDayNight()"
+        />
+      </div>
     </div>
 
-    <div class="flex-1 p-2">
+    <div class="flex-1 p-3">
       <router-outlet></router-outlet>
     </div>
   </div>

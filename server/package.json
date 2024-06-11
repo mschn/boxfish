@@ -4,7 +4,7 @@
   "description": "docker web ui",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.ts"
+    "start": "nodemon server.ts"
   },
   "author": "",
   "license": "ISC",

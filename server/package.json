@@ -1,7 +1,7 @@
 {
-  "name": "docker-web",
+  "name": "boxfish-server",
   "version": "0.0.1",
-  "description": "docker web ui",
+  "description": "boxfish node.js server",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.ts"

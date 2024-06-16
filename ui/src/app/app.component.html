@@ -3,6 +3,14 @@
     <div class="text-xl">
       <a routerLink="/" class="text-0 no-underline">Boxfish</a>
     </div>
+    <div class="ml-auto mr-3">
+      <p-inputSwitch
+        inputId="darktheme-switch"
+        styleClass="darkThemeSwitch"
+        [ngModel]="darkTheme"
+        (ngModelChange)="toggleDayNight()"
+      />
+    </div>
   </div>
 
   <div class="flex flex-row flex-1">
@@ -20,17 +28,6 @@
       }
 
       <div class="my-3 border-top-1 border-300"></div>
-
-      <div class="flex flex-row p-3 align-items-center">
-        <label for="darktheme-switch" class="mr-3"
-          ><i class="pi {{ darkTheme ? 'pi-moon' : 'pi-sun' }}"></i
-        ></label>
-        <p-inputSwitch
-          inputId="darktheme-switch"
-          [ngModel]="darkTheme"
-          (ngModelChange)="toggleDayNight()"
-        />
-      </div>
     </div>
 
     <div class="flex-1 p-3">

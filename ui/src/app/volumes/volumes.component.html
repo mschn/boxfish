@@ -1,4 +1,16 @@
 <h2 class="mt-1 text-800">Volumes</h2>
+
+@if (volumes.isError()) {
+  <p-messages severity="error">
+    <ng-template pTemplate>
+      <div>
+        <span class="font-bold">Failed to retrieve volumes:</span><br />
+        {{ volumes.error().error.message }}
+      </div>
+    </ng-template>
+  </p-messages>
+}
+
 @if (volumes.isSuccess()) {
   <div class="border-1 border-200 border-round">
     <p-table [value]="volumes.data()">

@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { ImagesService } from '../services/images.service';
 import { TableModule } from 'primeng/table';
 import Dockerode from 'dockerode';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-images',
   standalone: true,
-  imports: [TableModule],
+  imports: [TableModule, MessagesModule],
   templateUrl: './images.component.html',
   styleUrl: './images.component.scss',
 })

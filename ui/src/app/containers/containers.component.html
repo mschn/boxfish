@@ -1,4 +1,16 @@
 <h2 class="mt-1 text-800">Containers</h2>
+
+@if (containers.isError()) {
+  <p-messages severity="error">
+    <ng-template pTemplate>
+      <div>
+        <span class="font-bold">Failed to retrieve containers:</span><br />
+        {{ containers.error().error.message }}
+      </div>
+    </ng-template>
+  </p-messages>
+}
+
 @if (containers.isSuccess()) {
   <div class="border-1 border-200 border-round">
     <p-table [value]="containers.data()">

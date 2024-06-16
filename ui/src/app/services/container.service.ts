@@ -11,9 +11,18 @@ export class ContainerService {
   #http = inject(HttpClient);
 
   getContainers = () =>
-    injectQuery(() => ({
+    injectQuery<
+      Dockerode.ContainerInfo[],
+      Error & { error: { message: string } },
+      Dockerode.ContainerInfo[],
+      string[]
+    >(() => ({
       queryKey: ['containers'],
       queryFn: () =>
-        lastValueFrom(this.#http.get<Dockerode.ContainerInfo[]>('http://localhost:3000/containers')),
+        lastValueFrom(
+          this.#http.get<Dockerode.ContainerInfo[]>(
+            'http://localhost:3000/containers',
+          ),
+        ),
     }));
 }

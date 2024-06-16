@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { ContainerService } from '../services/container.service';
 import { TableModule } from 'primeng/table';
 import Dockerode from 'dockerode';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-containers',
   standalone: true,
-  imports: [TableModule],
+  imports: [TableModule, MessagesModule],
   templateUrl: './containers.component.html',
 })
 export class ContainersComponent {

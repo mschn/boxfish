@@ -11,7 +11,12 @@ export class ImagesService {
   #http = inject(HttpClient);
 
   getImages = () =>
-    injectQuery(() => ({
+    injectQuery<
+      Dockerode.ImageInfo[],
+      Error & { error: { message: string } },
+      Dockerode.ImageInfo[],
+      string[]
+    >(() => ({
       queryKey: ['images'],
       queryFn: () =>
         lastValueFrom(

@@ -11,7 +11,12 @@ export class VolumesService {
   #http = inject(HttpClient);
 
   getVolumes = () =>
-    injectQuery(() => ({
+    injectQuery<
+      Dockerode.VolumeInspectInfo[],
+      Error & { error: { message: string } },
+      Dockerode.VolumeInspectInfo[],
+      string[]
+    >(() => ({
       queryKey: ['volumes'],
       queryFn: () =>
         lastValueFrom(

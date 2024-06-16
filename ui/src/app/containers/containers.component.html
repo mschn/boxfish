@@ -11,6 +11,29 @@
   </p-messages>
 }
 
+@if (containers.isLoading()) {
+  <div class="border-1 border-200 border-round">
+    <p-table [value]="[{}, {}, {}, {}]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Status</th>
+          <th>Ports</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-container>
+        <tr>
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+}
+
 @if (containers.isSuccess()) {
   <div class="border-1 border-200 border-round">
     <p-table [value]="containers.data()">

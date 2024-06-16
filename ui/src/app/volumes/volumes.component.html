@@ -11,6 +11,23 @@
   </p-messages>
 }
 
+@if (volumes.isLoading()) {
+  <div class="border-1 border-200 border-round">
+    <p-table [value]="[{}, {}, {}]">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-volume>
+        <tr>
+          <td><p-skeleton></p-skeleton></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+}
+
 @if (volumes.isSuccess()) {
   <div class="border-1 border-200 border-round">
     <p-table [value]="volumes.data()">

@@ -3,11 +3,12 @@ import { ImagesService } from '../services/images.service';
 import { TableModule } from 'primeng/table';
 import Dockerode from 'dockerode';
 import { MessagesModule } from 'primeng/messages';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-images',
   standalone: true,
-  imports: [TableModule, MessagesModule],
+  imports: [TableModule, MessagesModule, SkeletonModule],
   templateUrl: './images.component.html',
   styleUrl: './images.component.scss',
 })

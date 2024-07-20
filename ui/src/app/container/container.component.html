@@ -1,3 +1,18 @@
 @if (container.isSuccess()) {
-  <h2>Container {{ container.data().Names.join("").substring(1) }}</h2>
+  <div class="text-xl mt-2 mb-3">
+    {{ container.data().Names.join("").substring(1) }}
+  </div>
 }
+
+@for (link of links; track link.name) {
+  <a
+    routerLink="/containers/{{ id() }}/{{ link.path }}"
+    class="py-2 px-3 inline-block no-underline text-500 font-semibold border-bottom-3 border-transparent"
+    routerLinkActive="text-900 border-primary"
+    [routerLinkActiveOptions]="{ exact: true }"
+    >{{ link.name }}</a
+  >
+}
+<div class="border-top-1 border-200">
+  <router-outlet></router-outlet>
+</div>

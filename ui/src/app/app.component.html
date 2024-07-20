@@ -18,7 +18,6 @@
       @for (route of routes; track route.name) {
         <a
           [routerLink]="route.link"
-          [routerLinkActiveOptions]="{ exact: true }"
           routerLinkActive="text-900"
           class="p-3 font-bold border-round bg-transparent text-500 border-transparent no-underline w-full hover:surface-300"
         >

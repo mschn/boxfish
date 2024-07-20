@@ -1,13 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { filter, map } from 'rxjs';
 import { ContainerService } from '../services/container.service';
 
 @Component({
   selector: 'app-container',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './container.component.html',
 })
 export class ContainerComponent {
@@ -21,6 +26,20 @@ export class ContainerComponent {
     ),
     { initialValue: '' },
   );
-
   container = this.#containerService.getContainer(this.id);
+
+  links = [
+    {
+      name: 'Container',
+      path: '',
+    },
+    {
+      name: 'Logs',
+      path: 'logs',
+    },
+    {
+      name: 'Terminal',
+      path: 'terminal',
+    },
+  ];
 }

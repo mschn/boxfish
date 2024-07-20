@@ -4,11 +4,12 @@ import { TableModule } from 'primeng/table';
 import Dockerode from 'dockerode';
 import { MessagesModule } from 'primeng/messages';
 import { SkeletonModule } from 'primeng/skeleton';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-containers',
   standalone: true,
-  imports: [TableModule, MessagesModule, SkeletonModule],
+  imports: [TableModule, MessagesModule, SkeletonModule, RouterLink],
   templateUrl: './containers.component.html',
 })
 export class ContainersComponent {

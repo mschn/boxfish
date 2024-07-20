@@ -4,23 +4,29 @@ import Docker from "dockerode";
 const fastify = Fastify({ logger: true });
 const docker = new Docker({ socketPath: "/var/run/docker.sock" });
 
-fastify.route({
-  method: "GET",
-  url: "/containers",
-  handler: async (request, reply) => await docker.listContainers({ all: true }),
-});
+fastify.get(
+  "/containers",
+  async (request, reply) => await docker.listContainers({ all: true })
+);
 
-fastify.route({
-  method: "GET",
-  url: "/images",
-  handler: async (request, reply) => await docker.listImages({ all: true }),
-});
+fastify.get<{ Params: { id: string } }>(
+  "/containers/:id",
+  async (request, reply) => {
+    const id = request.params.id;
+    const containers = await docker.listContainers({ all: true });
+    return containers.find((c) => c.Id === id);
+  }
+);
 
-fastify.route({
-  method: "GET",
-  url: "/volumes",
-  handler: async (request, reply) => (await docker.listVolumes()).Volumes,
-});
+fastify.get(
+  "/images",
+  async (request, reply) => await docker.listImages({ all: true })
+);
+
+fastify.get(
+  "/volumes",
+  async (request, reply) => (await docker.listVolumes()).Volumes
+);
 
 fastify.addHook("preHandler", (req, res, done) => {
   res.header("Access-Control-Allow-Origin", "*");

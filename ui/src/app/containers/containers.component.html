@@ -47,7 +47,11 @@
       </ng-template>
       <ng-template pTemplate="body" let-container>
         <tr>
-          <td>{{ container.Names?.join("") }}</td>
+          <td>
+            <a routerLink="/containers/{{ container.Id }}">{{
+              container.Names?.join("").substring(1)
+            }}</a>
+          </td>
           <td>{{ container.Image }}</td>
           <td>{{ container.State }}</td>
           <td>{{ getContainerPorts(container) }}</td>

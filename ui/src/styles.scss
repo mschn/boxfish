@@ -20,18 +20,19 @@ body {
 .darkThemeSwitch {
   &.p-inputswitch {
     margin-top: 0.2rem;
-    width: 4.5rem;
-    height: 2.8rem;
+    width: 4.2rem;
+    height: 2.3rem;
 
     .p-inputswitch-slider {
       background-color: #afccf7;
       &::before {
         width: 2rem;
         height: 2rem;
-        margin-top: -1.4rem;
+        margin-top: -1rem;
         left: 0.1rem;
         background: transparent;
         font-size: 2rem;
+        line-height: 2rem;
         content: "🌞";
       }
     }
@@ -41,7 +42,7 @@ body {
     background-color: #9fc6f5;
     &::before {
       content: "🌚";
-      transform: translateX(1.5rem);
+      transform: translateX(1.8rem);
     }
   }
 }

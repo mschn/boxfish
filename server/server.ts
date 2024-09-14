@@ -2,7 +2,7 @@ import Fastify from "fastify";
 import Docker from "dockerode";
 
 const fastify = Fastify({ logger: true });
-const docker = new Docker({ socketPath: "/var/run/docker.sock" });
+const docker = new Docker(getDockerConfig());
 
 fastify.get(
   "/containers",
@@ -44,3 +44,10 @@ fastify.listen({ host: "localhost", port: 3000 }).catch((err) => {
   fastify.log.error(err);
   process.exit(1);
 });
+
+function getDockerConfig(): Docker.DockerOptions {
+  if (process.platform === "win32") {
+    return { host: "localhost", port: 2375 };
+  }
+  return { socketPath: "/var/run/docker.sock" };
+}

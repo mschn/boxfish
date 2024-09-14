@@ -30,10 +30,10 @@ body {
         height: 2rem;
         margin-top: -1rem;
         left: 0.1rem;
-        background: transparent;
         font-size: 2rem;
         line-height: 2rem;
-        content: "🌞";
+        background: transparent url("/sun-emoji.png");
+        background-size: contain;
       }
     }
   }
@@ -41,8 +41,8 @@ body {
   &.p-inputswitch-checked .p-inputswitch-slider {
     background-color: #9fc6f5;
     &::before {
-      content: "🌚";
-      transform: translateX(1.8rem);
+      background-image: url("/moon-emoji.png");
+      transform: translateX(1.9rem);
     }
   }
 }

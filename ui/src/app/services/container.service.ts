@@ -1,14 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
-import { lastValueFrom } from 'rxjs';
+import { filter, lastValueFrom, map } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ContainerService {
   #http = inject(HttpClient);
+  #route = inject(ActivatedRoute);
+
+  idFromRoute = toSignal(
+    this.#route.paramMap.pipe(
+      map((paramMap) => paramMap.get('id')),
+      filter(Boolean),
+    ),
+    { initialValue: '' },
+  );
 
   getContainers = () =>
     injectQuery<
@@ -41,4 +50,6 @@ export class ContainerService {
           ),
         ),
     }));
+
+  containerFromRoute = this.getContainer(this.idFromRoute);
 }

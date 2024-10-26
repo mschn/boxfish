@@ -5,11 +5,19 @@ import Dockerode from 'dockerode';
 import { MessagesModule } from 'primeng/messages';
 import { SkeletonModule } from 'primeng/skeleton';
 import { RouterLink } from '@angular/router';
+import { StatusComponent } from '../container/status.component';
 
 @Component({
   selector: 'app-containers',
   standalone: true,
-  imports: [TableModule, MessagesModule, SkeletonModule, RouterLink],
+  imports: [
+    TableModule,
+    MessagesModule,
+    SkeletonModule,
+    RouterLink,
+    StatusComponent,
+  ],
+  providers: [ContainerService],
   templateUrl: './containers.component.html',
 })
 export class ContainersComponent {

@@ -1,12 +1,15 @@
 @if (container.isSuccess()) {
   <div class="text-xl mt-1 mb-3">
+    <app-status [status]="container.data().State"></app-status>
     {{ container.data().Names.join("").substring(1) }}
   </div>
 }
 
 @for (link of links; track link.name) {
   <a
-    routerLink="/containers/{{ id() }}/{{ link.path }}"
+    routerLink="/containers/{{ containerService.idFromRoute() }}/{{
+      link.path
+    }}"
     class="py-2 px-3 inline-block no-underline text-500 font-semibold border-bottom-3 border-transparent"
     routerLinkActive="text-900 border-primary"
     [routerLinkActiveOptions]="{ exact: true }"

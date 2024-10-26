@@ -1,1 +1,12 @@
-<p>container-info works!</p>
+@if (container.isSuccess()) {
+  <div class="grid mt-3">
+    <div class="col-2">Image</div>
+    <div class="col-10">{{ container.data().Image }}</div>
+
+    <div class="col-2">Status</div>
+    <div class="col-10">{{ container.data().Status }}</div>
+
+    <div class="col-2">Created</div>
+    <div class="col-10">{{ container.data().Created * 1000 | date }}</div>
+  </div>
+}

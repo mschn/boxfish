@@ -53,7 +53,10 @@
             }}</a>
           </td>
           <td>{{ container.Image }}</td>
-          <td>{{ container.State }}</td>
+          <td>
+            <app-status [status]="container.State"></app-status>
+            {{ container.State }}
+          </td>
           <td>{{ getContainerPorts(container) }}</td>
         </tr>
       </ng-template>

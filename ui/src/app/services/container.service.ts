@@ -44,6 +44,7 @@ export class ContainerService {
       string[]
     >(() => ({
       queryKey: ['containers', id()],
+      enabled: id() !== '',
       queryFn: () =>
         lastValueFrom(
           this.#http.get<Dockerode.ContainerInfo>(

@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
-import { Session, SESSION_ID } from "./model";
+import { Session, SESSION_ID, SESSION_TIMEOUT_MS } from "./model";
 import { fastifyRequestContext } from "@fastify/request-context";
 
 declare module "@fastify/request-context" {
@@ -11,7 +11,7 @@ declare module "@fastify/request-context" {
 export class Sessions {
   readonly sessions: Record<string, Session> = {};
 
-  constructor(private fastify: FastifyInstance) {
+  constructor(fastify: FastifyInstance) {
     fastify.register(fastifyRequestContext, {
       hook: "preValidation",
     });
@@ -31,6 +31,8 @@ export class Sessions {
       request.requestContext.set("session", session);
       done();
     });
+
+    this.timeout();
   }
 
   add(id: string, session: Session) {
@@ -50,5 +52,15 @@ export class Sessions {
     return request.requestContext.get("session");
   }
 
-  timeout() {}
+  timeout() {
+    const now = new Date().getTime();
+    Object.keys(this.sessions).forEach((sessionId) => {
+      const session = this.get(sessionId);
+      if (now - session.stats.lastUsed > SESSION_TIMEOUT_MS) {
+        console.log(" timing out ", sessionId);
+        delete this.sessions[sessionId];
+      }
+    });
+    setTimeout(() => this.timeout(), 1000);
+  }
 }

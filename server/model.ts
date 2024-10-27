@@ -10,3 +10,4 @@ export interface Session {
 }
 
 export const SESSION_ID = "sessionId";
+export const SESSION_TIMEOUT_MS = 60 * 1000; // 1mn session timeout

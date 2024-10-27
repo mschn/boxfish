@@ -1,12 +1,16 @@
 @if (server.isSuccess()) {
-  <div>{{ server.data().Containers }} containers</div>
-  <div>{{ server.data().Images }} images</div>
-  <div>{{ server.data().NCPU }} CPUs</div>
+  @if (serverConfig()?.socketPath) {
+    <h2 class="text-800">{{ serverConfig()?.socketPath }}</h2>
+  }
+
+  <div>{{ serverInfo()?.Containers }} containers</div>
+  <div>{{ serverInfo()?.Images }} images</div>
+  <div>{{ serverInfo()?.NCPU }} CPUs</div>
   <div>{{ memory() }} RAM</div>
   <div>
-    Host {{ server.data().OSType }} {{ server.data().OperatingSystem }} ({{
-      server.data().Architecture
+    Host {{ serverInfo()?.OSType }} {{ serverInfo()?.OperatingSystem }} ({{
+      serverInfo()?.Architecture
     }})
   </div>
-  <div>Docker version {{ server.data().ServerVersion }}</div>
+  <div>Docker version {{ serverInfo()?.ServerVersion }}</div>
 }

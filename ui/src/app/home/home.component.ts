@@ -12,5 +12,7 @@ import prettyBytes from 'pretty-bytes';
 export class HomeComponent {
   server = inject(ServerService).getServerInfo();
 
-  memory = computed(() => prettyBytes(this.server.data()?.MemTotal ?? 0));
+  serverInfo = computed(() => this.server.data()?.info);
+  serverConfig = computed(() => this.server.data()?.config);
+  memory = computed(() => prettyBytes(this.server.data()?.info?.MemTotal ?? 0));
 }

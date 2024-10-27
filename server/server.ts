@@ -44,8 +44,8 @@ fastify.post("/login", async (request, reply) => {
 
 fastify.get("/server", async (request, reply) => {
   const sessionId = request.cookies[SESSION_ID] ?? "";
-  const { docker } = sessions[sessionId];
-  return await docker.info();
+  const { config, docker } = sessions[sessionId];
+  return { config, info: await docker.info() };
 });
 
 fastify.get("/containers", async (request, reply) => {

@@ -12,7 +12,7 @@
 }
 
 @if (volumes.isLoading()) {
-  <div class="border-1 border-200 border-round">
+  <div class="border-1 border-200">
     <p-table [value]="[{}, {}, {}]">
       <ng-template pTemplate="header">
         <tr>
@@ -29,7 +29,7 @@
 }
 
 @if (volumes.isSuccess()) {
-  <div class="border-1 border-200 border-round">
+  <div class="border-1 border-200">
     <p-table [value]="volumes.data()">
       <ng-template pTemplate="header">
         <tr>

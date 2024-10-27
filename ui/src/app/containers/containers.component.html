@@ -12,7 +12,7 @@
 }
 
 @if (containers.isLoading()) {
-  <div class="border-1 border-200 border-round">
+  <div class="border-1 border-200">
     <p-table [value]="[{}, {}, {}, {}]">
       <ng-template pTemplate="header">
         <tr>
@@ -35,7 +35,7 @@
 }
 
 @if (containers.isSuccess()) {
-  <div class="border-1 border-200 border-round">
+  <div class="border-1 border-200">
     <p-table [value]="containers.data()">
       <ng-template pTemplate="header">
         <tr>

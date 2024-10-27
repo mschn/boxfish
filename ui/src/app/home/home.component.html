@@ -1,1 +1,12 @@
-<h1>Hello :)</h1>
+@if (server.isSuccess()) {
+  <div>{{ server.data().Containers }} containers</div>
+  <div>{{ server.data().Images }} images</div>
+  <div>{{ server.data().NCPU }} CPUs</div>
+  <div>{{ memory() }} RAM</div>
+  <div>
+    Host {{ server.data().OSType }} {{ server.data().OperatingSystem }} ({{
+      server.data().Architecture
+    }})
+  </div>
+  <div>Docker version {{ server.data().ServerVersion }}</div>
+}

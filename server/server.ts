@@ -4,6 +4,8 @@ import Docker from "dockerode";
 const fastify = Fastify({ logger: true });
 const docker = new Docker(getDockerConfig());
 
+fastify.get("/server", async (request, reply) => await docker.info());
+
 fastify.get(
   "/containers",
   async (request, reply) => await docker.listContainers({ all: true })

@@ -55,7 +55,7 @@
           <td>{{ container.Image }}</td>
           <td>
             <app-status [status]="container.State"></app-status>
-            {{ container.State }}
+            {{ container.State | titlecase }}
           </td>
           <td>{{ getContainerPorts(container) }}</td>
         </tr>

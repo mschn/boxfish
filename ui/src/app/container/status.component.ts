@@ -5,18 +5,25 @@ export type Status = 'up' | 'running' | 'exited' | 'created';
 
 @Component({
   selector: 'app-status',
-  template: `<p-badge value=" " [severity]="color()"></p-badge>`,
-  imports: [BadgeModule],
+  imports: [],
   standalone: true,
+  template: `<span class="status {{ color() }}"> </span>`,
+  styles: `
+    .status {
+      border-radius: 1rem;
+      height: 0.75rem;
+      width: 0.75rem;
+      display: inline-block;
+    }
+  `,
 })
 export class StatusComponent {
   status = input<string>('up');
 
-  colors: Record<string, Badge['severity']> = {
-    created: 'info',
-    running: 'success',
-    exited: 'secondary',
-    up: 'success',
+  colors: Record<string, string> = {
+    created: 'surface-100',
+    running: 'bg-green-500',
+    exited: 'surface-100',
   };
 
   color = computed(() => this.colors[this.status()]);

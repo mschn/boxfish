@@ -6,6 +6,7 @@ import { MessagesModule } from 'primeng/messages';
 import { SkeletonModule } from 'primeng/skeleton';
 import { RouterLink } from '@angular/router';
 import { StatusComponent } from '../container/status.component';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-containers',
@@ -16,6 +17,7 @@ import { StatusComponent } from '../container/status.component';
     SkeletonModule,
     RouterLink,
     StatusComponent,
+    TitleCasePipe,
   ],
   providers: [ContainerService],
   templateUrl: './containers.component.html',

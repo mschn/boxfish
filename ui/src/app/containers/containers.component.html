@@ -57,7 +57,19 @@
             <app-status [status]="container.State"></app-status>
             {{ container.State | titlecase }}
           </td>
-          <td>{{ getContainerPorts(container) }}</td>
+          <td>
+            @for (port of container.Ports; track port.ip + port.PrivatePort) {
+              @if (port.PublicPort && port.IP !== "::") {
+                <a
+                  href="http://{{ port.IP }}:{{ port.PublicPort }}"
+                  class="mr-2"
+                  target="_blank"
+                  rel="noopener"
+                  >{{ port.PublicPort }}</a
+                >
+              }
+            }
+          </td>
         </tr>
       </ng-template>
     </p-table>

@@ -8,5 +8,18 @@
 
     <div class="col-2">Created</div>
     <div class="col-10">{{ container.data().Created * 1000 | date }}</div>
+
+    <div class="col-2">Ports</div>
+    <div class="col-10">
+      @for (port of container.data().Ports; track port.IP + port.PublicPort) {
+        @if (port.PublicPort) {
+          <div>
+            {{ port.IP }}:{{ port.PublicPort }} → {{ port.PrivatePort }}/{{
+              port.Type
+            }}
+          </div>
+        }
+      }
+    </div>
   </div>
 }

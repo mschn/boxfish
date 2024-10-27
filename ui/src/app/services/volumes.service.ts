@@ -22,6 +22,7 @@ export class VolumesService {
         lastValueFrom(
           this.#http.get<Dockerode.VolumeInspectInfo[]>(
             'http://localhost:3000/volumes',
+            { withCredentials: true },
           ),
         ),
     }));

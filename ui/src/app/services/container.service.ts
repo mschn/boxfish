@@ -31,6 +31,7 @@ export class ContainerService {
         lastValueFrom(
           this.#http.get<Dockerode.ContainerInfo[]>(
             'http://localhost:3000/containers',
+            { withCredentials: true },
           ),
         ),
     }));
@@ -47,6 +48,7 @@ export class ContainerService {
         lastValueFrom(
           this.#http.get<Dockerode.ContainerInfo>(
             `http://localhost:3000/containers/${id()}`,
+            { withCredentials: true },
           ),
         ),
     }));

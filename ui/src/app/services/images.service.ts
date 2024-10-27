@@ -20,7 +20,10 @@ export class ImagesService {
       queryKey: ['images'],
       queryFn: () =>
         lastValueFrom(
-          this.#http.get<Dockerode.ImageInfo[]>('http://localhost:3000/images'),
+          this.#http.get<Dockerode.ImageInfo[]>(
+            'http://localhost:3000/images',
+            { withCredentials: true },
+          ),
         ),
       select: (images) =>
         images.filter((image) => image.RepoTags && image.RepoTags?.length > 0),

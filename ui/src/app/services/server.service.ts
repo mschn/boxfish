@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { injectQuery } from '@tanstack/angular-query-experimental';
+import {
+  injectMutation,
+  injectQuery,
+} from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
 import { ServerInfo } from '../model/server.model';
 
@@ -9,6 +12,18 @@ import { ServerInfo } from '../model/server.model';
 })
 export class ServerService {
   #http = inject(HttpClient);
+
+  login = () =>
+    injectMutation(() => ({
+      mutationFn: () =>
+        lastValueFrom(
+          this.#http.post(
+            'http://localhost:3000/login',
+            {},
+            { withCredentials: true },
+          ),
+        ),
+    }));
 
   getServerInfo = () =>
     injectQuery<
@@ -20,7 +35,9 @@ export class ServerService {
       queryKey: ['server'],
       queryFn: () =>
         lastValueFrom(
-          this.#http.get<ServerInfo>('http://localhost:3000/server'),
+          this.#http.get<ServerInfo>('http://localhost:3000/server', {
+            withCredentials: true,
+          }),
         ),
     }));
 }

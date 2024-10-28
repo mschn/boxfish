@@ -49,12 +49,39 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
       const session = sessions.fromContext(request);
       const container = session?.docker.getContainer(id);
 
-      const buffer = await container?.logs({
-        stdout: true,
-        follow: false,
-        stderr: true,
+      var logStream = new Stream.PassThrough();
+      let output = "";
+      logStream.on("data", function (chunk) {
+        output += chunk.toString("utf8");
       });
-      return buffer?.toString("utf8");
+
+      await new Promise<void>((resolve) => {
+        container?.logs(
+          {
+            follow: true,
+            stdout: true,
+            stderr: true,
+            tail: 1000,
+          },
+          function (err, stream) {
+            if (err) {
+              reply.status(500).send(err);
+              resolve();
+            }
+            container.modem.demuxStream(stream, logStream, logStream);
+            stream?.on("end", function () {
+              logStream.end("");
+              reply.send(output);
+              resolve();
+            });
+
+            setTimeout(function () {
+              reply.send(output);
+              resolve();
+            }, 500);
+          }
+        );
+      });
     }
   );
 

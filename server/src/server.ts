@@ -6,6 +6,23 @@ import { SESSION_ID } from "./model";
 import { Sessions } from "./session";
 
 const fastify = Fastify({ logger: true });
+
+fastify.addHook("preHandler", (req, res, done) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.header("Access-Control-Allow-Methods", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+
+  const isPreflight = /options/i.test(req.method);
+  if (isPreflight) {
+    return res.send();
+  }
+  done();
+});
+
 const sessions = new Sessions(fastify);
 
 fastify.register(cookie, {
@@ -57,22 +74,6 @@ fastify.get("/images", async (request, reply) => {
 fastify.get("/volumes", async (request, reply) => {
   const session = sessions.fromContext(request);
   return (await session?.docker.listVolumes())?.Volumes;
-});
-
-fastify.addHook("preHandler", (req, res, done) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
-  res.header("Access-Control-Allow-Methods", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-  );
-  res.header("Access-Control-Allow-Credentials", "true");
-
-  const isPreflight = /options/i.test(req.method);
-  if (isPreflight) {
-    return res.send();
-  }
-  done();
 });
 
 fastify.listen({ host: "localhost", port: 3000 }).catch((err) => {

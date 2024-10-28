@@ -58,7 +58,7 @@
             {{ container.State | titlecase }}
           </td>
           <td>
-            @for (port of container.Ports; track port.ip + port.PrivatePort) {
+            @for (port of container.Ports; track port.IP + port.PrivatePort) {
               @if (port.PublicPort && port.IP !== "::") {
                 <a
                   href="http://{{ port.IP }}:{{ port.PublicPort }}"

@@ -1,10 +1,9 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Inject, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { ServerService } from './services/server.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +14,6 @@ import { ServerService } from './services/server.service';
 export class AppComponent {
   #document = inject(DOCUMENT);
   darkTheme = false;
-  login = inject(ServerService).login();
 
   routes = [
     {
@@ -39,8 +37,6 @@ export class AppComponent {
     if (this.isDarkTheme()) {
       this.toggleDayNight();
     }
-
-    this.login.mutate();
   }
 
   getHtmlTheme() {

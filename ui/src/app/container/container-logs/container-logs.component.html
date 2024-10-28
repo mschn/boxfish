@@ -1,1 +1,3 @@
-<p>container-logs works!</p>
+@if (logs.isSuccess()) {
+  <pre class="surface-100 p-3 text-sm">{{ logs.data() }}</pre>
+}

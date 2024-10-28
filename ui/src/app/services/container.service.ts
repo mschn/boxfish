@@ -54,5 +54,24 @@ export class ContainerService {
         ),
     }));
 
+  getContainerLogs = (id: Signal<string>) =>
+    injectQuery<
+      string,
+      Error & { error: { message: string } },
+      string,
+      string[]
+    >(() => ({
+      queryKey: ['containers', id(), 'logs'],
+      enabled: id() !== '',
+      queryFn: () =>
+        lastValueFrom(
+          this.#http.get(`http://localhost:3000/containers/${id()}/logs`, {
+            withCredentials: true,
+            responseType: 'text',
+          }),
+        ),
+    }));
+
   containerFromRoute = this.getContainer(this.idFromRoute);
+  containerLogsFromRoute = this.getContainerLogs(this.idFromRoute);
 }

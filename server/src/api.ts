@@ -3,6 +3,7 @@ import { Sessions } from "./session";
 import Docker from "dockerode";
 import { createId } from "@paralleldrive/cuid2";
 import { SESSION_ID } from "./model";
+import { Stream } from "stream";
 
 export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
   fastify.post("/login", async (request, reply) => {
@@ -38,6 +39,22 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
       const session = sessions.fromContext(request);
       const containers = await session?.docker.listContainers({ all: true });
       return containers?.find((c) => c.Id === id);
+    }
+  );
+
+  fastify.get<{ Params: { id: string } }>(
+    "/containers/:id/logs",
+    async (request, reply) => {
+      const id = request.params.id;
+      const session = sessions.fromContext(request);
+      const container = session?.docker.getContainer(id);
+
+      const buffer = await container?.logs({
+        stdout: true,
+        follow: false,
+        stderr: true,
+      });
+      return buffer?.toString("utf8");
     }
   );
 

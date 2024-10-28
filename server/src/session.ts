@@ -1,6 +1,7 @@
+import cookie from "@fastify/cookie";
+import { fastifyRequestContext } from "@fastify/request-context";
 import { FastifyInstance, FastifyRequest } from "fastify";
 import { Session, SESSION_ID, SESSION_TIMEOUT_MS } from "./model";
-import { fastifyRequestContext } from "@fastify/request-context";
 
 declare module "@fastify/request-context" {
   interface RequestContextData {
@@ -14,6 +15,11 @@ export class Sessions {
   constructor(fastify: FastifyInstance) {
     fastify.register(fastifyRequestContext, {
       hook: "preValidation",
+    });
+
+    fastify.register(cookie, {
+      secret: "cookie-secret",
+      parseOptions: {},
     });
 
     fastify.addHook("preHandler", (request, reply, done) => {

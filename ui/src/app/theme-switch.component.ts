@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
@@ -16,7 +15,6 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
   imports: [ToggleSwitchModule, FormsModule],
 })
 export class ThemeToggleComponent {
-  #document = inject(DOCUMENT);
   darkTheme = signal(false);
 
   darkThemeSwitchTokens = {
@@ -42,7 +40,7 @@ export class ThemeToggleComponent {
   }
 
   toggleDayNight() {
-    const element = this.#document.querySelector('html');
+    const element = document.querySelector('html');
     element?.classList.toggle('dark');
     this.darkTheme.set(!this.darkTheme());
   }

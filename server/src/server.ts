@@ -14,6 +14,7 @@ const fastify = Fastify({
     },
   },
 });
+
 addCorsHook(fastify);
 const sessions = new Sessions(fastify);
 registerApi(fastify, sessions);

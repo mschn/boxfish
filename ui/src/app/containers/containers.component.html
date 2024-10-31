@@ -76,7 +76,7 @@
               <p-button
                 icon="pi pi-stop"
                 severity="danger"
-                [outlined]="true"
+                [text]="true"
                 [rounded]="true"
                 [loading]="start.isPending() || stop.isPending()"
                 (onClick)="stopContainer(container.Id)"
@@ -85,7 +85,7 @@
               <p-button
                 icon="pi pi-play"
                 severity="success"
-                [outlined]="true"
+                [text]="true"
                 [rounded]="true"
                 [loading]="start.isPending() || stop.isPending()"
                 (onClick)="startContainer(container.Id)"

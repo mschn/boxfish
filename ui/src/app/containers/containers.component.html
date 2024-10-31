@@ -72,8 +72,21 @@
             }
           </td>
           <td>
-            <p-button (onClick)="startContainer(container.Id)">Start</p-button>
-            <p-button (onClick)="stopContainer(container.Id)">Stop</p-button>
+            @if (container.State === "running") {
+              <p-button
+                icon="pi pi-stop"
+                styleClass="text-red-500"
+                [text]="true"
+                (onClick)="stopContainer(container.Id)"
+              ></p-button>
+            } @else {
+              <p-button
+                icon="pi pi-play"
+                styleClass="text-green-500"
+                [text]="true"
+                (onClick)="startContainer(container.Id)"
+              ></p-button>
+            }
           </td>
         </tr>
       </ng-template>

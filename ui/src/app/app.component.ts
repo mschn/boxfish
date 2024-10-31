@@ -1,22 +1,26 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { InputSwitchModule } from 'primeng/inputswitch';
 import { Lara } from 'primeng/themes/lara';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ThemeToggleComponent } from './theme-switch.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, FormsModule, ButtonModule, InputSwitchModule],
+  imports: [
+    RouterModule,
+    FormsModule,
+    ButtonModule,
+    ToggleSwitchModule,
+    ThemeToggleComponent,
+  ],
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  #document = inject(DOCUMENT);
   primeNgConfig = inject(PrimeNGConfig);
-  darkTheme = signal(false);
 
   routes = [
     {
@@ -43,19 +47,5 @@ export class AppComponent {
         darkModeSelector: '.dark',
       },
     });
-
-    if (this.isDarkTheme()) {
-      this.toggleDayNight();
-    }
-  }
-
-  toggleDayNight() {
-    const element = this.#document.querySelector('html');
-    element?.classList.toggle('dark');
-    this.darkTheme.set(!this.darkTheme());
-  }
-
-  isDarkTheme(): boolean {
-    return window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches;
   }
 }

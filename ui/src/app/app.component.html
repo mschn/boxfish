@@ -7,12 +7,7 @@
         >
       </div>
       <div class="ml-auto mr-3">
-        <p-inputSwitch
-          inputId="darktheme-switch"
-          styleClass="darkThemeSwitch"
-          [ngModel]="darkTheme()"
-          (ngModelChange)="toggleDayNight()"
-        />
+        <app-theme-toggle></app-theme-toggle>
       </div>
     </div>
 

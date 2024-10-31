@@ -42,6 +42,26 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
     }
   );
 
+  fastify.put<{ Params: { id: string } }>(
+    "/containers/:id/stop",
+    async (request, reply) => {
+      const id = request.params.id;
+      const session = sessions.fromContext(request);
+      const container = session?.docker.getContainer(id);
+      await container?.stop();
+    }
+  );
+
+  fastify.put<{ Params: { id: string } }>(
+    "/containers/:id/start",
+    async (request, reply) => {
+      const id = request.params.id;
+      const session = sessions.fromContext(request);
+      const container = session?.docker.getContainer(id);
+      await container?.start();
+    }
+  );
+
   fastify.get<{ Params: { id: string } }>(
     "/containers/:id/logs",
     async (request, reply) => {

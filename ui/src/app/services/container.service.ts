@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { injectQuery } from '@tanstack/angular-query-experimental';
+import {
+  injectMutation,
+  injectQuery,
+  injectQueryClient,
+} from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { filter, lastValueFrom, map } from 'rxjs';
 
@@ -10,6 +14,7 @@ import { filter, lastValueFrom, map } from 'rxjs';
 export class ContainerService {
   #http = inject(HttpClient);
   #route = inject(ActivatedRoute);
+  #client = injectQueryClient();
 
   idFromRoute = toSignal(
     this.#route.paramMap.pipe(
@@ -52,6 +57,40 @@ export class ContainerService {
             { withCredentials: true },
           ),
         ),
+    }));
+
+  stopContainer = () =>
+    injectMutation(() => ({
+      mutationFn: (id: string) =>
+        lastValueFrom(
+          this.#http.put(
+            `http://localhost:3000/containers/${id}/stop`,
+            {},
+            {
+              withCredentials: true,
+            },
+          ),
+        ),
+      onSuccess: () => {
+        this.#client.invalidateQueries({ queryKey: ['containers'] });
+      },
+    }));
+
+  startContainer = () =>
+    injectMutation(() => ({
+      mutationFn: (id: string) =>
+        lastValueFrom(
+          this.#http.put(
+            `http://localhost:3000/containers/${id}/start`,
+            {},
+            {
+              withCredentials: true,
+            },
+          ),
+        ),
+      onSuccess: () => {
+        this.#client.invalidateQueries({ queryKey: ['containers'] });
+      },
     }));
 
   getContainerLogs = (id: Signal<string>) =>

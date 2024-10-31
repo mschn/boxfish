@@ -43,6 +43,7 @@
           <th>Image</th>
           <th>Status</th>
           <th>Ports</th>
+          <th>Actions</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-container>
@@ -69,6 +70,10 @@
                 >
               }
             }
+          </td>
+          <td>
+            <p-button (onClick)="startContainer(container.Id)">Start</p-button>
+            <p-button (onClick)="stopContainer(container.Id)">Stop</p-button>
           </td>
         </tr>
       </ng-template>

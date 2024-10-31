@@ -38,7 +38,7 @@ export class AppComponent {
   ];
 
   constructor() {
-    this.primeNgConfig.theme.set({ preset: Lara });
+    this.primeNgConfig.theme.set({ preset: Lara, darkModeSelector: 'system' });
   }
 
   toggleDayNight() {}

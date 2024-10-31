@@ -2,7 +2,9 @@
   <div class="flex flex-col w-full h-full">
     <div class="flex flex-row bg-blue-500 p-2 px-4 items-center">
       <div class="text-xl font-bold">
-        <a routerLink="/" class="text-white no-underline">Boxfish</a>
+        <a routerLink="/" class="text-white dark:text-gray-900 no-underline"
+          >Boxfish</a
+        >
       </div>
       <div class="ml-auto mr-3">
         <p-inputSwitch
@@ -15,22 +17,24 @@
     </div>
 
     <div class="flex flex-row flex-1">
-      <div class="flex flex-col bg-gray-200 text-gray-500 p-2">
+      <div
+        class="flex flex-col bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400 p-2"
+      >
         @for (route of routes; track route.name) {
           <a
             [routerLink]="route.link"
-            routerLinkActive="text-gray-900"
-            class="p-3 font-bold rounded-md bg-transparent border-transparent no-underline w-full hover:bg-gray-300"
+            routerLinkActive="text-gray-900 dark:text-gray-200"
+            class="p-3 font-bold rounded-md bg-transparent border-transparent no-underline w-full hover:bg-gray-300 hover:dark:bg-gray-600"
           >
             <i class="pi {{ route.icon }} mr-2"></i>
             {{ route.name }}
           </a>
         }
 
-        <div class="my-3 border-t-2 border-gray-300"></div>
+        <div class="my-3 border-t-2 border-gray-300 dark:border-gray-600"></div>
       </div>
 
-      <div class="flex-1 p-3">
+      <div class="flex-1 p-3 bg-white dark:bg-gray-900">
         <router-outlet></router-outlet>
       </div>
     </div>

@@ -75,15 +75,19 @@
             @if (container.State === "running") {
               <p-button
                 icon="pi pi-stop"
-                styleClass="text-red-500"
-                [text]="true"
+                severity="danger"
+                [outlined]="true"
+                [rounded]="true"
+                [loading]="start.isPending() || stop.isPending()"
                 (onClick)="stopContainer(container.Id)"
               ></p-button>
             } @else {
               <p-button
                 icon="pi pi-play"
-                styleClass="text-green-500"
-                [text]="true"
+                severity="success"
+                [outlined]="true"
+                [rounded]="true"
+                [loading]="start.isPending() || stop.isPending()"
                 (onClick)="startContainer(container.Id)"
               ></p-button>
             }

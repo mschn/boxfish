@@ -2,17 +2,10 @@ import Fastify from "fastify";
 import { registerApi } from "./api";
 import { addCorsHook } from "./cors";
 import { Sessions } from "./session";
+import { DEV_LOGGER } from "./model";
 
 const fastify = Fastify({
-  logger: {
-    transport: {
-      target: "pino-pretty",
-      options: {
-        translateTime: "HH:MM:ss Z",
-        ignore: "pid,hostname",
-      },
-    },
-  },
+  logger: DEV_LOGGER,
 });
 
 addCorsHook(fastify);

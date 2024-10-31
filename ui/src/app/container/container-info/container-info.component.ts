@@ -8,7 +8,6 @@ import { BadgeModule } from 'primeng/badge';
   standalone: true,
   imports: [DatePipe, BadgeModule],
   templateUrl: './container-info.component.html',
-  styleUrl: './container-info.component.scss',
 })
 export class ContainerInfoComponent {
   containerService = inject(ContainerService);

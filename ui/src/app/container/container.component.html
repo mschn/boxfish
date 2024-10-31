@@ -1,8 +1,8 @@
 @if (container.isSuccess()) {
-  <div class="text-2xl font-bold mt-1 mb-3">
+  <h2 class="text-2xl font-bold mt-1 mb-3">
     <app-status [status]="container.data().State"></app-status>
     {{ container.data().Names.join("").substring(1) }}
-  </div>
+  </h2>
 }
 
 @for (link of links; track link.name) {
@@ -10,8 +10,8 @@
     routerLink="/containers/{{ containerService.idFromRoute() }}/{{
       link.path
     }}"
-    class="py-2 px-3 inline-block no-underline text-500 font-semibold border-bottom-3 border-transparent"
-    routerLinkActive="text-900 border-primary"
+    class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4 border-transparent"
+    routerLinkActive="text-gray-900 border-blue-500"
     [routerLinkActiveOptions]="{ exact: true }"
     >{{ link.name }}</a
   >

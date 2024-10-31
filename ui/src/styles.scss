@@ -1,9 +1,7 @@
-// PrimeNG
-// @import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-
-// PrimeFlex
-@import "primeflex/primeflex.scss";
+// Tailwind
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 // PrimeIcons
 @import "primeicons/primeicons.css";
@@ -15,34 +13,4 @@ body {
   padding: 0;
   margin: 0;
   font-size: 14px;
-}
-
-.darkThemeSwitch {
-  &.p-inputswitch {
-    margin-top: 0.2rem;
-    width: 4.2rem;
-    height: 2.3rem;
-
-    .p-inputswitch-slider {
-      background-color: #afccf7;
-      &::before {
-        width: 2rem;
-        height: 2rem;
-        margin-top: -1rem;
-        left: 0.1rem;
-        font-size: 2rem;
-        line-height: 2rem;
-        background: transparent url("/sun-emoji.png");
-        background-size: contain;
-      }
-    }
-  }
-
-  &.p-inputswitch-checked .p-inputswitch-slider {
-    background-color: #9fc6f5;
-    &::before {
-      background-image: url("/moon-emoji.png");
-      transform: translateX(1.9rem);
-    }
-  }
 }

@@ -1,6 +1,8 @@
 @if (server.isSuccess()) {
   @if (serverConfig()?.socketPath) {
-    <h2 class="text-800">{{ serverConfig()?.socketPath }}</h2>
+    <h2 class="text-gray-800 text-2xl font-bold mb-3">
+      {{ serverConfig()?.socketPath }}
+    </h2>
   }
 
   <div>{{ serverInfo()?.Containers }} containers</div>

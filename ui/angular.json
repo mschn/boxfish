@@ -28,19 +28,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss",
-              {
-                "input": "src/theme-dark.scss",
-                "bundleName": "theme-dark",
-                "inject": false
-              },
-              {
-                "input": "src/theme-light.scss",
-                "bundleName": "theme-light",
-                "inject": false
-              }
-            ],
+            "styles": ["src/styles.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["node_modules"]
             },

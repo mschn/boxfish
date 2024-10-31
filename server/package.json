@@ -13,7 +13,8 @@
     "@fastify/request-context": "^6.0.1",
     "@paralleldrive/cuid2": "^2.2.2",
     "dockerode": "^4.0.2",
-    "fastify": "^5.0.0"
+    "fastify": "^5.0.0",
+    "pino-pretty": "^11.3.0"
   },
   "devDependencies": {
     "@types/dockerode": "^3.3.29",

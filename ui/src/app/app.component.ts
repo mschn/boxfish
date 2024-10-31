@@ -1,11 +1,10 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { Aura } from 'primeng/themes/aura';
 import { Lara } from 'primeng/themes/lara';
 
 @Component({
@@ -17,7 +16,7 @@ import { Lara } from 'primeng/themes/lara';
 export class AppComponent {
   #document = inject(DOCUMENT);
   primeNgConfig = inject(PrimeNGConfig);
-  darkTheme = false;
+  darkTheme = signal(false);
 
   routes = [
     {
@@ -38,17 +37,25 @@ export class AppComponent {
   ];
 
   constructor() {
-    this.primeNgConfig.theme.set({ preset: Lara, darkModeSelector: 'system' });
+    this.primeNgConfig.theme.set({
+      preset: Lara,
+      options: {
+        darkModeSelector: '.dark',
+      },
+    });
+
+    if (this.isDarkTheme()) {
+      this.toggleDayNight();
+    }
   }
 
-  toggleDayNight() {}
-  //   const theme = this.getHtmlTheme();
-  //   if (theme.href.includes('light')) {
-  //     theme.href = 'theme-dark.css';
-  //     this.darkTheme = true;
-  //   } else {
-  //     theme.href = 'theme-light.css';
-  //     this.darkTheme = false;
-  //   }
-  // }
+  toggleDayNight() {
+    const element = this.#document.querySelector('html');
+    element?.classList.toggle('dark');
+    this.darkTheme.set(!this.darkTheme());
+  }
+
+  isDarkTheme(): boolean {
+    return window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches;
+  }
 }

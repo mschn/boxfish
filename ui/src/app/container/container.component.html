@@ -10,8 +10,13 @@
     routerLink="/containers/{{ containerService.idFromRoute() }}/{{
       link.path
     }}"
-    class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4 border-transparent"
-    routerLinkActive="text-gray-900 border-blue-500 dark:text-gray-200 "
+    class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4"
+    routerLinkActive="text-gray-900 dark:text-gray-200"
+    #rla="routerLinkActive"
+    [ngClass]="{
+      'border-blue-500': rla.isActive,
+      'border-transparent': !rla.isActive,
+    }"
     [routerLinkActiveOptions]="{ exact: true }"
     >{{ link.name }}</a
   >

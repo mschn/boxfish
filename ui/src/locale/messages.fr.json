@@ -1,0 +1,23 @@
+{
+  "locale": "fr",
+  "translations": {
+    "6869304038391725752": "Conteneurs",
+    "414887388288176527": "Images",
+    "2823783345206414517": "Volumes",
+    "3012906865384504293": "Image",
+    "5611592591303869712": "Statut",
+    "4207916966377787111": "Créé",
+    "6562284352382299410": "Ports",
+    "8105484113853764025": "Échec de la récuperation des conteneurs:",
+    "8953033926734869941": "Nom",
+    "2148238352809906449": "{$INTERPOLATION} conteneurs",
+    "6487243331058023746": "{$INTERPOLATION} images",
+    "1907511907001869753": "{$INTERPOLATION} processeurs",
+    "5965285958703840236": "{$INTERPOLATION} mémoire",
+    "2062448145906797868": "Hôte {$INTERPOLATION} {$INTERPOLATION_1} ({$INTERPOLATION_2})",
+    "3898981490799346143": "Version Docker {$INTERPOLATION}",
+    "8686487560443389635": "Échec de la récuperation des images:",
+    "2724055831234181057": "Version",
+    "3965435244975463358": "Échec de la récuperation des volumes:"
+  }
+}

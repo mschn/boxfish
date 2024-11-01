@@ -24,17 +24,17 @@ export class AppComponent {
 
   routes = [
     {
-      name: 'Containers',
+      name: $localize`Containers`,
       link: '/containers',
       icon: 'pi-box',
     },
     {
-      name: 'Images',
+      name: $localize`Images`,
       link: '/images',
       icon: 'pi-images',
     },
     {
-      name: 'Volumes',
+      name: $localize`Volumes`,
       link: '/volumes',
       icon: 'pi-database',
     },

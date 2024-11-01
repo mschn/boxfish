@@ -1,12 +1,12 @@
-<h2 class="mt-1 text-gray-800 dark:text-gray-200 text-2xl font-bold mb-3">
-  Containers
-</h2>
+<h2 class="mt-1 text-gray-800 dark:text-gray-200 text-2xl font-bold mb-3" i18n
+  >Containers</h2
+>
 
 @if (containers.isError()) {
   <p-messages severity="error">
     <ng-template pTemplate>
       <div>
-        <span class="font-bold">Failed to retrieve containers:</span><br />
+        <span class="font-bold" i18n>Failed to retrieve containers:</span><br />
         {{ containers.error().error.message }}
       </div>
     </ng-template>
@@ -18,10 +18,10 @@
     <p-table [value]="[{}, {}, {}, {}]">
       <ng-template pTemplate="header">
         <tr>
-          <th>Name</th>
-          <th>Image</th>
-          <th>Status</th>
-          <th>Ports</th>
+          <th i18n>Name</th>
+          <th i18n>Image</th>
+          <th i18n>Status</th>
+          <th i18n>Ports</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-container>

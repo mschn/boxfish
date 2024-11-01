@@ -6,15 +6,15 @@
       </h2>
     }
 
-    <div>{{ serverInfo()?.Containers }} containers</div>
-    <div>{{ serverInfo()?.Images }} images</div>
-    <div>{{ serverInfo()?.NCPU }} CPUs</div>
-    <div>{{ memory() }} RAM</div>
-    <div>
-      Host {{ serverInfo()?.OSType }} {{ serverInfo()?.OperatingSystem }} ({{
+    <div i18n>{{ serverInfo()?.Containers }} containers</div>
+    <div i18n>{{ serverInfo()?.Images }} images</div>
+    <div i18n>{{ serverInfo()?.NCPU }} CPUs</div>
+    <div i18n>{{ memory() }} RAM</div>
+    <div i18n
+      >Host {{ serverInfo()?.OSType }} {{ serverInfo()?.OperatingSystem }} ({{
         serverInfo()?.Architecture
-      }})
-    </div>
-    <div>Docker version {{ serverInfo()?.ServerVersion }}</div>
+      }})</div
+    >
+    <div i18n>Docker version {{ serverInfo()?.ServerVersion }}</div>
   </div>
 }

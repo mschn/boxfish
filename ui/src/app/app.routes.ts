@@ -1,46 +1,56 @@
 import { Routes } from '@angular/router';
-import { ContainersComponent } from './containers/containers.component';
-import { HomeComponent } from './home/home.component';
-import { ImagesComponent } from './images/images.component';
-import { VolumesComponent } from './volumes/volumes.component';
-import { ContainerComponent } from './container/container.component';
-import { ContainerInfoComponent } from './container/container-info/container-info.component';
-import { ContainerLogsComponent } from './container/container-logs/container-logs.component';
-import { ContainerTerminalComponent } from './container/container-terminal/container-terminal.component';
 
 export const routes: Routes = [
   {
     path: 'containers',
-    component: ContainersComponent,
+    loadComponent: () =>
+      import('./containers/containers.component').then(
+        (c) => c.ContainersComponent,
+      ),
   },
   {
     path: 'containers/:id',
-    component: ContainerComponent,
+    loadComponent: () =>
+      import('./container/container.component').then(
+        (c) => c.ContainerComponent,
+      ),
     children: [
       {
         path: '',
-        component: ContainerInfoComponent,
+        loadComponent: () =>
+          import('./container/container-info/container-info.component').then(
+            (c) => c.ContainerInfoComponent,
+          ),
       },
       {
         path: 'logs',
-        component: ContainerLogsComponent,
+        loadComponent: () =>
+          import('./container/container-logs/container-logs.component').then(
+            (c) => c.ContainerLogsComponent,
+          ),
       },
       {
         path: 'terminal',
-        component: ContainerTerminalComponent,
+        loadComponent: () =>
+          import(
+            './container/container-terminal/container-terminal.component'
+          ).then((c) => c.ContainerTerminalComponent),
       },
     ],
   },
   {
     path: 'images',
-    component: ImagesComponent,
+    loadComponent: () =>
+      import('./images/images.component').then((c) => c.ImagesComponent),
   },
   {
     path: 'volumes',
-    component: VolumesComponent,
+    loadComponent: () =>
+      import('./volumes/volumes.component').then((c) => c.VolumesComponent),
   },
   {
     path: '',
-    component: HomeComponent,
+    loadComponent: () =>
+      import('./home/home.component').then((c) => c.HomeComponent),
   },
 ];

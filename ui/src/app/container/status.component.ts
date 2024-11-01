@@ -6,23 +6,16 @@ export type Status = 'up' | 'running' | 'exited' | 'created';
   selector: 'app-status',
   imports: [],
   standalone: true,
-  template: `<span class="status {{ color() }}"> </span>`,
-  styles: `
-    .status {
-      border-radius: 1rem;
-      height: 0.75rem;
-      width: 0.75rem;
-      display: inline-block;
-    }
-  `,
+  template: `<span class="rounded-2xl w-3 h-3 inline-block {{ color() }}">
+  </span>`,
 })
 export class StatusComponent {
   status = input<string>('up');
 
   colors: Record<string, string> = {
-    created: 'bg-gray-100',
+    created: 'bg-gray-100 dark:bg-gray-700',
     running: 'bg-green-500',
-    exited: 'bg-gray-100',
+    exited: 'bg-gray-100 dark:bg-gray-700',
   };
 
   color = computed(() => this.colors[this.status()]);

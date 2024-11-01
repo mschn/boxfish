@@ -51,9 +51,11 @@
       <ng-template pTemplate="body" let-container>
         <tr>
           <td>
-            <a routerLink="/containers/{{ container.Id }}">{{
-              container.Names?.join("").substring(1)
-            }}</a>
+            <a
+              routerLink="/containers/{{ container.Id }}"
+              class="text-blue-800 dark:text-blue-300 text-lg hover:underline"
+              >{{ container.Names?.join("").substring(1) }}</a
+            >
           </td>
           <td>{{ container.Image }}</td>
           <td>
@@ -65,9 +67,9 @@
               @if (port.PublicPort && port.IP !== "::") {
                 <a
                   href="http://{{ port.IP }}:{{ port.PublicPort }}"
-                  class="mr-2"
                   target="_blank"
                   rel="noopener"
+                  class="text-blue-800 dark:text-blue-300 mr-2 hover:underline"
                   >{{ port.PublicPort }}</a
                 >
               }

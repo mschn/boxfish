@@ -2,6 +2,7 @@ import Dockerode from 'dockerode';
 
 export interface Container {
   id: string;
+  project: string;
   image: string;
   name: string;
   state: string;
@@ -27,8 +28,9 @@ export function buildContainers(
 export function buildContainer(container: Dockerode.ContainerInfo): Container {
   return {
     id: container.Id,
+    project: getProject(container),
     image: container.Image,
-    name: container.Names?.join('').substring(1),
+    name: buildName(container),
     state: container.State,
     status: container.Status,
     createdDate: new Date(container.Created * 1000),
@@ -36,6 +38,19 @@ export function buildContainer(container: Dockerode.ContainerInfo): Container {
       (port) => port.PublicPort && port.IP !== '::',
     ).map((port) => buildPort(port)),
   };
+}
+
+function getProject(container: Dockerode.ContainerInfo): string {
+  return container.Labels['com.docker.compose.project'];
+}
+
+function buildName(container: Dockerode.ContainerInfo): string {
+  const name = container.Names?.join('').substring(1);
+  const project = getProject(container);
+  if (name.startsWith(project + '-')) {
+    return name.substring(project.length + 1);
+  }
+  return name;
 }
 
 function buildPort(port: Dockerode.Port): Port {

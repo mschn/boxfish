@@ -8,6 +8,7 @@ import { StatusComponent } from '../container/status.component';
 import { ContainerService } from '../services/container.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-containers',
@@ -21,6 +22,7 @@ import { TooltipModule } from 'primeng/tooltip';
     TitleCasePipe,
     ButtonModule,
     TooltipModule,
+    BadgeModule,
   ],
   providers: [ContainerService],
   templateUrl: './containers.component.html',

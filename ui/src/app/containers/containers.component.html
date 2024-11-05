@@ -64,7 +64,7 @@
             <app-status [status]="container.State"></app-status>
             {{ container.State | titlecase }}
           </td>
-          <td>
+          <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
             @for (port of container.Ports; track port.IP + port.PrivatePort) {
               @if (port.PublicPort && port.IP !== "::") {
                 <a

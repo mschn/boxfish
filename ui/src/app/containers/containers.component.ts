@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import { StatusComponent } from '../container/status.component';
 import { ContainerService } from '../services/container.service';
 import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-containers',
@@ -19,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
     StatusComponent,
     TitleCasePipe,
     ButtonModule,
+    TooltipModule,
   ],
   providers: [ContainerService],
   templateUrl: './containers.component.html',

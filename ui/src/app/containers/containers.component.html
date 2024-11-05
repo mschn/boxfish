@@ -38,7 +38,7 @@
 
 @if (containers.isSuccess()) {
   <div class="border border-gray-200 dark:border-gray-700">
-    <p-table [value]="containers.data()">
+    <p-table [value]="containers.data()" tableStyleClass="table-fixed">
       <ng-template pTemplate="header">
         <tr>
           <th>Name</th>
@@ -50,14 +50,16 @@
       </ng-template>
       <ng-template pTemplate="body" let-container>
         <tr>
-          <td>
+          <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
             <a
               routerLink="/containers/{{ container.Id }}"
               class="text-blue-800 dark:text-blue-300 text-lg hover:underline"
               >{{ container.Names?.join("").substring(1) }}</a
             >
           </td>
-          <td>{{ container.Image }}</td>
+          <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">{{
+            container.Image
+          }}</td>
           <td>
             <app-status [status]="container.State"></app-status>
             {{ container.State | titlecase }}

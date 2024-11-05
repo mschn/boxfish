@@ -9,6 +9,11 @@ import {
 } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { filter, lastValueFrom, map } from 'rxjs';
+import {
+  buildContainer,
+  buildContainers,
+  Container,
+} from '../model/container.model';
 
 @Injectable()
 export class ContainerService {
@@ -28,7 +33,7 @@ export class ContainerService {
     injectQuery<
       Dockerode.ContainerInfo[],
       Error & { error: { message: string } },
-      Dockerode.ContainerInfo[],
+      Container[],
       string[]
     >(() => ({
       queryKey: ['containers'],
@@ -39,13 +44,14 @@ export class ContainerService {
             { withCredentials: true },
           ),
         ),
+      select: (containers) => buildContainers(containers),
     }));
 
   getContainer = (id: Signal<string>) =>
     injectQuery<
       Dockerode.ContainerInfo,
       Error & { error: { message: string } },
-      Dockerode.ContainerInfo,
+      Container,
       string[]
     >(() => ({
       queryKey: ['containers', id()],
@@ -57,6 +63,7 @@ export class ContainerService {
             { withCredentials: true },
           ),
         ),
+      select: (container) => buildContainer(container),
     }));
 
   stopContainer = () =>

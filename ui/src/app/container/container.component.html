@@ -1,7 +1,7 @@
 @if (container.isSuccess()) {
   <h2 class="text-2xl dark:text-gray-200 font-bold mt-1 mb-3">
-    <app-status [status]="container.data().State"></app-status>
-    {{ container.data().Names.join("").substring(1) }}
+    <app-status [status]="container.data().state"></app-status>
+    {{ container.data().name }}
   </h2>
 }
 

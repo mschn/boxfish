@@ -52,33 +52,31 @@
         <tr>
           <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
             <a
-              routerLink="/containers/{{ container.Id }}"
+              routerLink="/containers/{{ container.id }}"
               class="text-blue-800 dark:text-blue-300 text-lg hover:underline"
-              >{{ container.Names?.join("").substring(1) }}</a
+              >{{ container.name }}</a
             >
           </td>
           <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">{{
-            container.Image
+            container.image
           }}</td>
           <td>
-            <app-status [status]="container.State"></app-status>
-            {{ container.State | titlecase }}
+            <app-status [status]="container.state"></app-status>
+            {{ container.state | titlecase }}
           </td>
           <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            @for (port of container.Ports; track port.IP + port.PrivatePort) {
-              @if (port.PublicPort && port.IP !== "::") {
-                <a
-                  href="http://{{ port.IP }}:{{ port.PublicPort }}"
-                  target="_blank"
-                  rel="noopener"
-                  class="text-blue-800 dark:text-blue-300 mr-2 hover:underline"
-                  >{{ port.PublicPort }}</a
-                >
-              }
+            @for (port of container.ports; track port.url) {
+              <a
+                [href]="port.url"
+                target="_blank"
+                rel="noopener"
+                class="text-blue-800 dark:text-blue-300 mr-2 hover:underline"
+                >{{ port.publicPort }}</a
+              >
             }
           </td>
           <td>
-            @if (container.State === "running") {
+            @if (container.state === "running") {
               <p-button
                 icon="pi pi-stop"
                 severity="danger"

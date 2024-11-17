@@ -14,26 +14,7 @@
 }
 
 @if (containers.isLoading()) {
-  <div class="border border-gray-200 dark:border-gray-700">
-    <p-table [value]="[{}, {}, {}, {}]">
-      <ng-template pTemplate="header">
-        <tr>
-          <th i18n>Name</th>
-          <th i18n>Image</th>
-          <th i18n>Status</th>
-          <th i18n>Ports</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-container>
-        <tr>
-          <td><p-skeleton></p-skeleton></td>
-          <td><p-skeleton></p-skeleton></td>
-          <td><p-skeleton></p-skeleton></td>
-          <td><p-skeleton></p-skeleton></td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+  <app-containers-placeholder></app-containers-placeholder>
 }
 
 @if (containers.isSuccess()) {
@@ -41,12 +22,12 @@
     <p-table [value]="containers.data()" tableStyleClass="table-fixed">
       <ng-template pTemplate="header">
         <tr>
-          <th>Name</th>
-          <th>Image</th>
-          <th>Stack</th>
-          <th>Status</th>
-          <th>Ports</th>
-          <th>Actions</th>
+          <th i18n>Name</th>
+          <th i18n>Image</th>
+          <th i18n>Stack</th>
+          <th i18n>Status</th>
+          <th i18n>Ports</th>
+          <th i18n>Actions</th>
         </tr>
       </ng-template>
 

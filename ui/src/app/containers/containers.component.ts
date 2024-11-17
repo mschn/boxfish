@@ -9,6 +9,7 @@ import { ContainerService } from '../services/container.service';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { BadgeModule } from 'primeng/badge';
+import { ContainersPlaceholderComponent } from './containers-placeholder.component';
 
 @Component({
   selector: 'app-containers',
@@ -23,7 +24,7 @@ import { BadgeModule } from 'primeng/badge';
     ButtonModule,
     TooltipModule,
     BadgeModule,
-    NgIf,
+    ContainersPlaceholderComponent,
   ],
   providers: [ContainerService],
   templateUrl: './containers.component.html',

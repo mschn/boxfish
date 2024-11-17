@@ -13,9 +13,9 @@ export class StatusComponent {
   status = input<string>('up');
 
   colors: Record<string, string> = {
-    created: 'bg-gray-100 dark:bg-gray-700',
+    created: 'bg-blue-300 dark:bg-blue-700',
     running: 'bg-green-500',
-    exited: 'bg-gray-100 dark:bg-gray-700',
+    exited: 'bg-orange-500',
   };
 
   color = computed(() => this.colors[this.status()]);

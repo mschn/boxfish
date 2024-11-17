@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Signal, inject } from '@angular/core';
+import { inject, Injectable, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -12,7 +12,9 @@ import { filter, lastValueFrom, map } from 'rxjs';
 import {
   buildContainer,
   buildContainers,
+  buildStacks,
   Container,
+  Stack,
 } from '../model/container.model';
 
 @Injectable()
@@ -45,6 +47,24 @@ export class ContainerService {
           ),
         ),
       select: (containers) => buildContainers(containers),
+    }));
+
+  getStacks = () =>
+    injectQuery<
+      Dockerode.ContainerInfo[],
+      Error & { error: { message: string } },
+      Stack[],
+      string[]
+    >(() => ({
+      queryKey: ['containers'],
+      queryFn: () =>
+        lastValueFrom(
+          this.#http.get<Dockerode.ContainerInfo[]>(
+            'http://localhost:3000/containers',
+            { withCredentials: true },
+          ),
+        ),
+      select: (containers) => buildStacks(containers),
     }));
 
   getContainer = (id: Signal<string>) =>

@@ -38,48 +38,19 @@
 
 @if (containers.isSuccess()) {
   <div class="border border-gray-200 dark:border-gray-700">
-    <p-table
-      [value]="containers.data()"
-      tableStyleClass="table-fixed"
-      rowGroupMode="subheader"
-      groupRowsBy="project"
-    >
+    <p-table [value]="containers.data()" tableStyleClass="table-fixed">
       <ng-template pTemplate="header">
         <tr>
           <th>Name</th>
           <th>Image</th>
+          <th>Stack</th>
           <th>Status</th>
           <th>Ports</th>
           <th>Actions</th>
         </tr>
       </ng-template>
 
-      <ng-template
-        pTemplate="groupheader"
-        let-container
-        let-rowIndex="rowIndex"
-        let-expanded="expanded"
-      >
-        <tr pRowGroupHeader>
-          <td colspan="5">
-            <button
-              type="button"
-              pButton
-              pRipple
-              [pRowToggler]="container"
-              class="p-button-text p-button-rounded p-button-plain mr-2"
-              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-            >
-            </button>
-            <span class="text-xl">
-              <i class="pi pi-box mr-2 text-2xl"></i>
-              {{ container.project }}</span
-            >
-          </td>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="rowexpansion" let-container>
+      <ng-template pTemplate="body" let-container>
         <tr>
           <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
             <a
@@ -91,6 +62,7 @@
           <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">{{
             container.image
           }}</td>
+          <td class="">{{ container.project }}</td>
           <td>
             <app-status [status]="container.state"></app-status>
             {{ container.state | titlecase }}

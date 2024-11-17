@@ -1,5 +1,10 @@
 import Dockerode from 'dockerode';
 
+export interface Stack {
+  name: string;
+  containers: Container[];
+}
+
 export interface Container {
   id: string;
   project: string;
@@ -17,6 +22,23 @@ export interface Port {
   privatePort: number;
   type: string;
   url: string;
+}
+
+export function buildStacks(containers: Dockerode.ContainerInfo[]): Stack[] {
+  const stacks = buildContainers(containers).reduce(
+    (acc, container) => {
+      if (!acc[container.project]) {
+        acc[container.project] = {
+          name: container.project,
+          containers: [],
+        };
+      }
+      acc[container.project].containers.push(container);
+      return acc;
+    },
+    {} as Record<string, Stack>,
+  );
+  return Object.values(stacks);
 }
 
 export function buildContainers(

@@ -1,4 +1,4 @@
-import { TitleCasePipe } from '@angular/common';
+import { KeyValuePipe, NgIf, TitleCasePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MessagesModule } from 'primeng/messages';
@@ -23,6 +23,7 @@ import { BadgeModule } from 'primeng/badge';
     ButtonModule,
     TooltipModule,
     BadgeModule,
+    NgIf,
   ],
   providers: [ContainerService],
   templateUrl: './containers.component.html',

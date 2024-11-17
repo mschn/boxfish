@@ -1,14 +1,14 @@
-import { KeyValuePipe, NgIf, TitleCasePipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 import { StatusComponent } from '../container/status.component';
 import { ContainerService } from '../services/container.service';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
-import { BadgeModule } from 'primeng/badge';
 import { ContainersPlaceholderComponent } from './containers-placeholder.component';
 
 @Component({

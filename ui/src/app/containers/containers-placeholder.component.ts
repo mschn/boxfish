@@ -23,6 +23,7 @@ import { TableModule } from 'primeng/table';
           <td><p-skeleton></p-skeleton></td>
           <td><p-skeleton></p-skeleton></td>
           <td><p-skeleton></p-skeleton></td>
+          <td><p-skeleton></p-skeleton></td>
         </tr>
       </ng-template>
     </p-table>

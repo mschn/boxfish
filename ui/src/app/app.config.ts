@@ -3,14 +3,15 @@ import {
   ApplicationConfig,
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import {
-  provideQueryClient,
+  provideTanStackQuery,
   QueryClient,
+  withDevtools,
 } from '@tanstack/angular-query-experimental';
 import { routes } from './app.routes';
 import { authInterceptor } from './services/auth';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([authInterceptor])),
-    provideQueryClient(
+    provideTanStackQuery(
       new QueryClient({
         defaultOptions: {
           queries: {
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
           },
         },
       }),
+      withDevtools(),
     ),
   ],
 };

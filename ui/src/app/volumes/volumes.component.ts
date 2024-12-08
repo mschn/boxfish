@@ -5,11 +5,10 @@ import { MessagesModule } from 'primeng/messages';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
-  selector: 'app-volumes',
-  standalone: true,
-  imports: [TableModule, MessagesModule, SkeletonModule],
-  templateUrl: './volumes.component.html',
-  styleUrl: './volumes.component.scss',
+    selector: 'app-volumes',
+    imports: [TableModule, MessagesModule, SkeletonModule],
+    templateUrl: './volumes.component.html',
+    styleUrl: './volumes.component.scss'
 })
 export class VolumesComponent {
   #volumesService = inject(VolumesService);

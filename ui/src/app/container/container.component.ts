@@ -5,17 +5,16 @@ import { StatusComponent } from './status.component';
 import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-container',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    StatusComponent,
-    NgClass,
-  ],
-  providers: [ContainerService],
-  templateUrl: './container.component.html',
+    selector: 'app-container',
+    imports: [
+        RouterOutlet,
+        RouterLink,
+        RouterLinkActive,
+        StatusComponent,
+        NgClass,
+    ],
+    providers: [ContainerService],
+    templateUrl: './container.component.html'
 })
 export class ContainerComponent {
   containerService = inject(ContainerService);

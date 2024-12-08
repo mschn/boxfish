@@ -1,13 +1,11 @@
 import { Component, computed, inject } from '@angular/core';
-import { ContainerService } from '../../services/container.service';
-import { JsonPipe } from '@angular/common';
-import { AnsiUp } from 'ansi_up';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AnsiUp } from 'ansi_up';
+import { ContainerService } from '../../services/container.service';
 
 @Component({
   selector: 'app-container-logs',
-  standalone: true,
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './container-logs.component.html',
   styleUrl: './container-logs.component.scss',
 })

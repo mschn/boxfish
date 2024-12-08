@@ -3,8 +3,8 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 
 @Component({
-  selector: 'app-containers-placeholder',
-  template: ` <div class="border border-gray-200 dark:border-gray-700">
+    selector: 'app-containers-placeholder',
+    template: ` <div class="border border-gray-200 dark:border-gray-700">
     <p-table [value]="[{}, {}, {}, {}]">
       <ng-template pTemplate="header">
         <tr>
@@ -28,7 +28,6 @@ import { TableModule } from 'primeng/table';
       </ng-template>
     </p-table>
   </div>`,
-  standalone: true,
-  imports: [TableModule, SkeletonModule],
+    imports: [TableModule, SkeletonModule]
 })
 export class ContainersPlaceholderComponent {}

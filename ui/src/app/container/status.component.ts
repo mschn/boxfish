@@ -3,11 +3,10 @@ import { Component, computed, input } from '@angular/core';
 export type Status = 'up' | 'running' | 'exited' | 'created';
 
 @Component({
-  selector: 'app-status',
-  imports: [],
-  standalone: true,
-  template: `<span class="rounded-2xl w-3 h-3 inline-block {{ color() }}">
-  </span>`,
+    selector: 'app-status',
+    imports: [],
+    template: `<span class="rounded-2xl w-3 h-3 inline-block {{ color() }}">
+  </span>`
 })
 export class StatusComponent {
   status = input<string>('up');

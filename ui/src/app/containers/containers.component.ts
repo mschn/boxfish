@@ -12,22 +12,21 @@ import { ContainerService } from '../services/container.service';
 import { ContainersPlaceholderComponent } from './containers-placeholder.component';
 
 @Component({
-  selector: 'app-containers',
-  standalone: true,
-  imports: [
-    TableModule,
-    MessagesModule,
-    SkeletonModule,
-    RouterLink,
-    StatusComponent,
-    TitleCasePipe,
-    ButtonModule,
-    TooltipModule,
-    BadgeModule,
-    ContainersPlaceholderComponent,
-  ],
-  providers: [ContainerService],
-  templateUrl: './containers.component.html',
+    selector: 'app-containers',
+    imports: [
+        TableModule,
+        MessagesModule,
+        SkeletonModule,
+        RouterLink,
+        StatusComponent,
+        TitleCasePipe,
+        ButtonModule,
+        TooltipModule,
+        BadgeModule,
+        ContainersPlaceholderComponent,
+    ],
+    providers: [ContainerService],
+    templateUrl: './containers.component.html'
 })
 export class ContainersComponent {
   #containersService = inject(ContainerService);

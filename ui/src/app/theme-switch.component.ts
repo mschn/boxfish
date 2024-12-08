@@ -3,16 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
-  selector: 'app-theme-toggle',
-  template: ` <p-toggleswitch
+    selector: 'app-theme-toggle',
+    template: ` <p-toggleswitch
     inputId="darktheme-switch"
     styleClass="darkThemeSwitch"
     [ngModel]="darkTheme()"
     (ngModelChange)="toggleDayNight()"
     [dt]="darkThemeSwitchTokens"
   />`,
-  standalone: true,
-  imports: [ToggleSwitchModule, FormsModule],
+    imports: [ToggleSwitchModule, FormsModule]
 })
 export class ThemeToggleComponent {
   darkTheme = signal(false);

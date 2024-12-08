@@ -1,12 +1,10 @@
 import { Component, computed, inject } from '@angular/core';
-import { ServerService } from '../services/server.service';
-import { JsonPipe } from '@angular/common';
 import prettyBytes from 'pretty-bytes';
+import { ServerService } from '../services/server.service';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './home.component.html',
 })
 export class HomeComponent {

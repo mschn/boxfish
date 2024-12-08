@@ -8,16 +8,15 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { ThemeToggleComponent } from './theme-switch.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterModule,
-    FormsModule,
-    ButtonModule,
-    ToggleSwitchModule,
-    ThemeToggleComponent,
-  ],
-  templateUrl: './app.component.html',
+    selector: 'app-root',
+    imports: [
+        RouterModule,
+        FormsModule,
+        ButtonModule,
+        ToggleSwitchModule,
+        ThemeToggleComponent,
+    ],
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
   primeNgConfig = inject(PrimeNGConfig);

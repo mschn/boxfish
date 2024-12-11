@@ -12,6 +12,8 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { routes } from './app.routes';
 import { authInterceptor } from './services/auth';
+import { providePrimeNG } from 'primeng/config';
+import Lara from '@primeng/themes/lara';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +21,14 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([authInterceptor])),
+    providePrimeNG({
+      theme: {
+        preset: Lara,
+        options: {
+          darkModeSelector: '.dark',
+        },
+      },
+    }),
     provideTanStackQuery(
       new QueryClient({
         defaultOptions: {

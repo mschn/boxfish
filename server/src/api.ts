@@ -120,5 +120,10 @@ function getDockerConfig(): Docker.DockerOptions {
   if (process.platform === "win32") {
     return { host: "localhost", port: 2375 };
   }
+
+  if (process.env.DOCKER_HOST) {
+    return { socketPath: process.env.DOCKER_HOST };
+  }
+
   return { socketPath: "/var/run/docker.sock" };
 }

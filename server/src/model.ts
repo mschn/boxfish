@@ -19,6 +19,7 @@ export const DEV_LOGGER: PinoLoggerOptions = {
     options: {
       translateTime: "HH:MM:ss Z",
       ignore: "pid,hostname",
+      singleLine: true,
     },
   },
 };

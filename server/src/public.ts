@@ -12,8 +12,8 @@ export function registerStatic(fastify: FastifyInstance) {
   });
 
   fastify.get("/", (req, reply) => {
-    reply.sendFile(`/en-US/index.html`);
-    reply.redirect("/en-US/");
+    // TODO could use the `Accept-Language` request header to redirect on the right lang
+    reply.redirect(`/en-US/`);
   });
 
   // the angular app has a router,

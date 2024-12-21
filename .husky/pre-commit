@@ -1,1 +1,1 @@
-npm --prefix ui run extract-i18n
+# npm --prefix ui run extract-i18n

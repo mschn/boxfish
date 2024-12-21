@@ -42,7 +42,7 @@ export class ContainerService {
       queryFn: () =>
         lastValueFrom(
           this.#http.get<Dockerode.ContainerInfo[]>(
-            'http://localhost:3000/containers',
+            'http://localhost:3000/api/containers',
             { withCredentials: true },
           ),
         ),
@@ -60,7 +60,7 @@ export class ContainerService {
       queryFn: () =>
         lastValueFrom(
           this.#http.get<Dockerode.ContainerInfo[]>(
-            'http://localhost:3000/containers',
+            'http://localhost:3000/api/containers',
             { withCredentials: true },
           ),
         ),
@@ -79,7 +79,7 @@ export class ContainerService {
       queryFn: () =>
         lastValueFrom(
           this.#http.get<Dockerode.ContainerInfo>(
-            `http://localhost:3000/containers/${id()}`,
+            `http://localhost:3000/api/containers/${id()}`,
             { withCredentials: true },
           ),
         ),
@@ -91,7 +91,7 @@ export class ContainerService {
       mutationFn: (id: string) =>
         lastValueFrom(
           this.#http.put(
-            `http://localhost:3000/containers/${id}/stop`,
+            `http://localhost:3000/api/containers/${id}/stop`,
             {},
             {
               withCredentials: true,
@@ -108,7 +108,7 @@ export class ContainerService {
       mutationFn: (id: string) =>
         lastValueFrom(
           this.#http.put(
-            `http://localhost:3000/containers/${id}/start`,
+            `http://localhost:3000/api/containers/${id}/start`,
             {},
             {
               withCredentials: true,
@@ -131,7 +131,7 @@ export class ContainerService {
       enabled: id() !== '',
       queryFn: () =>
         lastValueFrom(
-          this.#http.get(`http://localhost:3000/containers/${id()}/logs`, {
+          this.#http.get(`http://localhost:3000/api/containers/${id()}/logs`, {
             withCredentials: true,
             responseType: 'text',
           }),

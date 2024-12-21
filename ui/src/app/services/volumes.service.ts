@@ -21,7 +21,7 @@ export class VolumesService {
       queryFn: () =>
         lastValueFrom(
           this.#http.get<Dockerode.VolumeInspectInfo[]>(
-            'http://localhost:3000/volumes',
+            'http://localhost:3000/api/volumes',
             { withCredentials: true },
           ),
         ),

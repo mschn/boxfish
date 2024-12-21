@@ -18,7 +18,7 @@ export class ServerService {
       mutationFn: () =>
         lastValueFrom(
           this.#http.post(
-            'http://localhost:3000/login',
+            'http://localhost:3000/api/login',
             {},
             { withCredentials: true },
           ),
@@ -35,7 +35,7 @@ export class ServerService {
       queryKey: ['server'],
       queryFn: () =>
         lastValueFrom(
-          this.#http.get<ServerInfo>('http://localhost:3000/server', {
+          this.#http.get<ServerInfo>('http://localhost:3000/api/server', {
             withCredentials: true,
           }),
         ),

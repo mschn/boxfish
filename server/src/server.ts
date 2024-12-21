@@ -3,6 +3,7 @@ import { registerApi } from "./api";
 import { addCorsHook } from "./cors";
 import { Sessions } from "./session";
 import { DEV_LOGGER } from "./model";
+import { registerStatic } from "./public";
 
 const fastify = Fastify({
   logger: DEV_LOGGER,
@@ -11,6 +12,7 @@ const fastify = Fastify({
 addCorsHook(fastify);
 const sessions = new Sessions(fastify);
 registerApi(fastify, sessions);
+registerStatic(fastify);
 
 fastify.listen({ host: "localhost", port: 3000 }).catch((err) => {
   fastify.log.error(err);

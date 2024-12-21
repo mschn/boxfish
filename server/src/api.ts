@@ -6,7 +6,7 @@ import { SESSION_ID } from "./model";
 import { Stream } from "stream";
 
 export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
-  fastify.post("/login", async (request, reply) => {
+  fastify.post("/api/login", async (request, reply) => {
     const config = getDockerConfig();
     const docker = new Docker(config);
     const sessionId = createId();
@@ -22,18 +22,18 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
     });
   });
 
-  fastify.get("/server", async (request, reply) => {
+  fastify.get("/api/server", async (request, reply) => {
     const session = sessions.fromContext(request);
     return { config: session?.config, info: await session?.docker.info() };
   });
 
-  fastify.get("/containers", async (request, reply) => {
+  fastify.get("/api/containers", async (request, reply) => {
     const session = sessions.fromContext(request);
     return await session?.docker.listContainers({ all: true });
   });
 
   fastify.get<{ Params: { id: string } }>(
-    "/containers/:id",
+    "/api/containers/:id",
     async (request, reply) => {
       const id = request.params.id;
       const session = sessions.fromContext(request);
@@ -43,7 +43,7 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
   );
 
   fastify.put<{ Params: { id: string } }>(
-    "/containers/:id/stop",
+    "/api/containers/:id/stop",
     async (request, reply) => {
       const id = request.params.id;
       const session = sessions.fromContext(request);
@@ -53,7 +53,7 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
   );
 
   fastify.put<{ Params: { id: string } }>(
-    "/containers/:id/start",
+    "/api/containers/:id/start",
     async (request, reply) => {
       const id = request.params.id;
       const session = sessions.fromContext(request);
@@ -63,7 +63,7 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
   );
 
   fastify.get<{ Params: { id: string } }>(
-    "/containers/:id/logs",
+    "/api/containers/:id/logs",
     async (request, reply) => {
       const id = request.params.id;
       const session = sessions.fromContext(request);
@@ -105,12 +105,12 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
     }
   );
 
-  fastify.get("/images", async (request, reply) => {
+  fastify.get("/api/images", async (request, reply) => {
     const session = sessions.fromContext(request);
     return await session?.docker.listImages({ all: true });
   });
 
-  fastify.get("/volumes", async (request, reply) => {
+  fastify.get("/api/volumes", async (request, reply) => {
     const session = sessions.fromContext(request);
     return (await session?.docker.listVolumes())?.Volumes;
   });

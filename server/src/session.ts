@@ -23,14 +23,14 @@ export class Sessions {
     });
 
     fastify.addHook("preHandler", (request, reply, done) => {
-      if (request.url === "/login") {
+      if (request.url === "/api/login" || !request.url.startsWith("/api")) {
         done();
         return;
       }
 
       const session = this.fromCookie(request);
       if (!session) {
-        reply.status(403).send({ ok: false });
+        reply.status(403).send({ error: "not logged in" });
       }
 
       session.stats.lastUsed = new Date().getTime();

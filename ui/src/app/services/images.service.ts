@@ -21,7 +21,7 @@ export class ImagesService {
       queryFn: () =>
         lastValueFrom(
           this.#http.get<Dockerode.ImageInfo[]>(
-            'http://localhost:3000/images',
+            'http://localhost:3000/api/images',
             { withCredentials: true },
           ),
         ),

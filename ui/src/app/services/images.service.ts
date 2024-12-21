@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
+import { API_URL } from '../model/server.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +21,9 @@ export class ImagesService {
       queryKey: ['images'],
       queryFn: () =>
         lastValueFrom(
-          this.#http.get<Dockerode.ImageInfo[]>(
-            'http://localhost:3000/api/images',
-            { withCredentials: true },
-          ),
+          this.#http.get<Dockerode.ImageInfo[]>(`${API_URL}images`, {
+            withCredentials: true,
+          }),
         ),
       select: (images) =>
         images.filter((image) => image.RepoTags && image.RepoTags?.length > 0),

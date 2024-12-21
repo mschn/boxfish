@@ -5,7 +5,7 @@ import {
   injectQuery,
 } from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
-import { ServerInfo } from '../model/server.model';
+import { API_URL, ServerInfo } from '../model/server.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +17,7 @@ export class ServerService {
     injectMutation(() => ({
       mutationFn: () =>
         lastValueFrom(
-          this.#http.post(
-            'http://localhost:3000/api/login',
-            {},
-            { withCredentials: true },
-          ),
+          this.#http.post(`${API_URL}login`, {}, { withCredentials: true }),
         ),
     }));
 
@@ -35,7 +31,7 @@ export class ServerService {
       queryKey: ['server'],
       queryFn: () =>
         lastValueFrom(
-          this.#http.get<ServerInfo>('http://localhost:3000/api/server', {
+          this.#http.get<ServerInfo>(`${API_URL}server`, {
             withCredentials: true,
           }),
         ),

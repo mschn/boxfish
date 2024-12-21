@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
+import { API_URL } from '../model/server.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +21,9 @@ export class VolumesService {
       queryKey: ['volumes'],
       queryFn: () =>
         lastValueFrom(
-          this.#http.get<Dockerode.VolumeInspectInfo[]>(
-            'http://localhost:3000/api/volumes',
-            { withCredentials: true },
-          ),
+          this.#http.get<Dockerode.VolumeInspectInfo[]>(`${API_URL}volumes`, {
+            withCredentials: true,
+          }),
         ),
     }));
 }

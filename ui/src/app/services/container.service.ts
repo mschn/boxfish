@@ -16,6 +16,7 @@ import {
   Container,
   Stack,
 } from '../model/container.model';
+import { API_URL } from '../model/server.model';
 
 @Injectable()
 export class ContainerService {
@@ -41,10 +42,9 @@ export class ContainerService {
       queryKey: ['containers'],
       queryFn: () =>
         lastValueFrom(
-          this.#http.get<Dockerode.ContainerInfo[]>(
-            'http://localhost:3000/api/containers',
-            { withCredentials: true },
-          ),
+          this.#http.get<Dockerode.ContainerInfo[]>(`${API_URL}containers`, {
+            withCredentials: true,
+          }),
         ),
       select: (containers) => buildContainers(containers),
     }));
@@ -59,10 +59,9 @@ export class ContainerService {
       queryKey: ['containers'],
       queryFn: () =>
         lastValueFrom(
-          this.#http.get<Dockerode.ContainerInfo[]>(
-            'http://localhost:3000/api/containers',
-            { withCredentials: true },
-          ),
+          this.#http.get<Dockerode.ContainerInfo[]>(`${API_URL}containers`, {
+            withCredentials: true,
+          }),
         ),
       select: (containers) => buildStacks(containers),
     }));
@@ -79,7 +78,7 @@ export class ContainerService {
       queryFn: () =>
         lastValueFrom(
           this.#http.get<Dockerode.ContainerInfo>(
-            `http://localhost:3000/api/containers/${id()}`,
+            `${API_URL}containers/${id()}`,
             { withCredentials: true },
           ),
         ),
@@ -91,7 +90,7 @@ export class ContainerService {
       mutationFn: (id: string) =>
         lastValueFrom(
           this.#http.put(
-            `http://localhost:3000/api/containers/${id}/stop`,
+            `${API_URL}containers/${id}/stop`,
             {},
             {
               withCredentials: true,
@@ -108,7 +107,7 @@ export class ContainerService {
       mutationFn: (id: string) =>
         lastValueFrom(
           this.#http.put(
-            `http://localhost:3000/api/containers/${id}/start`,
+            `${API_URL}containers/${id}/start`,
             {},
             {
               withCredentials: true,
@@ -131,7 +130,7 @@ export class ContainerService {
       enabled: id() !== '',
       queryFn: () =>
         lastValueFrom(
-          this.#http.get(`http://localhost:3000/api/containers/${id()}/logs`, {
+          this.#http.get(`${API_URL}containers/${id()}/logs`, {
             withCredentials: true,
             responseType: 'text',
           }),

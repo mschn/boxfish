@@ -13,3 +13,5 @@ export interface ServerInfo {
     ServerVersion: string;
   };
 }
+
+export const API_URL = 'http://localhost:3000/api/';

@@ -67,7 +67,7 @@
                 [text]="true"
                 [rounded]="true"
                 [loading]="start.isPending() || stop.isPending()"
-                (onClick)="stopContainer(container.Id)"
+                (onClick)="stopContainer(container.id)"
               ></p-button>
             } @else {
               <p-button
@@ -76,7 +76,7 @@
                 [text]="true"
                 [rounded]="true"
                 [loading]="start.isPending() || stop.isPending()"
-                (onClick)="startContainer(container.Id)"
+                (onClick)="startContainer(container.id)"
               ></p-button>
             }
           </td>

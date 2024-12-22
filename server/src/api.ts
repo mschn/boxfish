@@ -4,6 +4,8 @@ import Docker from "dockerode";
 import { createId } from "@paralleldrive/cuid2";
 import { SESSION_ID } from "./model";
 import { Stream } from "stream";
+import { existsSync } from "fs";
+import path from "node:path";
 
 export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
   fastify.register(
@@ -124,6 +126,11 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
 }
 
 function getDockerConfig(): Docker.DockerOptions {
+  const colimaSock = path.join(process.env.HOME ?? "", "/.colima/docker.sock");
+  if (existsSync(colimaSock)) {
+    return { socketPath: colimaSock };
+  }
+
   if (process.platform === "win32") {
     return { host: "localhost", port: 2375 };
   }

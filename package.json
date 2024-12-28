@@ -4,5 +4,8 @@
   },
   "scripts": {
     "prepare": "husky"
+  },
+  "dependencies": {
+    "tailwindcss-primeui": "^0.3.4"
   }
 }

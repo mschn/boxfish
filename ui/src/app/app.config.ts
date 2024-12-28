@@ -10,10 +10,10 @@ import {
   QueryClient,
   withDevtools,
 } from '@tanstack/angular-query-experimental';
+import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { authInterceptor } from './services/auth';
-import { providePrimeNG } from 'primeng/config';
-import Lara from '@primeng/themes/lara';
+import { PrimePreset } from './theme';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])),
     providePrimeNG({
       theme: {
-        preset: Lara,
+        preset: PrimePreset,
         options: {
           darkModeSelector: '.dark',
         },

@@ -6,10 +6,12 @@ import { MessagesModule } from 'primeng/messages';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
-    selector: 'app-images',
-    imports: [TableModule, MessagesModule, SkeletonModule],
-    templateUrl: './images.component.html',
-    styleUrl: './images.component.scss'
+  selector: 'app-images',
+  imports: [TableModule, MessagesModule, SkeletonModule],
+  templateUrl: './images.component.html',
+  host: {
+    class: 'flex-1',
+  },
 })
 export class ImagesComponent {
   #imagesService = inject(ImagesService);

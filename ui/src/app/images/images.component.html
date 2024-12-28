@@ -5,7 +5,7 @@
 @if (images.isError()) {
   <p-messages severity="error">
     <ng-template pTemplate>
-      <div>
+      <div class="p-3">
         <span class="font-bold" i18n>Failed to retrieve images:</span><br />
         {{ images.error().error.message }}
       </div>

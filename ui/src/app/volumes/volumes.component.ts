@@ -1,14 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { VolumesService } from '../services/volumes.service';
 import { MessagesModule } from 'primeng/messages';
 import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+import { VolumesService } from '../services/volumes.service';
 
 @Component({
-    selector: 'app-volumes',
-    imports: [TableModule, MessagesModule, SkeletonModule],
-    templateUrl: './volumes.component.html',
-    styleUrl: './volumes.component.scss'
+  selector: 'app-volumes',
+  imports: [TableModule, MessagesModule, SkeletonModule],
+  templateUrl: './volumes.component.html',
+  host: {
+    class: 'flex-1',
+  },
 })
 export class VolumesComponent {
   #volumesService = inject(VolumesService);

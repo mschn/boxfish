@@ -5,7 +5,7 @@
 @if (containers.isError()) {
   <p-messages severity="error">
     <ng-template pTemplate>
-      <div>
+      <div class="p-3">
         <span class="font-bold" i18n>Failed to retrieve containers:</span><br />
         {{ containers.error().error.message }}
       </div>

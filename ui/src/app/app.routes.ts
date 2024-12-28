@@ -49,6 +49,11 @@ export const routes: Routes = [
       import('./volumes/volumes.component').then((c) => c.VolumesComponent),
   },
   {
+    path: 'settings',
+    loadComponent: () =>
+      import('./settings/settings.component').then((c) => c.SettingsComponent),
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./home/home.component').then((c) => c.HomeComponent),

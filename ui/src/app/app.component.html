@@ -5,9 +5,6 @@
       class="text-white dark:text-gray-900 no-underline text-2xl font-semibold"
       ><img src="logo_64.png" alt="logo" class="inline mr-3" /> Boxfish</a
     >
-    <div class="ml-auto mr-3">
-      <app-theme-toggle></app-theme-toggle>
-    </div>
   </div>
 
   <div class="flex flex-row flex-1 overflow-hidden">
@@ -23,9 +20,13 @@
           <i class="fa-solid {{ route.icon }} mr-2"></i>
           {{ route.name }}
         </a>
-      }
 
-      <div class="my-3 border-t-2 border-gray-300 dark:border-gray-600"></div>
+        @if (route.separator) {
+          <div
+            class="my-3 border-t-2 border-gray-300 dark:border-gray-600"
+          ></div>
+        }
+      }
     </div>
 
     <div

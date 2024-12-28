@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { ThemeToggleComponent } from './theme-switch.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,6 @@ import { ThemeToggleComponent } from './theme-switch.component';
     FormsModule,
     ButtonModule,
     ToggleSwitchModule,
-    ThemeToggleComponent,
     RouterLink,
   ],
   templateUrl: './app.component.html',
@@ -33,6 +31,12 @@ export class AppComponent {
       name: $localize`Volumes`,
       link: '/volumes',
       icon: 'fa-database',
+      separator: true,
+    },
+    {
+      name: $localize`Settings`,
+      link: '/settings',
+      icon: 'fa-sliders',
     },
   ];
 }

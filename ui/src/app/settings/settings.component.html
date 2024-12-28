@@ -1,0 +1,11 @@
+<h2 class="text-xl font-semibold mb-5" i18n>Settings</h2>
+
+<div class="flex flex-row gap-3">
+  <label for="darktheme-switch" i18n>Dark theme</label>
+  <p-toggleswitch
+    inputId="darktheme-switch"
+    styleClass="darkThemeSwitch"
+    [ngModel]="darkTheme()"
+    (ngModelChange)="setDarkMode($event)"
+  />
+</div>

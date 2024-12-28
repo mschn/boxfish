@@ -1,10 +1,11 @@
 import { Component, computed, inject } from '@angular/core';
 import prettyBytes from 'pretty-bytes';
 import { ServerService } from '../services/server.service';
+import { HomePlaceholderComponent } from './home-placeholder.component';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [HomePlaceholderComponent],
   templateUrl: './home.component.html',
 })
 export class HomeComponent {

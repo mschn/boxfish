@@ -1,3 +1,7 @@
+@if (server.isFetching()) {
+  <app-home-placeholder></app-home-placeholder>
+}
+
 @if (server.isSuccess()) {
   <div class="dark:text-gray-200">
     @if (serverConfig()?.socketPath) {
@@ -6,15 +10,26 @@
       </h2>
     }
 
-    <div i18n>{{ serverInfo()?.Containers }} containers</div>
-    <div i18n>{{ serverInfo()?.Images }} images</div>
-    <div i18n>{{ serverInfo()?.NCPU }} CPUs</div>
-    <div i18n>{{ memory() }} RAM</div>
+    <div i18n>
+      <i class="fa-regular fa-cube"></i>
+      {{ serverInfo()?.Containers }} containers
+    </div>
+    <div i18n>
+      <i class="fa-regular fa-images"></i> {{ serverInfo()?.Images }} images
+    </div>
+    <div i18n>
+      <i class="fa-regular fa-microchip"></i> {{ serverInfo()?.NCPU }} CPUs
+    </div>
+    <div i18n><i class="fa-regular fa-memory"></i> {{ memory() }} RAM</div>
     <div i18n
-      >Host {{ serverInfo()?.OSType }} {{ serverInfo()?.OperatingSystem }} ({{
+      ><i class="fa-regular fa-computer"></i> Host {{ serverInfo()?.OSType }}
+      {{ serverInfo()?.OperatingSystem }} ({{
         serverInfo()?.Architecture
       }})</div
     >
-    <div i18n>Docker version {{ serverInfo()?.ServerVersion }}</div>
+    <div i18n
+      ><i class="fa-brands fa-docker"></i> Docker version
+      {{ serverInfo()?.ServerVersion }}</div
+    >
   </div>
 }

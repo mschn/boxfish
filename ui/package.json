@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^19.0.3",
     "@angular/router": "^19.0.3",
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@primeng/themes": "^19.0.0-rc.1",
+    "@primeng/themes": "^19.0.2",
     "@tanstack/angular-query-devtools-experimental": "^5.60.5",
     "@tanstack/angular-query-experimental": "^5.60.5",
     "ansi_up": "^6.0.2",

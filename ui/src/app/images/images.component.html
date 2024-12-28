@@ -14,22 +14,7 @@
 }
 
 @if (images.isLoading()) {
-  <div class="border border-gray-200 dark:border-gray-700">
-    <p-table [value]="[{}, {}, {}, {}]">
-      <ng-template pTemplate="header">
-        <tr>
-          <th i18n>Name</th>
-          <th i18n>Version</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-image>
-        <tr>
-          <td><p-skeleton></p-skeleton></td>
-          <td><p-skeleton></p-skeleton></td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+  <app-images-placeholder></app-images-placeholder>
 }
 
 @if (images.isSuccess()) {
@@ -39,12 +24,30 @@
         <tr>
           <th i18n>Name</th>
           <th i18n>Version</th>
+          <th i18n>ID</th>
+          <th i18n>Created</th>
+          <th i18n>Size</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-image>
         <tr>
-          <td>{{ getName(image) }}</td>
-          <td>{{ getVersion(image) }}</td>
+          <td>
+            @if (image.name) {
+              {{ image.name }}
+            } @else {
+              <span class="text-muted-color italic">None</span>
+            }
+          </td>
+          <td>
+            @if (image.version) {
+              {{ image.version }}
+            } @else {
+              <span class="text-muted-color italic">None</span>
+            }
+          </td>
+          <td>{{ image.id }}</td>
+          <td>{{ image.created }}</td>
+          <td>{{ image.size }}</td>
         </tr>
       </ng-template>
     </p-table>

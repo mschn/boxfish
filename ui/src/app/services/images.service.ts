@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
+import { buildImages, Image } from '../model/image.model';
 import { API_URL } from '../model/server.model';
 
 @Injectable({
@@ -15,7 +16,7 @@ export class ImagesService {
     injectQuery<
       Dockerode.ImageInfo[],
       Error & { error: { message: string } },
-      Dockerode.ImageInfo[],
+      Image[],
       string[]
     >(() => ({
       queryKey: ['images'],
@@ -25,7 +26,6 @@ export class ImagesService {
             withCredentials: true,
           }),
         ),
-      select: (images) =>
-        images.filter((image) => image.RepoTags && image.RepoTags?.length > 0),
+      select: (images) => buildImages(images),
     }));
 }

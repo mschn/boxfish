@@ -1,13 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { ImagesService } from '../services/images.service';
-import { TableModule } from 'primeng/table';
-import Dockerode from 'dockerode';
 import { MessagesModule } from 'primeng/messages';
-import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+import { ImagesService } from '../services/images.service';
+import { ImagesPlaceholderComponent } from './images-placeholder.component';
 
 @Component({
   selector: 'app-images',
-  imports: [TableModule, MessagesModule, SkeletonModule],
+  imports: [TableModule, MessagesModule, ImagesPlaceholderComponent],
   templateUrl: './images.component.html',
   host: {
     class: 'flex-1',
@@ -16,12 +15,4 @@ import { SkeletonModule } from 'primeng/skeleton';
 export class ImagesComponent {
   #imagesService = inject(ImagesService);
   images = this.#imagesService.getImages();
-
-  getName(image: Dockerode.ImageInfo): string {
-    return image.RepoTags?.[0].split(':')[0] ?? '';
-  }
-
-  getVersion(image: Dockerode.ImageInfo): string {
-    return image.RepoTags?.[0].split(':')[1] ?? '';
-  }
 }

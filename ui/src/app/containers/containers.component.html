@@ -62,21 +62,23 @@
           <td>
             @if (container.state === "running") {
               <p-button
-                icon="pi pi-stop"
+                icon="pi"
                 severity="danger"
                 [text]="true"
                 [rounded]="true"
                 [loading]="start.isPending() || stop.isPending()"
                 (onClick)="stopContainer(container.id)"
+                ><i class="fa-solid fa-stop"></i
               ></p-button>
             } @else {
               <p-button
-                icon="pi pi-play"
+                icon="pi"
                 severity="success"
                 [text]="true"
                 [rounded]="true"
                 [loading]="start.isPending() || stop.isPending()"
                 (onClick)="startContainer(container.id)"
+                ><i class="fa-solid fa-play"></i
               ></p-button>
             }
           </td>

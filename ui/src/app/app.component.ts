@@ -22,17 +22,17 @@ export class AppComponent {
     {
       name: $localize`Containers`,
       link: '/containers',
-      icon: 'pi-box',
+      icon: 'fa-cube',
     },
     {
       name: $localize`Images`,
       link: '/images',
-      icon: 'pi-images',
+      icon: 'fa-images',
     },
     {
       name: $localize`Volumes`,
       link: '/volumes',
-      icon: 'pi-database',
+      icon: 'fa-database',
     },
   ];
 }

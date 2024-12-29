@@ -6,6 +6,9 @@ if [ -e "~/.colima/docker.sock" ]; then
     SOCK="~/.colima/docker.sock"
 fi
 
-docker run --name boxfish -d \
+docker run -d \
+    --rm \
+    --name boxfish \
+    -p 3000:3000 \
     -v ${SOCK}:/var/run/docker.sock \
-    -p 3000:3000 mschnr/boxfish:latest
+    mschnr/boxfish:latest

@@ -36,6 +36,11 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
         return await session?.docker.listContainers({ all: true });
       });
 
+      app.post("/containers/prune", async (request, reply) => {
+        const session = sessions.fromContext(request);
+        return session?.docker.pruneContainers();
+      });
+
       app.get<{ Params: { id: string } }>(
         "/containers/:id",
         async (request, reply) => {
@@ -113,7 +118,7 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
 
       app.get("/images", async (request, reply) => {
         const session = sessions.fromContext(request);
-        return await session?.docker.listImages({ all: true });
+        return await session?.docker.listImages({ all: false });
       });
 
       app.delete<{ Params: { id: string } }>(

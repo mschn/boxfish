@@ -1,11 +1,38 @@
-<h2 class="mt-1 text-gray-800 dark:text-gray-200 text-2xl font-bold mb-3" i18n
-  >Containers</h2
->
-
+<div class="flex flex-row items-center mb-3">
+  <h2 class="mt-1 text-gray-800 dark:text-gray-200 text-2xl font-bold mb-3" i18n
+    >Containers</h2
+  >
+  <p-button
+    class="ml-auto"
+    [loading]="prune.isPending()"
+    (onClick)="pruneContainers()"
+    ><i class="fa-solid fa-trash"></i><span i18n>Prune</span></p-button
+  >
+</div>
 @if (containers.isError()) {
   <p-message closable severity="error">
     <span class="font-bold" i18n>Failed to retrieve containers:</span><br />
     {{ containers.error().error.message }}
+  </p-message>
+}
+
+@if (prune.isError()) {
+  <p-message closable styleClass="mb-3" severity="error">
+    <span class="font-bold" i18n>Failed to prune images:</span><br />
+    {{ prune.error().error.message }}
+  </p-message>
+}
+
+@if (prune.data()) {
+  <p-message closable styleClass="mb-3" severity="info">
+    <div i18n
+      >Pruned
+      {{ prune.data()?.ContainersDeleted?.length ?? 0 }} containers.</div
+    >
+    <div i18n
+      >Freed {{ prettyBytes(prune.data()?.SpaceReclaimed ?? 0) }} disk
+      space.</div
+    >
   </p-message>
 }
 

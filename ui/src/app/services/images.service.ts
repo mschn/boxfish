@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import {
   injectMutation,
   injectQuery,
+  injectQueryClient,
 } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
@@ -14,6 +15,7 @@ import { API_URL, ServerError } from '../model/server.model';
 })
 export class ImagesService {
   #http = inject(HttpClient);
+  #client = injectQueryClient();
 
   getImages = () =>
     injectQuery<Dockerode.ImageInfo[], ServerError, Image[], string[]>(() => ({
@@ -35,6 +37,9 @@ export class ImagesService {
             withCredentials: true,
           }),
         ),
+      onSuccess: () => {
+        this.#client.invalidateQueries({ queryKey: ['images'] });
+      },
     }));
 
   pruneImages = () =>
@@ -50,6 +55,9 @@ export class ImagesService {
               },
             ),
           ),
+        onSuccess: () => {
+          this.#client.invalidateQueries({ queryKey: ['images'] });
+        },
       }),
     );
 }

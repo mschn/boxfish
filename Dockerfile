@@ -11,4 +11,4 @@ WORKDIR /app/server
 RUN npm ci
 
 EXPOSE 3000
-CMD [ "npm", "run", "start" ]
+ENTRYPOINT [ "/usr/local/bin/npm", "run", "start" ]

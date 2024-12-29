@@ -10,6 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { StatusComponent } from '../container/status.component';
 import { ContainerService } from '../services/container.service';
 import { ContainersPlaceholderComponent } from './containers-placeholder.component';
+import prettyBytes from 'pretty-bytes';
 
 @Component({
   selector: 'app-containers',
@@ -36,6 +37,9 @@ export class ContainersComponent {
   containers = this.#containersService.getContainers();
   start = this.#containersService.startContainer();
   stop = this.#containersService.stopContainer();
+  prune = this.#containersService.pruneContainers();
+
+  prettyBytes = prettyBytes;
 
   startContainer(id: string) {
     this.start.mutate(id);
@@ -43,5 +47,9 @@ export class ContainersComponent {
 
   stopContainer(id: string) {
     this.stop.mutate(id);
+  }
+
+  pruneContainers() {
+    this.prune.mutate();
   }
 }

@@ -60,6 +60,25 @@ export class ContainerService {
       }),
     );
 
+  pruneContainers = () =>
+    injectMutation<Dockerode.PruneContainersInfo, ServerError, void, unknown>(
+      () => ({
+        mutationFn: () =>
+          lastValueFrom(
+            this.#http.post<Dockerode.PruneContainersInfo>(
+              `${API_URL}containers/prune`,
+              null,
+              {
+                withCredentials: true,
+              },
+            ),
+          ),
+        onSuccess: () => {
+          this.#client.invalidateQueries({ queryKey: ['containers'] });
+        },
+      }),
+    );
+
   getContainer = (id: Signal<string>) =>
     injectQuery<Dockerode.ContainerInfo, ServerError, Container, string[]>(
       () => ({

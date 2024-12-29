@@ -5,7 +5,7 @@ import {
   injectQuery,
 } from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
-import { API_URL, ServerInfo } from '../model/server.model';
+import { API_URL, ServerError, ServerInfo } from '../model/server.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,12 +22,7 @@ export class ServerService {
     }));
 
   getServerInfo = () =>
-    injectQuery<
-      ServerInfo,
-      Error & { error: { message: string } },
-      ServerInfo,
-      string[]
-    >(() => ({
+    injectQuery<ServerInfo, ServerError, ServerInfo, string[]>(() => ({
       queryKey: ['server'],
       queryFn: () =>
         lastValueFrom(

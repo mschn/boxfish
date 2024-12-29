@@ -116,6 +116,16 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
         return await session?.docker.listImages({ all: true });
       });
 
+      app.delete<{ Params: { id: string } }>(
+        "/image/:id",
+        async (request, reply) => {
+          const id = request.params.id;
+          const session = sessions.fromContext(request);
+          const image = session?.docker.getImage(id);
+          await image?.remove();
+        }
+      );
+
       app.get("/volumes", async (request, reply) => {
         const session = sessions.fromContext(request);
         return (await session?.docker.listVolumes())?.Volumes;

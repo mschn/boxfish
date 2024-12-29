@@ -15,3 +15,5 @@ export interface ServerInfo {
 }
 
 export const API_URL = 'http://localhost:3000/api/';
+
+export type ServerError = Error & { error: { message: string } };

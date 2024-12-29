@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { injectQuery } from '@tanstack/angular-query-experimental';
+import {
+  injectMutation,
+  injectQuery,
+} from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
 import { buildImages, Image } from '../model/image.model';
-import { API_URL } from '../model/server.model';
+import { API_URL, ServerError } from '../model/server.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +16,7 @@ export class ImagesService {
   #http = inject(HttpClient);
 
   getImages = () =>
-    injectQuery<
-      Dockerode.ImageInfo[],
-      Error & { error: { message: string } },
-      Image[],
-      string[]
-    >(() => ({
+    injectQuery<Dockerode.ImageInfo[], ServerError, Image[], string[]>(() => ({
       queryKey: ['images'],
       queryFn: () =>
         lastValueFrom(
@@ -27,5 +25,13 @@ export class ImagesService {
           }),
         ),
       select: (images) => buildImages(images),
+    }));
+
+  deleteImage = () =>
+    injectMutation<unknown, ServerError, string, unknown>(() => ({
+      mutationFn: (id: string) =>
+        lastValueFrom(
+          this.#http.delete(`${API_URL}image/${id}`, { withCredentials: true }),
+        ),
     }));
 }

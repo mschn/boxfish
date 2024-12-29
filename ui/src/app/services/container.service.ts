@@ -16,7 +16,7 @@ import {
   Container,
   Stack,
 } from '../model/container.model';
-import { API_URL } from '../model/server.model';
+import { API_URL, ServerError } from '../model/server.model';
 
 @Injectable()
 export class ContainerService {
@@ -33,57 +33,48 @@ export class ContainerService {
   );
 
   getContainers = () =>
-    injectQuery<
-      Dockerode.ContainerInfo[],
-      Error & { error: { message: string } },
-      Container[],
-      string[]
-    >(() => ({
-      queryKey: ['containers'],
-      queryFn: () =>
-        lastValueFrom(
-          this.#http.get<Dockerode.ContainerInfo[]>(`${API_URL}containers`, {
-            withCredentials: true,
-          }),
-        ),
-      select: (containers) => buildContainers(containers),
-    }));
+    injectQuery<Dockerode.ContainerInfo[], ServerError, Container[], string[]>(
+      () => ({
+        queryKey: ['containers'],
+        queryFn: () =>
+          lastValueFrom(
+            this.#http.get<Dockerode.ContainerInfo[]>(`${API_URL}containers`, {
+              withCredentials: true,
+            }),
+          ),
+        select: (containers) => buildContainers(containers),
+      }),
+    );
 
   getStacks = () =>
-    injectQuery<
-      Dockerode.ContainerInfo[],
-      Error & { error: { message: string } },
-      Stack[],
-      string[]
-    >(() => ({
-      queryKey: ['containers'],
-      queryFn: () =>
-        lastValueFrom(
-          this.#http.get<Dockerode.ContainerInfo[]>(`${API_URL}containers`, {
-            withCredentials: true,
-          }),
-        ),
-      select: (containers) => buildStacks(containers),
-    }));
+    injectQuery<Dockerode.ContainerInfo[], ServerError, Stack[], string[]>(
+      () => ({
+        queryKey: ['containers'],
+        queryFn: () =>
+          lastValueFrom(
+            this.#http.get<Dockerode.ContainerInfo[]>(`${API_URL}containers`, {
+              withCredentials: true,
+            }),
+          ),
+        select: (containers) => buildStacks(containers),
+      }),
+    );
 
   getContainer = (id: Signal<string>) =>
-    injectQuery<
-      Dockerode.ContainerInfo,
-      Error & { error: { message: string } },
-      Container,
-      string[]
-    >(() => ({
-      queryKey: ['containers', id()],
-      enabled: id() !== '',
-      queryFn: () =>
-        lastValueFrom(
-          this.#http.get<Dockerode.ContainerInfo>(
-            `${API_URL}containers/${id()}`,
-            { withCredentials: true },
+    injectQuery<Dockerode.ContainerInfo, ServerError, Container, string[]>(
+      () => ({
+        queryKey: ['containers', id()],
+        enabled: id() !== '',
+        queryFn: () =>
+          lastValueFrom(
+            this.#http.get<Dockerode.ContainerInfo>(
+              `${API_URL}containers/${id()}`,
+              { withCredentials: true },
+            ),
           ),
-        ),
-      select: (container) => buildContainer(container),
-    }));
+        select: (container) => buildContainer(container),
+      }),
+    );
 
   stopContainer = () =>
     injectMutation(() => ({
@@ -120,12 +111,7 @@ export class ContainerService {
     }));
 
   getContainerLogs = (id: Signal<string>) =>
-    injectQuery<
-      string,
-      Error & { error: { message: string } },
-      string,
-      string[]
-    >(() => ({
+    injectQuery<string, ServerError, string, string[]>(() => ({
       queryKey: ['containers', id(), 'logs'],
       enabled: id() !== '',
       queryFn: () =>

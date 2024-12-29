@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
-import { API_URL } from '../model/server.model';
+import { API_URL, ServerError } from '../model/server.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class VolumesService {
   getVolumes = () =>
     injectQuery<
       Dockerode.VolumeInspectInfo[],
-      Error & { error: { message: string } },
+      ServerError,
       Dockerode.VolumeInspectInfo[],
       string[]
     >(() => ({

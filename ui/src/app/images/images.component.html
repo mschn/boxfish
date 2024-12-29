@@ -1,55 +1,80 @@
-<h2 class="mt-1 text-gray-800 dark:text-gray-200 text-2xl font-bold mb-3"
-  >Images</h2
->
+<div class="flex flex-col gap-3">
+  <h2 class="mt-1 text-gray-800 dark:text-gray-200 text-2xl font-bold mb-3"
+    >Images</h2
+  >
 
-@if (images.isError()) {
-  <p-messages severity="error">
-    <ng-template pTemplate>
-      <div class="p-3">
-        <span class="font-bold" i18n>Failed to retrieve images:</span><br />
-        {{ images.error().error.message }}
-      </div>
-    </ng-template>
-  </p-messages>
-}
-
-@if (images.isLoading()) {
-  <app-images-placeholder></app-images-placeholder>
-}
-
-@if (images.isSuccess()) {
-  <div class="border border-gray-200 dark:border-gray-700">
-    <p-table [value]="images.data()">
-      <ng-template pTemplate="header">
-        <tr>
-          <th i18n>Name</th>
-          <th i18n>Version</th>
-          <th i18n>ID</th>
-          <th i18n>Created</th>
-          <th i18n>Size</th>
-        </tr>
+  @if (images.isError()) {
+    <p-messages severity="error">
+      <ng-template pTemplate>
+        <div class="p-3">
+          <span class="font-bold" i18n>Failed to retrieve images:</span><br />
+          {{ images.error().error.message }}
+        </div>
       </ng-template>
-      <ng-template pTemplate="body" let-image>
-        <tr>
-          <td>
-            @if (image.name) {
-              {{ image.name }}
-            } @else {
-              <span class="text-muted-color italic">None</span>
-            }
-          </td>
-          <td>
-            @if (image.version) {
-              {{ image.version }}
-            } @else {
-              <span class="text-muted-color italic">None</span>
-            }
-          </td>
-          <td>{{ image.id }}</td>
-          <td>{{ image.created }}</td>
-          <td>{{ image.size }}</td>
-        </tr>
+    </p-messages>
+  }
+
+  @if (deleteImageMutation.isError()) {
+    <p-messages severity="error">
+      <ng-template pTemplate>
+        <div class="p-3">
+          <span class="font-bold" i18n>Failed to delete image:</span><br />
+          {{ deleteImageMutation.error().error.message }}
+        </div>
       </ng-template>
-    </p-table>
-  </div>
-}
+    </p-messages>
+  }
+
+  @if (images.isLoading()) {
+    <app-images-placeholder></app-images-placeholder>
+  }
+
+  @if (images.isSuccess()) {
+    <div class="border border-gray-200 dark:border-gray-700">
+      <p-table [value]="images.data()">
+        <ng-template pTemplate="header">
+          <tr>
+            <th i18n>Name</th>
+            <th i18n>Version</th>
+            <th i18n>ID</th>
+            <th i18n>Created</th>
+            <th i18n>Size</th>
+            <th i18n>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-image>
+          <tr>
+            <td>
+              @if (image.name) {
+                {{ image.name }}
+              } @else {
+                <span class="text-muted-color italic">None</span>
+              }
+            </td>
+            <td>
+              @if (image.version) {
+                {{ image.version }}
+              } @else {
+                <span class="text-muted-color italic">None</span>
+              }
+            </td>
+            <td>{{ image.id }}</td>
+            <td>{{ image.created }}</td>
+            <td>{{ image.size }}</td>
+            <td>
+              <p-button
+                icon="pi"
+                severity="danger"
+                [text]="true"
+                [rounded]="true"
+                [loading]="deleteImageMutation.isPending()"
+                (onClick)="deleteImage(image)"
+                ><i class="fa-solid fa-trash"></i
+              ></p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  }
+</div>

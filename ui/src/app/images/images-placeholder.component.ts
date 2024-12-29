@@ -14,10 +14,12 @@ import { TableModule } from 'primeng/table';
           <th i18n>ID</th>
           <th i18n>Created</th>
           <th i18n>Size</th>
+          <th i18n>Actions</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-image>
         <tr>
+          <td><p-skeleton></p-skeleton></td>
           <td><p-skeleton></p-skeleton></td>
           <td><p-skeleton></p-skeleton></td>
           <td><p-skeleton></p-skeleton></td>

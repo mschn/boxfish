@@ -25,12 +25,10 @@
       <span i18n>{{ memory() }} RAM</span></div
     >
     <div
-      ><i class="mr-2 fa-regular fa-computer"></i>
-      <span i18n
-        >Host {{ serverInfo()?.OSType }} {{ serverInfo()?.OperatingSystem }} ({{
-          serverInfo()?.Architecture
-        }})</span
-      ></div
+      ><i class="mr-2 fa-regular fa-computer"></i> <span i18n>Host</span>
+      {{ serverInfo()?.OSType }} {{ serverInfo()?.OperatingSystem }} ({{
+        serverInfo()?.Architecture
+      }})</div
     >
     <div
       ><i class="mr-2 fa-brands fa-docker"></i>

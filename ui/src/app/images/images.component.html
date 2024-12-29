@@ -1,116 +1,96 @@
-<div class="flex flex-col gap-3">
-  <div class="flex flex-row">
-    <h2 class="text-gray-800 dark:text-gray-200 text-2xl font-bold">Images</h2>
-
-    <p-button
-      class="ml-auto"
-      [loading]="pruneMutation.isPending()"
-      (onClick)="pruneImages()"
-      ><i class="fa-solid fa-trash"></i>Prune</p-button
-    >
-  </div>
-
-  @if (images.isError()) {
-    <p-messages severity="error">
-      <ng-template pTemplate>
-        <div class="p-3">
-          <span class="font-bold" i18n>Failed to retrieve images:</span><br />
-          {{ images.error().error.message }}
-        </div>
-      </ng-template>
-    </p-messages>
-  }
-
-  @if (deleteImageMutation.isError()) {
-    <p-messages severity="error">
-      <ng-template pTemplate>
-        <div class="p-3">
-          <span class="font-bold" i18n>Failed to delete image:</span><br />
-          {{ deleteImageMutation.error().error.message }}
-        </div>
-      </ng-template>
-    </p-messages>
-  }
-
-  @if (pruneMutation.isError()) {
-    <p-messages severity="error">
-      <ng-template pTemplate>
-        <div class="p-3">
-          <span class="font-bold" i18n>Failed to prune images:</span><br />
-          {{ pruneMutation.error().error.message }}
-        </div>
-      </ng-template>
-    </p-messages>
-  }
-
-  @if (pruneMutation.data()) {
-    <p-messages severity="info">
-      <ng-template pTemplate>
-        <div class="p-3">
-          <div i18n
-            >Pruned
-            {{ pruneMutation.data()?.ImagesDeleted?.length ?? 0 }} images.</div
-          >
-          <div i18n
-            >Freed
-            {{ prettyBytes(pruneMutation.data()?.SpaceReclaimed ?? 0) }} disk
-            space.</div
-          >
-        </div>
-      </ng-template>
-    </p-messages>
-  }
-
-  @if (images.isLoading()) {
-    <app-images-placeholder></app-images-placeholder>
-  }
-
-  @if (images.isSuccess()) {
-    <div class="border border-gray-200 dark:border-gray-700">
-      <p-table [value]="images.data()">
-        <ng-template pTemplate="header">
-          <tr>
-            <th i18n>Name</th>
-            <th i18n>Version</th>
-            <th i18n>ID</th>
-            <th i18n>Created</th>
-            <th i18n>Size</th>
-            <th i18n>Actions</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-image>
-          <tr>
-            <td>
-              @if (image.name) {
-                {{ image.name }}
-              } @else {
-                <span class="text-muted-color italic">None</span>
-              }
-            </td>
-            <td>
-              @if (image.version) {
-                {{ image.version }}
-              } @else {
-                <span class="text-muted-color italic">None</span>
-              }
-            </td>
-            <td>{{ image.id }}</td>
-            <td>{{ image.created }}</td>
-            <td>{{ image.size }}</td>
-            <td>
-              <p-button
-                icon="pi"
-                severity="danger"
-                [text]="true"
-                [rounded]="true"
-                [loading]="deleteImageMutation.isPending()"
-                (onClick)="deleteImage(image)"
-                ><i class="fa-solid fa-trash"></i
-              ></p-button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-  }
+<div class="flex flex-row items-center mb-3">
+  <h2 class="text-gray-800 dark:text-gray-200 text-2xl font-bold">Images</h2>
+  <p-button
+    class="ml-auto"
+    [loading]="pruneMutation.isPending()"
+    (onClick)="pruneImages()"
+    ><i class="fa-solid fa-trash"></i><span i18n>Prune</span></p-button
+  >
 </div>
+
+@if (images.isError()) {
+  <p-message closable styleClass="mb-3" severity="error">
+    <span class="font-bold" i18n>Failed to retrieve images:</span><br />
+    {{ images.error().error.message }}
+  </p-message>
+}
+
+@if (deleteImageMutation.isError()) {
+  <p-message closable styleClass="mb-3" severity="error">
+    <span class="font-bold" i18n>Failed to delete image:</span><br />
+    {{ deleteImageMutation.error().error.message }}
+  </p-message>
+}
+
+@if (pruneMutation.isError()) {
+  <p-message closable styleClass="mb-3" severity="error">
+    <span class="font-bold" i18n>Failed to prune images:</span><br />
+    {{ pruneMutation.error().error.message }}
+  </p-message>
+}
+
+@if (pruneMutation.data()) {
+  <p-message closable styleClass="mb-3" severity="info">
+    <div i18n
+      >Pruned
+      {{ pruneMutation.data()?.ImagesDeleted?.length ?? 0 }} images.</div
+    >
+    <div i18n
+      >Freed {{ prettyBytes(pruneMutation.data()?.SpaceReclaimed ?? 0) }} disk
+      space.</div
+    >
+  </p-message>
+}
+
+@if (images.isLoading()) {
+  <app-images-placeholder></app-images-placeholder>
+}
+
+@if (images.isSuccess()) {
+  <div class="border border-gray-200 dark:border-gray-700">
+    <p-table [value]="images.data()">
+      <ng-template pTemplate="header">
+        <tr>
+          <th i18n>Name</th>
+          <th i18n>Version</th>
+          <th i18n>ID</th>
+          <th i18n>Created</th>
+          <th i18n>Size</th>
+          <th i18n>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-image>
+        <tr>
+          <td>
+            @if (image.name) {
+              {{ image.name }}
+            } @else {
+              <span class="text-muted-color italic">None</span>
+            }
+          </td>
+          <td>
+            @if (image.version) {
+              {{ image.version }}
+            } @else {
+              <span class="text-muted-color italic">None</span>
+            }
+          </td>
+          <td>{{ image.id }}</td>
+          <td>{{ image.created }}</td>
+          <td>{{ image.size }}</td>
+          <td>
+            <p-button
+              icon="pi"
+              severity="danger"
+              [text]="true"
+              [rounded]="true"
+              [loading]="deleteImageMutation.isPending()"
+              (onClick)="deleteImage(image)"
+              ><i class="fa-solid fa-trash"></i
+            ></p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+}

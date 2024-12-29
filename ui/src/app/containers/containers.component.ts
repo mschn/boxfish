@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/message';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -15,7 +15,7 @@ import { ContainersPlaceholderComponent } from './containers-placeholder.compone
   selector: 'app-containers',
   imports: [
     TableModule,
-    MessagesModule,
+    Message,
     SkeletonModule,
     RouterLink,
     StatusComponent,

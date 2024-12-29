@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/message';
 import { TableModule } from 'primeng/table';
 import { ImagesService } from '../services/images.service';
 import { ImagesPlaceholderComponent } from './images-placeholder.component';
@@ -9,12 +9,7 @@ import prettyBytes from 'pretty-bytes';
 
 @Component({
   selector: 'app-images',
-  imports: [
-    TableModule,
-    MessagesModule,
-    ImagesPlaceholderComponent,
-    ButtonModule,
-  ],
+  imports: [TableModule, Message, ImagesPlaceholderComponent, ButtonModule],
   templateUrl: './images.component.html',
   host: {
     class: 'flex-1',

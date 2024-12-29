@@ -3,14 +3,10 @@
 >
 
 @if (containers.isError()) {
-  <p-messages severity="error">
-    <ng-template pTemplate>
-      <div class="p-3">
-        <span class="font-bold" i18n>Failed to retrieve containers:</span><br />
-        {{ containers.error().error.message }}
-      </div>
-    </ng-template>
-  </p-messages>
+  <p-message closable severity="error">
+    <span class="font-bold" i18n>Failed to retrieve containers:</span><br />
+    {{ containers.error().error.message }}
+  </p-message>
 }
 
 @if (containers.isLoading()) {

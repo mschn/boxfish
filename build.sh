@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build . -t boxfish
+docker build . -t mschnr/boxfish:latest

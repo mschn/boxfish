@@ -8,5 +8,5 @@ fi
 
 docker run -d \
     -v ${SOCK}:/var/run/docker.sock \
-    -p 3000:3000 boxfish
+    -p 3000:3000 mschnr/boxfish:latest
 

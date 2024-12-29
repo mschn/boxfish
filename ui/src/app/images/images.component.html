@@ -1,7 +1,14 @@
 <div class="flex flex-col gap-3">
-  <h2 class="mt-1 text-gray-800 dark:text-gray-200 text-2xl font-bold mb-3"
-    >Images</h2
-  >
+  <div class="flex flex-row">
+    <h2 class="text-gray-800 dark:text-gray-200 text-2xl font-bold">Images</h2>
+
+    <p-button
+      class="ml-auto"
+      [loading]="pruneMutation.isPending()"
+      (onClick)="pruneImages()"
+      ><i class="fa-solid fa-trash"></i>Prune</p-button
+    >
+  </div>
 
   @if (images.isError()) {
     <p-messages severity="error">
@@ -20,6 +27,35 @@
         <div class="p-3">
           <span class="font-bold" i18n>Failed to delete image:</span><br />
           {{ deleteImageMutation.error().error.message }}
+        </div>
+      </ng-template>
+    </p-messages>
+  }
+
+  @if (pruneMutation.isError()) {
+    <p-messages severity="error">
+      <ng-template pTemplate>
+        <div class="p-3">
+          <span class="font-bold" i18n>Failed to prune images:</span><br />
+          {{ pruneMutation.error().error.message }}
+        </div>
+      </ng-template>
+    </p-messages>
+  }
+
+  @if (pruneMutation.data()) {
+    <p-messages severity="info">
+      <ng-template pTemplate>
+        <div class="p-3">
+          <div i18n
+            >Pruned
+            {{ pruneMutation.data()?.ImagesDeleted?.length ?? 0 }} images.</div
+          >
+          <div i18n
+            >Freed
+            {{ prettyBytes(pruneMutation.data()?.SpaceReclaimed ?? 0) }} disk
+            space.</div
+          >
         </div>
       </ng-template>
     </p-messages>

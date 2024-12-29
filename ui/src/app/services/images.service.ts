@@ -31,7 +31,25 @@ export class ImagesService {
     injectMutation<unknown, ServerError, string, unknown>(() => ({
       mutationFn: (id: string) =>
         lastValueFrom(
-          this.#http.delete(`${API_URL}image/${id}`, { withCredentials: true }),
+          this.#http.delete(`${API_URL}images/${id}`, {
+            withCredentials: true,
+          }),
         ),
     }));
+
+  pruneImages = () =>
+    injectMutation<Dockerode.PruneImagesInfo, ServerError, void, unknown>(
+      () => ({
+        mutationFn: () =>
+          lastValueFrom(
+            this.#http.post<Dockerode.PruneImagesInfo>(
+              `${API_URL}images/prune`,
+              null,
+              {
+                withCredentials: true,
+              },
+            ),
+          ),
+      }),
+    );
 }

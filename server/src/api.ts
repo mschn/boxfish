@@ -117,7 +117,7 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
       });
 
       app.delete<{ Params: { id: string } }>(
-        "/image/:id",
+        "/images/:id",
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);
@@ -125,6 +125,11 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
           await image?.remove();
         }
       );
+
+      app.post("/images/prune", async (request, reply) => {
+        const session = sessions.fromContext(request);
+        return await session?.docker.pruneImages();
+      });
 
       app.get("/volumes", async (request, reply) => {
         const session = sessions.fromContext(request);

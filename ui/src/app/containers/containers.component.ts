@@ -38,6 +38,7 @@ export class ContainersComponent {
   start = this.#containersService.startContainer();
   stop = this.#containersService.stopContainer();
   prune = this.#containersService.pruneContainers();
+  remove = this.#containersService.removeContainer();
 
   prettyBytes = prettyBytes;
 
@@ -47,6 +48,10 @@ export class ContainersComponent {
 
   stopContainer(id: string) {
     this.stop.mutate(id);
+  }
+
+  removeContainer(id: string) {
+    this.remove.mutate(id);
   }
 
   pruneContainers() {

@@ -63,6 +63,16 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
         }
       );
 
+      app.delete<{ Params: { id: string } }>(
+        "/containers/:id",
+        async (request, reply) => {
+          const id = request.params.id;
+          const session = sessions.fromContext(request);
+          const container = session?.docker.getContainer(id);
+          await container?.remove();
+        }
+      );
+
       app.put<{ Params: { id: string } }>(
         "/containers/:id/start",
         async (request, reply) => {

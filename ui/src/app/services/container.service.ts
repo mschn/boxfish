@@ -112,6 +112,19 @@ export class ContainerService {
       },
     }));
 
+  removeContainer = () =>
+    injectMutation<unknown, ServerError, string, unknown>(() => ({
+      mutationFn: (id: string) =>
+        lastValueFrom(
+          this.#http.delete(`${API_URL}containers/${id}`, {
+            withCredentials: true,
+          }),
+        ),
+      onSuccess: () => {
+        this.#client.invalidateQueries({ queryKey: ['containers'] });
+      },
+    }));
+
   startContainer = () =>
     injectMutation(() => ({
       mutationFn: (id: string) =>

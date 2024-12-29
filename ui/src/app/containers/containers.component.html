@@ -18,8 +18,15 @@
 
 @if (prune.isError()) {
   <p-message closable styleClass="mb-3" severity="error">
-    <span class="font-bold" i18n>Failed to prune images:</span><br />
+    <span class="font-bold" i18n>Failed to prune containers:</span><br />
     {{ prune.error().error.message }}
+  </p-message>
+}
+
+@if (remove.isError()) {
+  <p-message closable styleClass="mb-3" severity="error">
+    <span class="font-bold" i18n>Failed to remove container:</span><br />
+    {{ remove.error().error.message }}
   </p-message>
 }
 
@@ -104,6 +111,15 @@
                 ><i class="fa-solid fa-play"></i
               ></p-button>
             }
+            <p-button
+              icon="pi"
+              severity="secondary"
+              [text]="true"
+              [rounded]="true"
+              [loading]="remove.isPending()"
+              (onClick)="removeContainer(container.id)"
+              ><i class="fa-solid fa-trash"></i
+            ></p-button>
           </td>
         </tr>
       </ng-template>

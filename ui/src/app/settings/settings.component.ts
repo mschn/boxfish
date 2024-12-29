@@ -2,7 +2,7 @@ import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { Language, Languages } from '../model/settings.model';
+import { getLanguageFromUrl, Language } from '../model/lang.model';
 
 @Component({
   selector: 'app-settings',
@@ -12,10 +12,7 @@ import { Language, Languages } from '../model/settings.model';
 export class SettingsComponent {
   darkTheme = signal(false);
 
-  lang = signal<Language>(
-    Languages.find((l) => window.location.pathname.startsWith(`/${l}`)) ??
-      'en-US',
-  );
+  lang = signal<Language>(getLanguageFromUrl());
   selectedLang = computed(() =>
     this.langOptions.find((l) => l.value === this.lang()),
   );

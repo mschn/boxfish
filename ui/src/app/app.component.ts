@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
+import { setDefaultOptions } from 'date-fns';
 import { ButtonModule } from 'primeng/button';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { getDateFnsLocale } from './model/lang.model';
 
 @Component({
   selector: 'app-root',
@@ -39,4 +41,8 @@ export class AppComponent {
       icon: 'fa-sliders',
     },
   ];
+
+  constructor() {
+    setDefaultOptions({ locale: getDateFnsLocale() });
+  }
 }

@@ -16,7 +16,7 @@ import { NgClass } from '@angular/common';
   providers: [ContainerService],
   templateUrl: './container.component.html',
   host: {
-    class: 'flex-1',
+    class: 'flex-1 w-full',
   },
 })
 export class ContainerComponent {

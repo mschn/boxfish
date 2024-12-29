@@ -48,81 +48,79 @@
 }
 
 @if (containers.isSuccess()) {
-  <div class="border border-gray-200 dark:border-gray-700">
-    <p-table [value]="containers.data()" tableStyleClass="table-fixed">
-      <ng-template pTemplate="header">
-        <tr>
-          <th i18n>Name</th>
-          <th i18n>Image</th>
-          <th i18n>Stack</th>
-          <th i18n>Status</th>
-          <th i18n>Ports</th>
-          <th i18n>Actions</th>
-        </tr>
-      </ng-template>
+  <p-table [value]="containers.data()" tableStyleClass="table-fixed">
+    <ng-template pTemplate="header">
+      <tr>
+        <th i18n>Name</th>
+        <th i18n>Image</th>
+        <th i18n>Stack</th>
+        <th i18n>Status</th>
+        <th i18n>Ports</th>
+        <th i18n>Actions</th>
+      </tr>
+    </ng-template>
 
-      <ng-template pTemplate="body" let-container>
-        <tr>
-          <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
+    <ng-template pTemplate="body" let-container>
+      <tr>
+        <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
+          <a
+            routerLink="/containers/{{ container.id }}"
+            class="text-blue-800 dark:text-blue-300 text-lg hover:underline"
+            >{{ container.name }}</a
+          >
+        </td>
+        <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">{{
+          container.image
+        }}</td>
+        <td class="">{{ container.project }}</td>
+        <td>
+          <app-status [status]="container.state"></app-status>
+          {{ container.state | titlecase }}
+        </td>
+        <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
+          @for (port of container.ports; track port.url) {
             <a
-              routerLink="/containers/{{ container.id }}"
-              class="text-blue-800 dark:text-blue-300 text-lg hover:underline"
-              >{{ container.name }}</a
+              [href]="port.url"
+              target="_blank"
+              rel="noopener"
+              class="text-blue-800 dark:text-blue-300 mr-2 hover:underline"
+              >{{ port.publicPort }}</a
             >
-          </td>
-          <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">{{
-            container.image
-          }}</td>
-          <td class="">{{ container.project }}</td>
-          <td>
-            <app-status [status]="container.state"></app-status>
-            {{ container.state | titlecase }}
-          </td>
-          <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-            @for (port of container.ports; track port.url) {
-              <a
-                [href]="port.url"
-                target="_blank"
-                rel="noopener"
-                class="text-blue-800 dark:text-blue-300 mr-2 hover:underline"
-                >{{ port.publicPort }}</a
-              >
-            }
-          </td>
-          <td>
-            @if (container.state === "running") {
-              <p-button
-                icon="pi"
-                severity="danger"
-                [text]="true"
-                [rounded]="true"
-                [loading]="start.isPending() || stop.isPending()"
-                (onClick)="stopContainer(container.id)"
-                ><i class="fa-solid fa-stop"></i
-              ></p-button>
-            } @else {
-              <p-button
-                icon="pi"
-                severity="success"
-                [text]="true"
-                [rounded]="true"
-                [loading]="start.isPending() || stop.isPending()"
-                (onClick)="startContainer(container.id)"
-                ><i class="fa-solid fa-play"></i
-              ></p-button>
-            }
+          }
+        </td>
+        <td>
+          @if (container.state === "running") {
             <p-button
               icon="pi"
-              severity="secondary"
+              severity="danger"
               [text]="true"
               [rounded]="true"
-              [loading]="remove.isPending()"
-              (onClick)="removeContainer(container.id)"
-              ><i class="fa-solid fa-trash"></i
+              [loading]="start.isPending() || stop.isPending()"
+              (onClick)="stopContainer(container.id)"
+              ><i class="fa-solid fa-stop"></i
             ></p-button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+          } @else {
+            <p-button
+              icon="pi"
+              severity="success"
+              [text]="true"
+              [rounded]="true"
+              [loading]="start.isPending() || stop.isPending()"
+              (onClick)="startContainer(container.id)"
+              ><i class="fa-solid fa-play"></i
+            ></p-button>
+          }
+          <p-button
+            icon="pi"
+            severity="secondary"
+            [text]="true"
+            [rounded]="true"
+            [loading]="remove.isPending()"
+            (onClick)="removeContainer(container.id)"
+            ><i class="fa-solid fa-trash"></i
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 }

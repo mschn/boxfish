@@ -1,1 +1,15 @@
-<p>container-terminal works!</p>
+<div class="flex flex-col gap-3 mt-3">
+  <div>
+    <input
+      pInputText
+      type="text"
+      [(ngModel)]="cmd"
+      (keydown.enter)="onExec()"
+    />
+  </div>
+
+  <pre
+    class="bg-gray-100 dark:bg-gray-800 dark:text-gray-100 p-3 text-sm whitespace-pre-wrap rounded-md border border-gray-200 dark:border-gray-700"
+    [innerHTML]="coloredOutput()"
+  ></pre>
+</div>

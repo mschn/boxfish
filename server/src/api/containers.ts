@@ -54,6 +54,24 @@ export function registerContainers(
         }
       );
 
+      app.post<{ Params: { id: string }; Body: { cmd: string[] } }>(
+        "/:id/exec",
+        async (request, reply) => {
+          const id = request.params.id;
+          const session = sessions.fromContext(request);
+          const container = session?.docker.getContainer(id);
+          const exec = await container?.exec({
+            AttachStdout: true,
+            Tty: true,
+            Cmd: request.body.cmd,
+          });
+          return await exec?.start({
+            Detach: false,
+            Tty: true,
+          });
+        }
+      );
+
       app.get<{ Params: { id: string } }>(
         "/:id/logs",
         async (request, reply) => {

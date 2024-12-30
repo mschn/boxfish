@@ -155,6 +155,23 @@ export class ContainerService {
         ),
     }));
 
+  exec = () =>
+    injectMutation<string, ServerError, { id: string; cmd: string[] }, unknown>(
+      () => ({
+        mutationFn: ({ id, cmd }) =>
+          lastValueFrom(
+            this.#http.post(
+              `${API_URL}containers/${id}/exec`,
+              { cmd },
+              {
+                withCredentials: true,
+                responseType: 'text',
+              },
+            ),
+          ),
+      }),
+    );
+
   containerFromRoute = this.getContainer(this.idFromRoute);
   containerLogsFromRoute = this.getContainerLogs(this.idFromRoute);
 }

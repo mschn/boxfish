@@ -1,5 +1,8 @@
 import { signal } from '@angular/core';
-import { CreateQueryResult } from '@tanstack/angular-query-experimental';
+import {
+  CreateMutationResult,
+  CreateQueryResult,
+} from '@tanstack/angular-query-experimental';
 
 export const getQueryMock = <T, E>(
   mock: Partial<CreateQueryResult<T, E>> = {},
@@ -41,3 +44,30 @@ export const getLoadingQueryMock = <T, E>(
     isLoading: signal(true),
     isSuccess: signal(false),
   } as unknown as Partial<CreateQueryResult<T, E>>);
+
+export const getMutationQueryMock = <T, E, V, C>(
+  mock: Partial<CreateMutationResult<T, E, V, C>> = {},
+) =>
+  ({
+    data: signal(undefined),
+    error: null,
+    variables: null,
+    isError: signal(false),
+    isPending: signal(false),
+    isSuccess: signal(false),
+    isIdle: signal(false),
+    status: signal('success'),
+    failureReason: signal(new Error()),
+    isPaused: signal(false),
+    failureCount: signal(0),
+    mutate: () => {
+      /** empty */
+    },
+    mutateAsync: null,
+    reset: () => {
+      /** empty */
+    },
+    context: signal({}),
+    submittedAt: undefined,
+    ...mock,
+  }) as CreateMutationResult<T, E, V, C>;

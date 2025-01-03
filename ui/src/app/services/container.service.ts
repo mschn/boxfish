@@ -18,7 +18,9 @@ import {
 } from '../model/container.model';
 import { API_URL, ServerError } from '../model/server.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ContainerService {
   #http = inject(HttpClient);
   #route = inject(ActivatedRoute);

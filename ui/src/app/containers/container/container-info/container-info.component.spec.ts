@@ -1,17 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { signal } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   getAllByTestId,
   getByTestId,
   queryByTestId,
 } from '@testing-library/dom';
-import { Container, getContainerMock } from '../../../model/container.model';
+import { getContainerMock } from '../../../model/container.model';
 import {
   getLoadingQueryMock,
   getQueryMock,
 } from '../../../model/queries.mocks';
-import { ServerError } from '../../../model/server.model';
 import { ContainerService } from '../../../services/container.service';
 import { ContainerInfoComponent } from './container-info.component';
 describe('ContainerInfoComponent', () => {
@@ -19,7 +17,7 @@ describe('ContainerInfoComponent', () => {
   let fixture: ComponentFixture<ContainerInfoComponent>;
 
   const containerServiceMock: Partial<ContainerService> = {
-    containerFromRoute: getQueryMock<Container, ServerError>({
+    containerFromRoute: getQueryMock({
       data: signal(getContainerMock()),
     }),
   };

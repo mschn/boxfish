@@ -8,6 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
     "extract-i18n": "ng extract-i18n --output-path src/locale --format=json",
     "lint": "ng lint"
   },

@@ -15,7 +15,6 @@ import { ContainerService } from '../../services/container.service';
     NgClass,
     TitleComponent,
   ],
-  providers: [ContainerService],
   templateUrl: './container.component.html',
   host: {
     class: 'flex-1 w-full',

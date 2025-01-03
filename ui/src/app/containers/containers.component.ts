@@ -28,7 +28,6 @@ import { ContainersPlaceholderComponent } from './containers-placeholder.compone
     ContainersPlaceholderComponent,
     TitleComponent,
   ],
-  providers: [ContainerService],
   templateUrl: './containers.component.html',
   host: {
     class: 'flex-1',

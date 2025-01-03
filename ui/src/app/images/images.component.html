@@ -61,7 +61,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-image>
       <tr>
-        <td>
+        <td data-testid="images-name">
           @if (image.name) {
             {{ image.name }}
           } @else {

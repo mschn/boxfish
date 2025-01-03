@@ -27,3 +27,14 @@ export function buildImage(image: Dockerode.ImageInfo): Image {
     }),
   };
 }
+
+export function getImageMock(props: Partial<Image> = {}): Image {
+  return {
+    name: 'mschnr/boxfish',
+    version: '1.0.2',
+    id: 'abcdefg123456',
+    size: '723 MB',
+    created: '2 days ago',
+    ...props,
+  };
+}

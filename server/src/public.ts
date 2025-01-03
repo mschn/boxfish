@@ -21,12 +21,10 @@ export function registerStatic(fastify: FastifyInstance) {
   // the fastify handler here has to server the index.html
   fastify.setNotFoundHandler((request, reply) => {
     const url = request.raw.url;
-    console.log(" url ", url);
     if (url?.startsWith("/api")) {
       throw new Error("Not found");
     } else {
       const lang = LANGS.find((l) => url?.startsWith(`/${l}`)) ?? LANGS[0];
-      console.log(" lang ", lang, path.join(DIST, lang, "index.html"));
       reply.sendFile(`/${lang}/index.html`);
     }
   });

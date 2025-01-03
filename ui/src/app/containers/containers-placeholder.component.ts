@@ -4,7 +4,10 @@ import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-containers-placeholder',
-  template: `<p-table [value]="[{}, {}, {}, {}]">
+  template: `<p-table
+    [value]="[{}, {}, {}, {}]"
+    data-testid="containers-placeholder"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th i18n>Name</th>

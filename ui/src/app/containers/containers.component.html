@@ -61,7 +61,10 @@
 
     <ng-template pTemplate="body" let-container>
       <tr>
-        <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
+        <td
+          class="whitespace-nowrap overflow-ellipsis overflow-hidden"
+          data-testid="containers-name"
+        >
           <a
             routerLink="/containers/{{ container.id }}"
             class="text-blue-800 dark:text-blue-300 text-lg hover:underline"

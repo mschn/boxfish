@@ -1,23 +1,49 @@
-import { TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+} from '@angular/core/testing';
+import { Router, RouterModule } from '@angular/router';
+import { getByText } from '@testing-library/dom';
 import { AppComponent } from './app.component';
 
+@Component({
+  template: 'Oink',
+  selector: 'app-test',
+})
+class TestComponent {}
+
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let router: Router;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        AppComponent,
+        TestComponent,
+        RouterModule.forRoot([{ path: '**', component: TestComponent }]),
+      ],
+      providers: [],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    router = TestBed.inject(Router);
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should create', () => {
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ui');
+    expect(component).toBeTruthy();
   });
+
+  it('should show home component', fakeAsync(() => {
+    router.navigateByUrl('/');
+    fixture.detectChanges();
+    flush();
+    expect(getByText(fixture.nativeElement, 'Oink')).toBeTruthy();
+  }));
 });

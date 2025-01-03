@@ -7,7 +7,6 @@ import { ContainerService } from '../../../services/container.service';
   selector: 'app-container-logs',
   imports: [],
   templateUrl: './container-logs.component.html',
-  styleUrl: './container-logs.component.scss',
 })
 export class ContainerLogsComponent {
   #containerService = inject(ContainerService);

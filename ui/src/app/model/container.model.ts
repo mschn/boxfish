@@ -84,3 +84,32 @@ function buildPort(port: Dockerode.Port): Port {
     url: `http://${port.IP}:${port.PublicPort}/`,
   };
 }
+
+export function getContainerMock(props: Partial<Container> = {}): Container {
+  return {
+    id: '6977eea0b1c047ef2dc0c3c27fd84f8f4f256739aee67501d8640cb2c8e38712',
+    project: 'big-stack',
+    image: 'mschn/boxfish',
+    name: 'boxfish-1',
+    state: 'running',
+    status: 'Up 6 days (unhealthy)',
+    createdDate: new Date('2024-12-12T14:39:59.000Z'),
+    ports: [
+      {
+        ip: '0.0.0.0',
+        publicPort: 3000,
+        privatePort: 3000,
+        type: 'tcp',
+        url: 'http://0.0.0.0:3000/',
+      },
+      {
+        ip: '0.0.0.0',
+        publicPort: 4200,
+        privatePort: 4200,
+        type: 'tcp',
+        url: 'http://0.0.0.0:4200/',
+      },
+    ],
+    ...props,
+  };
+}

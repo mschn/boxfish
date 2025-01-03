@@ -1,23 +1,67 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { signal } from '@angular/core';
+import {
+  getAllByTestId,
+  getByTestId,
+  queryByTestId,
+} from '@testing-library/dom';
+import { Container, getContainerMock } from '../../../model/container.model';
+import {
+  getLoadingQueryMock,
+  getQueryMock,
+} from '../../../model/queries.mocks';
+import { ServerError } from '../../../model/server.model';
+import { ContainerService } from '../../../services/container.service';
 import { ContainerInfoComponent } from './container-info.component';
-
 describe('ContainerInfoComponent', () => {
   let component: ContainerInfoComponent;
   let fixture: ComponentFixture<ContainerInfoComponent>;
 
+  const containerServiceMock: Partial<ContainerService> = {
+    containerFromRoute: getQueryMock<Container, ServerError>({
+      data: signal(getContainerMock()),
+    }),
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContainerInfoComponent]
-    })
-    .compileComponents();
+      imports: [ContainerInfoComponent],
+      providers: [
+        { provide: ContainerService, useValue: containerServiceMock },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ContainerInfoComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  it('should not display data when the query is loading', () => {
+    component.container = getLoadingQueryMock();
+    fixture.detectChanges();
+    expect(queryByTestId(fixture.nativeElement, 'container-image')).toBeFalsy();
+  });
+
+  it('should display a container', () => {
+    fixture.detectChanges();
+    expect(
+      getByTestId(fixture.nativeElement, 'container-image').textContent,
+    ).toBe('mschn/boxfish');
+    expect(
+      getByTestId(fixture.nativeElement, 'container-status').textContent,
+    ).toBe('Up 6 days (unhealthy)');
+    expect(
+      getByTestId(fixture.nativeElement, 'container-date').textContent,
+    ).toBe('Dec 12, 2024');
+    expect(
+      getAllByTestId(fixture.nativeElement, 'container-port').map((e) =>
+        e.textContent?.trim(),
+      ),
+    ).toEqual(['0.0.0.0:3000 → 3000/tcp', '0.0.0.0:4200 → 4200/tcp']);
   });
 });

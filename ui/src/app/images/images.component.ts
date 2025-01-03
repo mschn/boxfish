@@ -6,10 +6,17 @@ import { ImagesService } from '../services/images.service';
 import { ImagesPlaceholderComponent } from './images-placeholder.component';
 import { Image } from '../model/image.model';
 import prettyBytes from 'pretty-bytes';
+import { TitleComponent } from '../components/title/title.component';
 
 @Component({
   selector: 'app-images',
-  imports: [TableModule, Message, ImagesPlaceholderComponent, ButtonModule],
+  imports: [
+    TableModule,
+    Message,
+    ImagesPlaceholderComponent,
+    ButtonModule,
+    TitleComponent,
+  ],
   templateUrl: './images.component.html',
   host: {
     class: 'flex-1',

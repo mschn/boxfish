@@ -11,6 +11,7 @@ import { StatusComponent } from '../container/status.component';
 import { ContainerService } from '../services/container.service';
 import { ContainersPlaceholderComponent } from './containers-placeholder.component';
 import prettyBytes from 'pretty-bytes';
+import { TitleComponent } from '../components/title/title.component';
 
 @Component({
   selector: 'app-containers',
@@ -25,6 +26,7 @@ import prettyBytes from 'pretty-bytes';
     TooltipModule,
     BadgeModule,
     ContainersPlaceholderComponent,
+    TitleComponent,
   ],
   providers: [ContainerService],
   templateUrl: './containers.component.html',

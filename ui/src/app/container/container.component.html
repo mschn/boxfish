@@ -1,8 +1,8 @@
 @if (container.isSuccess()) {
-  <h2 class="text-2xl dark:text-gray-200 font-bold mt-1 mb-3">
+  <app-title>
     <app-status [status]="container.data().state"></app-status>
-    {{ container.data().name }}
-  </h2>
+    {{ container.data().name }}</app-title
+  >
 }
 
 @for (link of links; track link.name) {

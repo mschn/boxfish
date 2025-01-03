@@ -3,10 +3,11 @@ import { FormsModule } from '@angular/forms';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { getLanguageFromUrl, Language } from '../model/lang.model';
+import { TitleComponent } from '../components/title/title.component';
 
 @Component({
   selector: 'app-settings',
-  imports: [ToggleSwitchModule, FormsModule, SelectModule],
+  imports: [ToggleSwitchModule, FormsModule, SelectModule, TitleComponent],
   templateUrl: './settings.component.html',
 })
 export class SettingsComponent {

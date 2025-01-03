@@ -1,0 +1,36 @@
+<div class="flex flex-col gap-3 mt-2">
+  @if (paths().length > 0) {
+    <div class="flex flex-row items-center">
+      <a routerLink="/" data-testid="breadcrumb-path" class="text-gray-700">
+        <i class="mr-2 fa-regular fa-house"></i>
+      </a>
+
+      <span class="text-gray-400 mx-2">
+        <i class="mr-2 fa-regular fa-chevron-right"></i>
+      </span>
+
+      @for (p of paths(); track p.url; let last = $last) {
+        @if (!last) {
+          <a
+            routerLink="{{ p.url }}"
+            data-testid="breadcrumb-path"
+            class="text-gray-700 dark:text-gray-300 underline max-w-32 inline-block truncate"
+            >{{ p.path }}</a
+          >
+          <span class="text-gray-400 mx-2">
+            <i class="mr-2 fa-regular fa-chevron-right"></i>
+          </span>
+        } @else {
+          <span
+            class="text-gray-800 dark:text-gray-200 max-w-32 inline-block truncate"
+          >
+            {{ p.path }}
+          </span>
+        }
+      }
+    </div>
+  }
+  <h2 class="text-gray-800 dark:text-gray-200 text-2xl font-bold">
+    <ng-content></ng-content>
+  </h2>
+</div>

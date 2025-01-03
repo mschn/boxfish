@@ -42,7 +42,7 @@ export function buildStacks(containers: Dockerode.ContainerInfo[]): Stack[] {
 }
 
 export function buildContainers(
-  containers: Dockerode.ContainerInfo[],
+  containers: Dockerode.ContainerInfo[] | null,
 ): Container[] {
   return containers?.map((container) => buildContainer(container)) ?? [];
 }

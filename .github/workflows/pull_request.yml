@@ -1,0 +1,20 @@
+name: Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  jest-coverage:
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
+    name: Jest Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          working-directory: ui
+          # TODO compare with master

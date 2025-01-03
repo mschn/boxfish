@@ -1,9 +1,9 @@
+import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { ContainerService } from '../services/container.service';
-import { StatusComponent } from './status.component';
-import { NgClass } from '@angular/common';
-import { TitleComponent } from '../components/title/title.component';
+import { StatusComponent } from '../../components/status.component';
+import { TitleComponent } from '../../components/title/title.component';
+import { ContainerService } from '../../services/container.service';
 
 @Component({
   selector: 'app-container',

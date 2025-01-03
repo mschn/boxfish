@@ -11,29 +11,29 @@ export const routes: Routes = [
   {
     path: 'containers/:id',
     loadComponent: () =>
-      import('./container/container.component').then(
+      import('./containers/container/container.component').then(
         (c) => c.ContainerComponent,
       ),
     children: [
       {
         path: '',
         loadComponent: () =>
-          import('./container/container-info/container-info.component').then(
-            (c) => c.ContainerInfoComponent,
-          ),
+          import(
+            './containers/container/container-info/container-info.component'
+          ).then((c) => c.ContainerInfoComponent),
       },
       {
         path: 'logs',
         loadComponent: () =>
-          import('./container/container-logs/container-logs.component').then(
-            (c) => c.ContainerLogsComponent,
-          ),
+          import(
+            './containers/container/container-logs/container-logs.component'
+          ).then((c) => c.ContainerLogsComponent),
       },
       {
         path: 'terminal',
         loadComponent: () =>
           import(
-            './container/container-terminal/container-terminal.component'
+            './containers/container/container-terminal/container-terminal.component'
           ).then((c) => c.ContainerTerminalComponent),
       },
     ],
@@ -61,6 +61,8 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () =>
-      import('./notfound.component').then((c) => c.NotFoundComponent),
+      import('./components/notfound.component').then(
+        (c) => c.NotFoundComponent,
+      ),
   },
 ];

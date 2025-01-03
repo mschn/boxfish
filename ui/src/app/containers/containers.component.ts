@@ -1,17 +1,17 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import prettyBytes from 'pretty-bytes';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { Message } from 'primeng/message';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
-import { StatusComponent } from '../container/status.component';
+import { StatusComponent } from '../components/status.component';
+import { TitleComponent } from '../components/title/title.component';
 import { ContainerService } from '../services/container.service';
 import { ContainersPlaceholderComponent } from './containers-placeholder.component';
-import prettyBytes from 'pretty-bytes';
-import { TitleComponent } from '../components/title/title.component';
 
 @Component({
   selector: 'app-containers',

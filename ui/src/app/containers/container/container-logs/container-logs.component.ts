@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AnsiUp } from 'ansi_up';
-import { ContainerService } from '../../services/container.service';
+import { ContainerService } from '../../../services/container.service';
 
 @Component({
   selector: 'app-container-logs',

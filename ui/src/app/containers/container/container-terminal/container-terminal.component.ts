@@ -4,7 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AnsiUp } from 'ansi_up';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { ContainerService } from '../../services/container.service';
+import { ContainerService } from '../../../services/container.service';
 
 @Component({
   selector: 'app-container-terminal',

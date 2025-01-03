@@ -13,7 +13,7 @@ import {
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { authInterceptor } from './services/auth';
-import { PrimePreset } from './theme';
+import { PrimePreset } from './model/theme';
 
 export const appConfig: ApplicationConfig = {
   providers: [

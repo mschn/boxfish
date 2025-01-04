@@ -4,6 +4,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { setDefaultOptions } from 'date-fns';
 import { ButtonModule } from 'primeng/button';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { isDarkTheme, setDarkTheme } from './model/darktheme';
 import { getDateFnsLocale } from './model/lang.model';
 
 @Component({
@@ -42,7 +43,14 @@ export class AppComponent {
     },
   ];
 
+  // TODO this should be an observable in a ComponentStore
+  logo = isDarkTheme() ? 'boxfish.svg' : 'boxfish_light.svg';
+
   constructor() {
     setDefaultOptions({ locale: getDateFnsLocale() });
+
+    if (isDarkTheme()) {
+      setDarkTheme(true);
+    }
   }
 }

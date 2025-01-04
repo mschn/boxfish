@@ -1,3 +1,3 @@
 {
-  "**/*.ts": ["npm run eslint --prefix ui"]
+  "**/*.ts": ["npm run prettier --prefix ui", "npm run eslint --prefix ui"]
 }

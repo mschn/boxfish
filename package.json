@@ -1,11 +1,11 @@
 {
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^22.10.5",
     "husky": "^9.1.6"
   },
   "scripts": {
     "prepare": "husky"
   },
-  "dependencies": {
-    "tailwindcss-primeui": "^0.3.4"
-  }
+  "dependencies": {}
 }

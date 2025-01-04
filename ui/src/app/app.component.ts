@@ -5,6 +5,7 @@ import { setDefaultOptions } from 'date-fns';
 import { ButtonModule } from 'primeng/button';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { getDateFnsLocale } from './model/lang.model';
+import { isDarkTheme, setDarkTheme } from './model/darktheme';
 
 @Component({
   selector: 'app-root',
@@ -44,5 +45,9 @@ export class AppComponent {
 
   constructor() {
     setDefaultOptions({ locale: getDateFnsLocale() });
+
+    if (isDarkTheme()) {
+      setDarkTheme(true);
+    }
   }
 }

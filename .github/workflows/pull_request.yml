@@ -5,15 +5,20 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  jest-coverage:
+  unit-tests:
     permissions:
       checks: write
       pull-requests: write
       contents: write
-    name: Jest Coverage
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - run: npm ci --prefix ui
+
+      - name: eslint
+        run: npm run eslint:ci --prefix ui
+
       - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           working-directory: ui

@@ -1,1 +1,3 @@
 # npm --prefix ui run extract-i18n
+
+npx lint-staged

@@ -19,5 +19,8 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefix ui
 
+      - name: eslint
+        run: npm run eslint:ci --prefix ui
+
       - name: Unit tests
         run: npm run test:coverage --prefix ui

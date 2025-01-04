@@ -1,11 +1,10 @@
 import { expect, test } from "@playwright/test";
-import { AppPage } from "../pages/app.page";
+import { openApp } from "../pages/app.page";
 
 test("has a boxfish container", async ({ page }) => {
-  await page.goto("http://localhost:3000/");
+  const app = await openApp(page);
   await expect(page.getByText("var/run/docker.sock")).toBeVisible();
 
-  const app = new AppPage(page);
   const containers = await app.openContainers();
   await expect(containers.title).toHaveText("Containers");
 

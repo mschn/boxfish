@@ -13,7 +13,8 @@
     "extract-i18n": "ng extract-i18n --output-path src/locale --format=json",
     "lint": "ng lint",
     "eslint": "npx eslint",
-    "eslint:ci": "npx eslint --max-warnings 0 src"
+    "eslint:ci": "npx eslint --fix --max-warnings 0 src",
+    "prettier": "npx prettier --write"
   },
   "private": true,
   "dependencies": {

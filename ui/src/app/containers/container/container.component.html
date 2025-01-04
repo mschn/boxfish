@@ -7,9 +7,7 @@
 
 @for (link of links; track link.name) {
   <a
-    routerLink="/containers/{{ containerService.idFromRoute() }}/{{
-      link.path
-    }}"
+    routerLink="/containers/{{ idFromRoute() }}/{{ link.path }}"
     class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4"
     routerLinkActive="text-gray-900 dark:text-gray-200"
     #rla="routerLinkActive"

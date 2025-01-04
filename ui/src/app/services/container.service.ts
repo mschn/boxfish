@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, Signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
 import {
   injectMutation,
   injectQuery,
   injectQueryClient,
 } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
-import { filter, lastValueFrom, map } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import {
   buildContainer,
   buildContainers,
@@ -23,16 +21,7 @@ import { API_URL, ServerError } from '../model/server.model';
 })
 export class ContainerService {
   #http = inject(HttpClient);
-  #route = inject(ActivatedRoute);
   #client = injectQueryClient();
-
-  idFromRoute = toSignal(
-    this.#route.paramMap.pipe(
-      map((paramMap) => paramMap.get('id')),
-      filter(Boolean),
-    ),
-    { initialValue: '' },
-  );
 
   getContainers = () =>
     injectQuery<Dockerode.ContainerInfo[], ServerError, Container[], string[]>(
@@ -173,7 +162,4 @@ export class ContainerService {
           ),
       }),
     );
-
-  containerFromRoute = this.getContainer(this.idFromRoute);
-  containerLogsFromRoute = this.getContainerLogs(this.idFromRoute);
 }

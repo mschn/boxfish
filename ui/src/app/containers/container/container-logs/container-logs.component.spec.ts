@@ -1,11 +1,12 @@
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
 import { getByText, queryByText } from '@testing-library/dom';
+import { of } from 'rxjs';
 import {
   getLoadingQueryMock,
   getQueryMock,
 } from '../../../model/queries.mocks';
-import { ServerError } from '../../../model/server.model';
 import { ContainerService } from '../../../services/container.service';
 import { HtmlService } from '../../../services/html.service';
 import { ContainerLogsComponent } from './container-logs.component';
@@ -15,9 +16,10 @@ describe('ContainerLogsComponent', () => {
   let fixture: ComponentFixture<ContainerLogsComponent>;
 
   const containerServiceMock: Partial<ContainerService> = {
-    containerLogsFromRoute: getQueryMock<string, ServerError>({
-      data: signal('log result'),
-    }),
+    getContainerLogs: () =>
+      getQueryMock({
+        data: signal('log result'),
+      }),
   };
 
   const htmlServiceMock: Partial<HtmlService> = {
@@ -33,6 +35,7 @@ describe('ContainerLogsComponent', () => {
           provide: HtmlService,
           useValue: htmlServiceMock,
         },
+        { provide: ActivatedRoute, useValue: { parent: { paramMap: of({}) } } },
       ],
     }).compileComponents();
 

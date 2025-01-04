@@ -12,14 +12,17 @@ import {
 } from '../../../model/queries.mocks';
 import { ContainerService } from '../../../services/container.service';
 import { ContainerInfoComponent } from './container-info.component';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 describe('ContainerInfoComponent', () => {
   let component: ContainerInfoComponent;
   let fixture: ComponentFixture<ContainerInfoComponent>;
 
   const containerServiceMock: Partial<ContainerService> = {
-    containerFromRoute: getQueryMock({
-      data: signal(getContainerMock()),
-    }),
+    getContainer: () =>
+      getQueryMock({
+        data: signal(getContainerMock()),
+      }),
   };
 
   beforeEach(async () => {
@@ -27,6 +30,7 @@ describe('ContainerInfoComponent', () => {
       imports: [ContainerInfoComponent],
       providers: [
         { provide: ContainerService, useValue: containerServiceMock },
+        { provide: ActivatedRoute, useValue: { paramMap: of({}) } },
       ],
     }).compileComponents();
 

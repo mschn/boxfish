@@ -1,6 +1,13 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  ActivatedRoute,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
+import { filter, map } from 'rxjs';
 import { StatusComponent } from '../../components/status.component';
 import { TitleComponent } from '../../components/title/title.component';
 import { ContainerService } from '../../services/container.service';
@@ -21,8 +28,17 @@ import { ContainerService } from '../../services/container.service';
   },
 })
 export class ContainerComponent {
-  containerService = inject(ContainerService);
-  container = this.containerService.containerFromRoute;
+  #route = inject(ActivatedRoute);
+  #containerService = inject(ContainerService);
+
+  idFromRoute = toSignal(
+    this.#route.paramMap.pipe(
+      map((paramMap) => paramMap.get('id')),
+      filter(Boolean),
+    ),
+    { initialValue: '' },
+  );
+  container = this.#containerService.getContainer(this.idFromRoute);
 
   links = [
     {

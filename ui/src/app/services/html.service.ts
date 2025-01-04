@@ -1,4 +1,4 @@
-import { inject, Injectable, SecurityContext } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AnsiUp } from 'ansi_up';
 
@@ -11,6 +11,6 @@ export class HtmlService {
 
   formatAnsi(str: string) {
     const html = this.#ansi_up.ansi_to_html(str);
-    return this.#sanitizer.sanitize(SecurityContext.HTML, html);
+    return this.#sanitizer.bypassSecurityTrustHtml(html);
   }
 }

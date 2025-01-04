@@ -1,6 +1,8 @@
+[![CI](https://github.com/mschn/boxfish/actions/workflows/ci.yml/badge.svg)](https://github.com/mschn/boxfish/actions/workflows/ci.yml)
+
 # Boxfish
 
-Boxfish is a basic web app to view you Docker containers and images.
+Boxfish is a web app that can view and manipulate your Docker containers and images.
 
 ## Startup
 

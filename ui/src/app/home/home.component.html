@@ -1,3 +1,12 @@
+<div>
+  <img
+    [src]="logo"
+    alt="boxfish logo"
+    class="opacity-80"
+    style="width: 256px"
+  />
+</div>
+
 @if (server.isFetching()) {
   <app-home-placeholder></app-home-placeholder>
 } @else if (server.isSuccess()) {

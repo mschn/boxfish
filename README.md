@@ -4,6 +4,8 @@
 
 Boxfish is a web app that can view and manipulate your Docker containers and images.
 
+<img src="ui/public/boxfish.svg" width="128" />
+
 ## Startup
 
 To run Boxfish you need to have Docker running.\

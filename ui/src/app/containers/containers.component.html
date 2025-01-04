@@ -60,7 +60,7 @@
     </ng-template>
 
     <ng-template pTemplate="body" let-container>
-      <tr>
+      <tr data-testid="containers-row">
         <td
           class="whitespace-nowrap overflow-ellipsis overflow-hidden"
           data-testid="containers-name"
@@ -71,9 +71,11 @@
             >{{ container.name }}</a
           >
         </td>
-        <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">{{
-          container.image
-        }}</td>
+        <td
+          class="whitespace-nowrap overflow-ellipsis overflow-hidden"
+          data-testid="containers-image"
+          >{{ container.image }}</td
+        >
         <td class="">{{ container.project }}</td>
         <td>
           <app-status [status]="container.state"></app-status>

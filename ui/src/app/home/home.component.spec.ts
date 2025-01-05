@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { signal } from '@angular/core';
+import { getByAltText, getByTestId } from '@testing-library/dom';
 import { getQueryMock } from '../model/queries.mocks';
 import { getServerInfoMock } from '../model/server.model';
 import { ServerService } from '../services/server.service';
 import { HomeComponent } from './home.component';
-import { getByTestId } from '@testing-library/dom';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -47,5 +47,14 @@ describe('HomeComponent', () => {
     expect(getByTestId(fixture.nativeElement, 'server-host').textContent).toBe(
       'Host linux Ubuntu 24.04.1 LTS (aarch64)',
     );
+  });
+
+  it('should show dark logo', () => {
+    fixture.detectChanges();
+    const img = getByAltText(
+      fixture.nativeElement,
+      'boxfish logo',
+    ) as HTMLImageElement;
+    expect(img.src).toContain('boxfish.svg');
   });
 });

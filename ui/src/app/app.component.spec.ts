@@ -6,7 +6,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
-import { getByText } from '@testing-library/dom';
+import { getByAltText, getByText } from '@testing-library/dom';
 import { AppComponent } from './app.component';
 
 @Component({
@@ -46,4 +46,17 @@ describe('AppComponent', () => {
     flush();
     expect(getByText(fixture.nativeElement, 'Oink')).toBeTruthy();
   }));
+
+  it('should show light logo', () => {
+    fixture.detectChanges();
+    const img = getByAltText(fixture.nativeElement, 'logo') as HTMLImageElement;
+    expect(img.src).toContain('boxfish_light.svg');
+  });
+
+  it('should show dark logo', () => {
+    window.matchMedia = () => ({ matches: true }) as MediaQueryList;
+    fixture.detectChanges();
+    const img = getByAltText(fixture.nativeElement, 'logo') as HTMLImageElement;
+    expect(img.src).toContain('boxfish.svg');
+  });
 });

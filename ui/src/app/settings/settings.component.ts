@@ -1,10 +1,11 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectChangeEvent, SelectModule } from 'primeng/select';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TitleComponent } from '../components/title/title.component';
+import { setDarkTheme } from '../model/darktheme';
 import { getLanguageFromUrl, Language } from '../model/lang.model';
-import { isDarkTheme, setDarkTheme } from '../model/darktheme';
+import { SettingsStore } from '../services/settings.store';
 
 @Component({
   selector: 'app-settings',
@@ -12,8 +13,7 @@ import { isDarkTheme, setDarkTheme } from '../model/darktheme';
   templateUrl: './settings.component.html',
 })
 export class SettingsComponent {
-  darkTheme = signal(isDarkTheme());
-
+  settingsStore = inject(SettingsStore);
   lang = signal<Language>(getLanguageFromUrl());
   selectedLang = computed(() =>
     this.langOptions.find((l) => l.value === this.lang()),
@@ -31,7 +31,7 @@ export class SettingsComponent {
 
   setDarkMode(darkMode: boolean) {
     setDarkTheme(darkMode);
-    this.darkTheme.set(darkMode);
+    this.settingsStore.setDarkMode(darkMode);
   }
 
   onLangChange(lang: SelectChangeEvent) {

@@ -6,7 +6,7 @@
     <p-toggleswitch
       inputId="darktheme-switch"
       styleClass="darkThemeSwitch"
-      [ngModel]="darkTheme()"
+      [ngModel]="settingsStore.darkMode()"
       (ngModelChange)="setDarkMode($event)"
     />
   </div>

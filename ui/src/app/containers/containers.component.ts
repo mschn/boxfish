@@ -30,7 +30,7 @@ import { ContainersPlaceholderComponent } from './containers-placeholder.compone
   ],
   templateUrl: './containers.component.html',
   host: {
-    class: 'flex-1',
+    class: 'flex-1 w-full',
   },
 })
 export class ContainersComponent {

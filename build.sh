@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker build --no-cache . \
+docker build . \
     -t mschnr/boxfish:latest \
     --force-rm

@@ -30,4 +30,8 @@ export class ImageComponent {
   image = computed(() =>
     this.images.data()?.find((i) => i.id === this.idFromRoute()),
   );
+
+  titlePathMap = computed<Record<string, string>>(() => ({
+    [this.image()?.id ?? '']: this.image()?.name ?? this.image()?.shortId ?? '',
+  }));
 }

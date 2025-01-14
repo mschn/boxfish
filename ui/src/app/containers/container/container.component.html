@@ -1,6 +1,6 @@
 @let c = container();
 @if (c) {
-  <app-title [lastPath]="c.name">
+  <app-title [pathMap]="titlePathMap()">
     <app-status [status]="c.state"></app-status>
     {{ c.name }}</app-title
   >

@@ -11,7 +11,7 @@ import { filter } from 'rxjs';
 export class TitleComponent {
   #router = inject(Router);
 
-  lastPath = input<string>();
+  pathMap = input<Record<string, string>>({});
 
   routerNavigationEnd = toSignal(
     this.#router.events.pipe(filter((event) => event instanceof NavigationEnd)),
@@ -27,7 +27,7 @@ export class TitleComponent {
       .filter((p) => p.length > 0)
       .map((p) => ({
         url: '',
-        path: p,
+        path: this.pathMap()[p] ?? p,
       }));
     paths.reduce((acc, cur) => {
       const url = `${acc}/${cur.path}`;

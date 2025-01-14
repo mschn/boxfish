@@ -45,6 +45,11 @@ export class ContainerComponent {
       ?.find((container) => container.id === this.idFromRoute()),
   );
 
+  titlePathMap = computed<Record<string, string>>(() => {
+    const id = this.container()?.id ?? '';
+    return { [id]: this.container()?.name ?? '' };
+  });
+
   links = [
     {
       name: 'Container',

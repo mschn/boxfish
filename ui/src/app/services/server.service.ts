@@ -24,7 +24,7 @@ export class ServerService {
 
   getServerInfo = () =>
     injectQuery<ServerInfo, ServerError, ServerInfo, string[]>(() => ({
-      queryKey: ['server'],
+      queryKey: ['server', 'info'],
       queryFn: () =>
         lastValueFrom(
           this.#http.get<ServerInfo>(`${API_URL}server`, {
@@ -35,7 +35,7 @@ export class ServerService {
 
   getDf = () =>
     injectQuery<DfResponse, ServerError, Df>(() => ({
-      queryKey: ['df'],
+      queryKey: ['server', 'df'],
       queryFn: () =>
         lastValueFrom(
           this.#http.get<DfResponse>(`${API_URL}df`, {

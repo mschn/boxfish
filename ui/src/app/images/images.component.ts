@@ -7,6 +7,7 @@ import { ImagesPlaceholderComponent } from './images-placeholder.component';
 import { Image } from '../model/image.model';
 import prettyBytes from 'pretty-bytes';
 import { TitleComponent } from '../components/title/title.component';
+import { ServerService } from '../services/server.service';
 
 @Component({
   selector: 'app-images',
@@ -24,9 +25,12 @@ import { TitleComponent } from '../components/title/title.component';
 })
 export class ImagesComponent {
   #imagesService = inject(ImagesService);
+  #serverService = inject(ServerService);
+
   images = this.#imagesService.getImages();
   deleteImageMutation = this.#imagesService.deleteImage();
   pruneMutation = this.#imagesService.pruneImages();
+  df = this.#serverService.getDf();
 
   prettyBytes = prettyBytes;
 

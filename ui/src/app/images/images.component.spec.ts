@@ -1,7 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { signal } from '@angular/core';
-import { getAllByTestId, queryByTestId } from '@testing-library/dom';
+import {
+  getAllByTestId,
+  getByTestId,
+  queryByTestId,
+} from '@testing-library/dom';
+import { getDfMock } from '../model/df.model';
 import { getImageMock } from '../model/image.model';
 import {
   getLoadingQueryMock,
@@ -9,6 +14,7 @@ import {
   getQueryMock,
 } from '../model/queries.mocks';
 import { ImagesService } from '../services/images.service';
+import { ServerService } from '../services/server.service';
 import { ImagesComponent } from './images.component';
 
 describe('ImagesComponent', () => {
@@ -24,10 +30,17 @@ describe('ImagesComponent', () => {
     pruneImages: () => getMutationQueryMock(),
   };
 
+  const serverServiceMock: Partial<ServerService> = {
+    getDf: () => getQueryMock({ data: signal(getDfMock()) }),
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ImagesComponent],
-      providers: [{ provide: ImagesService, useValue: imagesServiceMock }],
+      providers: [
+        { provide: ImagesService, useValue: imagesServiceMock },
+        { provide: ServerService, useValue: serverServiceMock },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ImagesComponent);
@@ -52,5 +65,12 @@ describe('ImagesComponent', () => {
         e.textContent?.trim(),
       ),
     ).toEqual(['mschnr/boxfish', 'blob']);
+  });
+
+  it('should show layer size usage', () => {
+    fixture.detectChanges();
+    expect(getByTestId(fixture.nativeElement, 'images-size').textContent).toBe(
+      '12 GB layers size',
+    );
   });
 });

@@ -50,7 +50,7 @@
 }
 
 @if (images.isSuccess()) {
-  <p-table [value]="images.data()">
+  <p-table [value]="images.data()" selectionMode="single">
     <ng-template pTemplate="header">
       <tr>
         <th i18n>Name</th>
@@ -62,14 +62,10 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-image>
-      <tr>
-        <td data-testid="images-name">
+      <tr routerLink="/images/{{ image.id }}">
+        <td data-testid="images-name" class="cursor-pointer">
           @if (image.name) {
-            <a
-              routerLink="/images/{{ image.id }}"
-              class="text-blue-800 dark:text-blue-300 text-lg hover:underline"
-              >{{ image.name }}</a
-            >
+            {{ image.name }}
           } @else {
             <span class="text-muted-color italic">None</span>
           }
@@ -91,7 +87,7 @@
             [text]="true"
             [rounded]="true"
             [loading]="deleteImageMutation.isPending()"
-            (onClick)="deleteImage(image)"
+            (onClick)="deleteImage($event, image)"
             ><i class="fa-solid fa-trash"></i
           ></p-button>
         </td>

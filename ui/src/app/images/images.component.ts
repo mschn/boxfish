@@ -36,8 +36,9 @@ export class ImagesComponent {
 
   prettyBytes = prettyBytes;
 
-  deleteImage(image: Image) {
+  deleteImage(event: MouseEvent, image: Image) {
     this.deleteImageMutation.mutate(image.id);
+    event.stopPropagation();
   }
 
   pruneImages() {

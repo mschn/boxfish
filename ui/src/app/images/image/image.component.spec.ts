@@ -2,7 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { getByTestId, queryByTestId } from '@testing-library/dom';
+import {
+  getAllByTestId,
+  getByTestId,
+  queryByTestId,
+} from '@testing-library/dom';
 import { of } from 'rxjs';
 import { getImageMock } from '../../model/image.model';
 import { getLoadingQueryMock, getQueryMock } from '../../model/queries.mocks';
@@ -16,7 +20,7 @@ describe('ImageComponent', () => {
   const imagesServiceMock: Partial<ImagesService> = {
     getImages: () =>
       getQueryMock({
-        data: signal([getImageMock({ id: '123' })]),
+        data: signal([getImageMock()]),
       }),
   };
 
@@ -27,7 +31,12 @@ describe('ImageComponent', () => {
         { provide: ImagesService, useValue: imagesServiceMock },
         {
           provide: ActivatedRoute,
-          useValue: { paramMap: of({ get: () => '123' }) },
+          useValue: {
+            paramMap: of({
+              get: () =>
+                '443a1db32605fecbfa36ebe1a86c7a5cc358476eeb3c06f37b3629bd43a1c1a0',
+            }),
+          },
         },
       ],
     }).compileComponents();
@@ -58,5 +67,38 @@ describe('ImageComponent', () => {
     expect(
       getByTestId(fixture.nativeElement, 'image-version').textContent,
     ).toBe('1.0.2');
+  });
+
+  it('shows the image name in the title', () => {
+    Object.defineProperty(window, 'location', {
+      value: {
+        pathname:
+          'images/443a1db32605fecbfa36ebe1a86c7a5cc358476eeb3c06f37b3629bd43a1c1a0',
+      },
+    });
+    fixture.detectChanges();
+    expect(
+      getAllByTestId(fixture.nativeElement, 'breadcrumb-path').map((e) =>
+        e.textContent?.trim(),
+      ),
+    ).toEqual(['', 'images', 'mschnr/boxfish']);
+  });
+
+  it('shows the image short id in the title', () => {
+    Object.defineProperty(window, 'location', {
+      value: {
+        pathname:
+          'images/443a1db32605fecbfa36ebe1a86c7a5cc358476eeb3c06f37b3629bd43a1c1a0',
+      },
+    });
+    component.images = getQueryMock({
+      data: signal([getImageMock({ name: undefined })]),
+    });
+    fixture.detectChanges();
+    expect(
+      getAllByTestId(fixture.nativeElement, 'breadcrumb-path').map((e) =>
+        e.textContent?.trim(),
+      ),
+    ).toEqual(['', 'images', '5c7127e329c2']);
   });
 });

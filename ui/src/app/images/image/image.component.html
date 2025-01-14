@@ -11,7 +11,8 @@
 
 @let i = image();
 @if (i) {
-  <app-title>{{ i.name }}</app-title>
+  @let name = i.name ?? i.shortId;
+  <app-title [lastPath]="name">{{ name }}</app-title>
 
   <div class="mt-3">
     <table>

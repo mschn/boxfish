@@ -1,4 +1,4 @@
-import { Component, Signal, computed, inject } from '@angular/core';
+import { Component, Signal, computed, inject, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
@@ -10,6 +10,8 @@ import { filter } from 'rxjs';
 })
 export class TitleComponent {
   #router = inject(Router);
+
+  lastPath = input<string>();
 
   routerNavigationEnd = toSignal(
     this.#router.events.pipe(filter((event) => event instanceof NavigationEnd)),

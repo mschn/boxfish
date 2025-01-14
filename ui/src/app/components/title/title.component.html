@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-3 mt-2">
+<div class="flex flex-col gap-3 mt-2" data-testid="title-paths">
   @if (paths().length > 0) {
     <div class="flex flex-row items-center">
       <a
@@ -18,7 +18,7 @@
           <a
             routerLink="{{ p.url }}"
             data-testid="breadcrumb-path"
-            class="text-gray-700 dark:text-gray-300 underline max-w-32 inline-block truncate"
+            class="text-gray-700 dark:text-gray-300 underline max-w-48 inline-block truncate"
             >{{ p.path }}</a
           >
           <span class="text-gray-400 mx-2">
@@ -26,15 +26,19 @@
           </span>
         } @else {
           <span
-            class="text-gray-800 dark:text-gray-200 max-w-32 inline-block truncate"
+            class="text-gray-800 dark:text-gray-200 max-w-48 inline-block truncate"
+            data-testid="breadcrumb-path"
           >
-            {{ p.path }}
+            {{ lastPath() ?? p.path }}
           </span>
         }
       }
     </div>
   }
-  <h2 class="text-gray-800 dark:text-gray-200 text-2xl font-bold">
+  <h2
+    class="text-gray-800 dark:text-gray-200 text-2xl font-bold"
+    data-testid="title-content"
+  >
     <ng-content></ng-content>
   </h2>
 </div>

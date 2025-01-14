@@ -9,7 +9,7 @@ export type Status = 'up' | 'running' | 'exited' | 'created';
   </span>`,
 })
 export class StatusComponent {
-  status = input<string>('up');
+  status = input<string>('running');
 
   colors: Record<string, string> = {
     created: 'bg-blue-300 dark:bg-blue-700',

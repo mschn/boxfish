@@ -32,6 +32,11 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
         return { config: session?.config, info: await session?.docker.info() };
       });
 
+      app.get("/df", async (request) => {
+        const session = sessions.fromContext(request);
+        return session?.docker.df();
+      });
+
       app.get("/volumes", async (request, reply) => {
         const session = sessions.fromContext(request);
         return (await session?.docker.listVolumes())?.Volumes;

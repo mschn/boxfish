@@ -16,6 +16,7 @@ import {
 import { ImagesService } from '../services/images.service';
 import { ServerService } from '../services/server.service';
 import { ImagesComponent } from './images.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('ImagesComponent', () => {
   let component: ImagesComponent;
@@ -40,6 +41,7 @@ describe('ImagesComponent', () => {
       providers: [
         { provide: ImagesService, useValue: imagesServiceMock },
         { provide: ServerService, useValue: serverServiceMock },
+        { provide: ActivatedRoute, useValue: {} },
       ],
     }).compileComponents();
 

@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import {
   injectMutation,
   injectQuery,
-  injectQueryClient,
+  QueryClient,
 } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
@@ -15,10 +15,10 @@ import { API_URL, ServerError } from '../model/server.model';
 })
 export class ImagesService {
   #http = inject(HttpClient);
-  #client = injectQueryClient();
+  #client = inject(QueryClient);
 
   getImages = () =>
-    injectQuery<Dockerode.ImageInfo[], ServerError, Image[], string[]>(() => ({
+    injectQuery<Dockerode.ImageInfo[], ServerError, Image[]>(() => ({
       queryKey: ['images'],
       queryFn: () =>
         lastValueFrom(

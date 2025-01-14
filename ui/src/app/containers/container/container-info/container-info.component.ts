@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
@@ -22,5 +22,10 @@ export class ContainerInfoComponent {
     { initialValue: '' },
   );
 
-  container = this.#containerService.getContainer(this.#idFromRoute);
+  containers = this.#containerService.getContainers();
+  container = computed(() =>
+    this.containers
+      .data()
+      ?.find((container) => container.id === this.#idFromRoute()),
+  );
 }

@@ -3,12 +3,11 @@ import { inject, Injectable, Signal } from '@angular/core';
 import {
   injectMutation,
   injectQuery,
-  injectQueryClient,
+  QueryClient,
 } from '@tanstack/angular-query-experimental';
 import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
 import {
-  buildContainer,
   buildContainers,
   buildStacks,
   Container,
@@ -21,8 +20,7 @@ import { API_URL, ServerError } from '../model/server.model';
 })
 export class ContainerService {
   #http = inject(HttpClient);
-  #client = injectQueryClient();
-
+  #client = inject(QueryClient);
   getContainers = () =>
     injectQuery<Dockerode.ContainerInfo[], ServerError, Container[], string[]>(
       () => ({
@@ -67,22 +65,6 @@ export class ContainerService {
         onSuccess: () => {
           this.#client.invalidateQueries({ queryKey: ['containers'] });
         },
-      }),
-    );
-
-  getContainer = (id: Signal<string>) =>
-    injectQuery<Dockerode.ContainerInfo, ServerError, Container, string[]>(
-      () => ({
-        queryKey: ['containers', id()],
-        enabled: id() !== '',
-        queryFn: () =>
-          lastValueFrom(
-            this.#http.get<Dockerode.ContainerInfo>(
-              `${API_URL}containers/${id()}`,
-              { withCredentials: true },
-            ),
-          ),
-        select: (container) => buildContainer(container),
       }),
     );
 

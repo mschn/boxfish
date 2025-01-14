@@ -1,7 +1,8 @@
-@if (container.isSuccess()) {
+@let c = container();
+@if (c) {
   <app-title>
-    <app-status [status]="container.data().state"></app-status>
-    {{ container.data().name }}</app-title
+    <app-status [status]="c.state"></app-status>
+    {{ c.name }}</app-title
   >
 }
 

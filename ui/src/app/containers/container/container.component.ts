@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import {
   ActivatedRoute,
@@ -38,7 +38,12 @@ export class ContainerComponent {
     ),
     { initialValue: '' },
   );
-  container = this.#containerService.getContainer(this.idFromRoute);
+  containers = this.#containerService.getContainers();
+  container = computed(() =>
+    this.containers
+      .data()
+      ?.find((container) => container.id === this.idFromRoute()),
+  );
 
   links = [
     {

@@ -43,6 +43,7 @@ export const getLoadingQueryMock = <T, E>(
     isError: signal(false),
     isLoading: signal(true),
     isSuccess: signal(false),
+    data: signal(undefined),
   } as unknown as Partial<CreateQueryResult<T, E>>);
 
 export const getMutationQueryMock = <T, E, V, C>(

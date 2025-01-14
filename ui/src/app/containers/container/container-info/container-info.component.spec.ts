@@ -19,9 +19,9 @@ describe('ContainerInfoComponent', () => {
   let fixture: ComponentFixture<ContainerInfoComponent>;
 
   const containerServiceMock: Partial<ContainerService> = {
-    getContainer: () =>
+    getContainers: () =>
       getQueryMock({
-        data: signal(getContainerMock()),
+        data: signal([getContainerMock({ id: '123' })]),
       }),
   };
 
@@ -30,7 +30,10 @@ describe('ContainerInfoComponent', () => {
       imports: [ContainerInfoComponent],
       providers: [
         { provide: ContainerService, useValue: containerServiceMock },
-        { provide: ActivatedRoute, useValue: { paramMap: of({}) } },
+        {
+          provide: ActivatedRoute,
+          useValue: { paramMap: of({ get: () => '123' }) },
+        },
       ],
     }).compileComponents();
 
@@ -44,7 +47,7 @@ describe('ContainerInfoComponent', () => {
   });
 
   it('should not display data when the query is loading', () => {
-    component.container = getLoadingQueryMock();
+    component.containers = getLoadingQueryMock();
     fixture.detectChanges();
     expect(queryByTestId(fixture.nativeElement, 'container-image')).toBeFalsy();
   });

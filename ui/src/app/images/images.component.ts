@@ -8,6 +8,7 @@ import { Image } from '../model/image.model';
 import prettyBytes from 'pretty-bytes';
 import { TitleComponent } from '../components/title/title.component';
 import { ServerService } from '../services/server.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-images',
@@ -17,6 +18,7 @@ import { ServerService } from '../services/server.service';
     ImagesPlaceholderComponent,
     ButtonModule,
     TitleComponent,
+    RouterLink,
   ],
   templateUrl: './images.component.html',
   host: {

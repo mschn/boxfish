@@ -25,7 +25,12 @@ export class ContainerTerminalComponent {
     { initialValue: '' },
   );
 
-  container = this.#containerService.getContainer(this.#idFromRoute);
+  containers = this.#containerService.getContainers();
+  container = computed(() =>
+    this.containers
+      .data()
+      ?.find((container) => container.id === this.#idFromRoute()),
+  );
   exec = this.#containerService.exec();
 
   coloredOutput = computed(() => {
@@ -38,10 +43,11 @@ export class ContainerTerminalComponent {
   cmd = '';
 
   onExec() {
-    if (this.container.isSuccess()) {
+    const container = this.container();
+    if (container !== undefined) {
       const cmd = ['/bin/sh', '-c', this.cmd];
       this.cmd = '';
-      this.exec.mutate({ id: this.container.data().id, cmd });
+      this.exec.mutate({ id: container.id, cmd });
     }
   }
 }

@@ -65,7 +65,11 @@
       <tr>
         <td data-testid="images-name">
           @if (image.name) {
-            {{ image.name }}
+            <a
+              routerLink="/images/{{ image.id }}"
+              class="text-blue-800 dark:text-blue-300 text-lg hover:underline"
+              >{{ image.name }}</a
+            >
           } @else {
             <span class="text-muted-color italic">None</span>
           }
@@ -77,7 +81,7 @@
             <span class="text-muted-color italic">None</span>
           }
         </td>
-        <td>{{ image.id }}</td>
+        <td>{{ image.shortId }}</td>
         <td>{{ image.created }}</td>
         <td>{{ image.size }}</td>
         <td>

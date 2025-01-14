@@ -16,9 +16,9 @@ describe('ContainerTerminalComponent', () => {
   let fixture: ComponentFixture<ContainerTerminalComponent>;
 
   const containerServiceMock: Partial<ContainerService> = {
-    getContainer: () =>
+    getContainers: () =>
       getQueryMock({
-        data: signal(getContainerMock()),
+        data: signal([getContainerMock({ id: '123' })]),
       }),
     exec: () =>
       getMutationQueryMock({ mutate: jest.fn(), data: signal('exec result') }),
@@ -37,7 +37,10 @@ describe('ContainerTerminalComponent', () => {
           useValue: containerServiceMock,
         },
         { provide: HtmlService, useValue: htmlServiceMock },
-        { provide: ActivatedRoute, useValue: { parent: { paramMap: of({}) } } },
+        {
+          provide: ActivatedRoute,
+          useValue: { parent: { paramMap: of({ get: () => '123' }) } },
+        },
       ],
     }).compileComponents();
 

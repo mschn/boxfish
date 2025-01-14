@@ -1,23 +1,21 @@
-@if (container.isSuccess()) {
+@let c = container();
+
+@if (c) {
   <div class="grid grid-cols-3 mt-3 gap-y-3 dark:text-gray-200">
     <div class="font-semibold" i18n>Image</div>
-    <div class="col-span-2" data-testid="container-image">{{
-      container.data().image
-    }}</div>
+    <div class="col-span-2" data-testid="container-image">{{ c.image }}</div>
 
     <div class="font-semibold" i18n>Status</div>
-    <div class="col-span-2" data-testid="container-status">{{
-      container.data().status
-    }}</div>
+    <div class="col-span-2" data-testid="container-status">{{ c.status }}</div>
 
     <div class="font-semibold" i18n>Created</div>
     <div class="col-span-2" data-testid="container-date">{{
-      container.data().createdDate | date
+      c.createdDate | date
     }}</div>
 
     <div class="font-semibold" i18n>Ports</div>
     <div class="col-span-2">
-      @for (port of container.data().ports; track port.url) {
+      @for (port of c.ports; track port.url) {
         <div data-testid="container-port">
           {{ port.ip }}:{{ port.publicPort }} → {{ port.privatePort }}/{{
             port.type

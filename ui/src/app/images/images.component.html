@@ -1,12 +1,14 @@
 <div class="flex flex-row mb-3">
-  <app-title><span i18n>Images</span></app-title>
+  <app-title><span i18n>Images</span> </app-title>
 
-  <p-button
-    class="ml-auto"
-    [loading]="pruneMutation.isPending()"
-    (onClick)="pruneImages()"
-    ><i class="fa-solid fa-trash"></i><span i18n>Prune</span></p-button
-  >
+  <div class="ml-auto flex flex-col text-right gap-3">
+    <p-button [loading]="pruneMutation.isPending()" (onClick)="pruneImages()"
+      ><i class="fa-solid fa-trash"></i><span i18n>Prune</span></p-button
+    >
+    <span i18n data-testid="images-size" class="text-sm ml-auto"
+      >{{ df.data()?.layersSizeFormatted }} layers size</span
+    >
+  </div>
 </div>
 
 @if (images.isError()) {

@@ -39,6 +39,7 @@ export class ImagesService {
         ),
       onSuccess: () => {
         this.#client.invalidateQueries({ queryKey: ['images'] });
+        this.#client.invalidateQueries({ queryKey: ['server'] });
       },
     }));
 
@@ -57,6 +58,7 @@ export class ImagesService {
           ),
         onSuccess: () => {
           this.#client.invalidateQueries({ queryKey: ['images'] });
+          this.#client.invalidateQueries({ queryKey: ['server'] });
         },
       }),
     );

@@ -6,7 +6,7 @@ export class ContainersRow {
   image: Locator;
 
   constructor(readonly page: Page, readonly base: Locator) {
-    this.name = this.base.getByTestId("containers-name").getByRole("link");
+    this.name = this.base.getByTestId("containers-name");
     this.image = this.base.getByTestId("containers-image");
   }
 

@@ -43,16 +43,19 @@ export class ContainersComponent {
 
   prettyBytes = prettyBytes;
 
-  startContainer(id: string) {
+  startContainer(event: MouseEvent, id: string) {
     this.start.mutate(id);
+    event.stopPropagation();
   }
 
-  stopContainer(id: string) {
+  stopContainer(event: MouseEvent, id: string) {
     this.stop.mutate(id);
+    event.stopPropagation();
   }
 
-  removeContainer(id: string) {
+  removeContainer(event: MouseEvent, id: string) {
     this.remove.mutate(id);
+    event.stopPropagation();
   }
 
   pruneContainers() {

@@ -47,7 +47,11 @@
 }
 
 @if (containers.isSuccess()) {
-  <p-table [value]="containers.data()" tableStyleClass="table-fixed">
+  <p-table
+    [value]="containers.data()"
+    tableStyleClass="table-fixed"
+    selectionMode="single"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th i18n class="w-1/6">Name</th>
@@ -59,7 +63,11 @@
     </ng-template>
 
     <ng-template pTemplate="body" let-container>
-      <tr data-testid="containers-row">
+      <tr
+        data-testid="containers-row"
+        class="cursor-pointer"
+        routerLink="/containers/{{ container.id }}"
+      >
         <td
           class="whitespace-nowrap overflow-ellipsis overflow-hidden"
           data-testid="containers-name"
@@ -70,11 +78,7 @@
           >
             <app-status [status]="container.state"></app-status>
           </span>
-          <a
-            routerLink="/containers/{{ container.id }}"
-            class="text-blue-800 dark:text-blue-300 text-lg hover:underline ml-2"
-            >{{ container.name }}</a
-          >
+          {{ container.name }}
         </td>
         <td
           class="whitespace-nowrap overflow-ellipsis overflow-hidden"
@@ -89,6 +93,7 @@
               target="_blank"
               rel="noopener"
               class="text-blue-800 dark:text-blue-300 mr-2 hover:underline"
+              (click)="$event.stopPropagation()"
               >{{ port.publicPort }}</a
             >
           }
@@ -101,7 +106,7 @@
               [text]="true"
               [rounded]="true"
               [loading]="start.isPending() || stop.isPending()"
-              (onClick)="stopContainer(container.id)"
+              (onClick)="stopContainer($event, container.id)"
               ><i class="fa-solid fa-stop"></i
             ></p-button>
           } @else {
@@ -111,7 +116,7 @@
               [text]="true"
               [rounded]="true"
               [loading]="start.isPending() || stop.isPending()"
-              (onClick)="startContainer(container.id)"
+              (onClick)="startContainer($event, container.id)"
               ><i class="fa-solid fa-play"></i
             ></p-button>
           }
@@ -121,7 +126,7 @@
             [text]="true"
             [rounded]="true"
             [loading]="remove.isPending()"
-            (onClick)="removeContainer(container.id)"
+            (onClick)="removeContainer($event, container.id)"
             ><i class="fa-solid fa-trash"></i
           ></p-button>
         </td>

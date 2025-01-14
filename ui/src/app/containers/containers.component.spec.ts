@@ -61,8 +61,8 @@ describe('ContainersComponent', () => {
   it('should display 2 containers', () => {
     fixture.detectChanges();
     expect(
-      getAllByTestId(fixture.nativeElement, 'containers-name').map(
-        (e) => e.textContent,
+      getAllByTestId(fixture.nativeElement, 'containers-name').map((e) =>
+        e.textContent?.trim(),
       ),
     ).toEqual(['aaa', 'bbb']);
   });

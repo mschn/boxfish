@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { getByAltText, getByTestId } from '@testing-library/dom';
+import { getDfMock } from '../model/df.model';
 import { getQueryMock } from '../model/queries.mocks';
 import { getServerInfoMock } from '../model/server.model';
 import { ServerService } from '../services/server.service';
@@ -13,12 +15,16 @@ describe('HomeComponent', () => {
 
   const serverServiceMock: Partial<ServerService> = {
     getServerInfo: () => getQueryMock({ data: signal(getServerInfoMock()) }),
+    getDf: () => getQueryMock({ data: signal(getDfMock()) }),
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HomeComponent],
-      providers: [{ provide: ServerService, useValue: serverServiceMock }],
+      providers: [
+        { provide: ServerService, useValue: serverServiceMock },
+        { provide: ActivatedRoute, useValue: {} },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
@@ -38,6 +44,9 @@ describe('HomeComponent', () => {
     expect(
       getByTestId(fixture.nativeElement, 'server-images').textContent,
     ).toBe('4 images');
+    expect(
+      getByTestId(fixture.nativeElement, 'server-images-size').textContent,
+    ).toBe('12 GB layers size');
     expect(getByTestId(fixture.nativeElement, 'server-cpus').textContent).toBe(
       '2 CPUs',
     );

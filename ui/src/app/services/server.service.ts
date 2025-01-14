@@ -5,6 +5,7 @@ import {
   injectQuery,
 } from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
+import { buildDf, Df, DfResponse } from '../model/df.model';
 import { API_URL, ServerError, ServerInfo } from '../model/server.model';
 
 @Injectable({
@@ -30,5 +31,17 @@ export class ServerService {
             withCredentials: true,
           }),
         ),
+    }));
+
+  getDf = () =>
+    injectQuery<DfResponse, ServerError, Df>(() => ({
+      queryKey: ['df'],
+      queryFn: () =>
+        lastValueFrom(
+          this.#http.get<DfResponse>(`${API_URL}df`, {
+            withCredentials: true,
+          }),
+        ),
+      select: (response) => buildDf(response),
     }));
 }

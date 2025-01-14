@@ -11,6 +11,7 @@ export interface ServerInfo {
     OperatingSystem: string;
     OSType: string;
     ServerVersion: string;
+    Name: string;
   };
 }
 
@@ -30,6 +31,7 @@ export function getServerInfoMock(props: Partial<ServerInfo> = {}): ServerInfo {
       OperatingSystem: 'Ubuntu 24.04.1 LTS',
       OSType: 'linux',
       ServerVersion: '27.3.1',
+      Name: 'docker',
     },
     ...props,
   };

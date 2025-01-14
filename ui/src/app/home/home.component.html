@@ -1,56 +1,92 @@
-<div>
-  <img
-    [src]="logo()"
-    alt="boxfish logo"
-    class="opacity-80"
-    style="width: 256px"
-  />
-</div>
-
-@if (server.isFetching()) {
-  <app-home-placeholder></app-home-placeholder>
-} @else if (server.isSuccess()) {
-  <div class="dark:text-gray-200">
-    @if (serverConfig()?.socketPath) {
-      <h2 class="text-2xl font-bold mb-3 mt-1">
-        <i class="fa-brands fa-docker"></i> {{ serverConfig()?.socketPath }}
-      </h2>
-    }
-
-    <div>
-      <i class="mr-2 fa-regular fa-cube"></i>
-      <span i18n data-testid="server-containers"
-        >{{ serverInfo()?.Containers }} containers</span
+<div class="flex flex-col gap-16 w-fit mx-auto mt-10">
+  <div class="flex flex-row gap-16">
+    <img
+      [src]="logo()"
+      alt="boxfish logo"
+      class="opacity-60"
+      style="width: 148px"
+    />
+    <div class="flex flex-col gap-4">
+      <div class="text-4xl text-primary font-semibold">Boxfish</div>
+      <div class="text-3xl" i18n>the UI for Docker</div>
+      <div class="flex gap-4"
+        ><p-button size="large" routerLink="/containers"
+          ><i class="fa-regular fa-cube"></i
+          ><span i18n>Containers</span></p-button
+        ><p-button size="large" severity="secondary" routerLink="/images"
+          ><i class="fa-regular fa-images"></i
+          ><span i18n>Images</span></p-button
+        ></div
       >
     </div>
-    <div>
-      <i class="mr-2 fa-regular fa-images"></i>
-      <span i18n data-testid="server-images"
-        >{{ serverInfo()?.Images }} images</span
-      >
-    </div>
-    <div>
-      <i class="mr-2 fa-regular fa-microchip"></i>
-      <span i18n data-testid="server-cpus">{{ serverInfo()?.NCPU }} CPUs</span>
-    </div>
-    <div
-      ><i class="mr-2 fa-regular fa-memory"></i>
-      <span i18n data-testid="server-memory">{{ memory() }} RAM</span></div
-    >
-    <div
-      ><i class="mr-2 fa-regular fa-computer"></i>
-      <span data-testid="server-host">
-        <span i18n>Host</span>
-        {{ serverInfo()?.OSType }} {{ serverInfo()?.OperatingSystem }} ({{
-          serverInfo()?.Architecture
-        }})</span
-      ></div
-    >
-    <div
-      ><i class="mr-2 fa-brands fa-docker"></i>
-      <span i18n data-testid="server-version"
-        >Docker version {{ serverInfo()?.ServerVersion }}</span
-      ></div
-    >
   </div>
-}
+
+  <div
+    class="border dark:border-gray-800 p-3 shadow-lg rounded-lg text-xl bg-gray-50 dark:bg-gray-900"
+  >
+    @if (server.isFetching() || df.isFetching()) {
+      <app-home-placeholder></app-home-placeholder>
+    } @else if (server.isSuccess() && df.isSuccess()) {
+      <div class="dark:text-gray-200 flex flex-col gap-2">
+        <h2 class="text-2xl font-bold mb-3 mt-1">
+          <app-status></app-status>
+          {{ serverInfo()?.Name }}
+        </h2>
+
+        <div>
+          <i class="mr-2 fa-regular fa-cube"></i>
+          <span i18n data-testid="server-containers"
+            >{{ serverInfo()?.Containers }} containers</span
+          >
+        </div>
+
+        <div>
+          <i class="mr-2 fa-regular fa-images"></i>
+          <span i18n data-testid="server-images"
+            >{{ serverInfo()?.Images }} images</span
+          >
+        </div>
+
+        <div>
+          <i class="mr-2 fa-regular fa-hard-drive"></i>
+          <span i18n data-testid="server-images-size"
+            >{{ df.data()?.layersSizeFormatted }} layers size</span
+          >
+        </div>
+
+        <div>
+          <i class="mr-2 fa-regular fa-microchip"></i>
+          <span i18n data-testid="server-cpus"
+            >{{ serverInfo()?.NCPU }} CPUs</span
+          >
+        </div>
+        <div
+          ><i class="mr-2 fa-regular fa-memory"></i>
+          <span i18n data-testid="server-memory">{{ memory() }} RAM</span></div
+        >
+
+        <div>
+          @if (serverConfig()?.socketPath) {
+            <i class="fa-solid fa-plug"></i> {{ serverConfig()?.socketPath }}
+          }
+        </div>
+
+        <div
+          ><i class="mr-2 fa-regular fa-computer"></i>
+          <span data-testid="server-host">
+            <span i18n>Host</span>
+            {{ serverInfo()?.OSType }} {{ serverInfo()?.OperatingSystem }} ({{
+              serverInfo()?.Architecture
+            }})</span
+          ></div
+        >
+        <div
+          ><i class="mr-2 fa-brands fa-docker"></i>
+          <span i18n data-testid="server-version"
+            >Docker version {{ serverInfo()?.ServerVersion }}</span
+          ></div
+        >
+      </div>
+    }
+  </div>
+</div>

@@ -6,11 +6,17 @@ import { filter, map } from 'rxjs';
 import { TitleComponent } from '../../components/title/title.component';
 import { ImagesService } from '../../services/images.service';
 import { ImagePlaceholderComponent } from './image-placeholder.component';
+import { ImageHistoryComponent } from './image-history/image-history.component';
 
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
-  imports: [MessageModule, ImagePlaceholderComponent, TitleComponent],
+  imports: [
+    MessageModule,
+    ImagePlaceholderComponent,
+    TitleComponent,
+    ImageHistoryComponent,
+  ],
   host: {
     class: 'w-full',
   },

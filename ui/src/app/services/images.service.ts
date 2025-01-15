@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Signal } from '@angular/core';
 import {
   injectMutation,
   injectQuery,
@@ -9,6 +9,11 @@ import Dockerode from 'dockerode';
 import { lastValueFrom } from 'rxjs';
 import { buildImages, Image } from '../model/image.model';
 import { API_URL, ServerError } from '../model/server.model';
+import {
+  buildImageHistory,
+  ImageHistory,
+  ImageHistoryResponse,
+} from '../model/image-history.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +32,21 @@ export class ImagesService {
           }),
         ),
       select: (images) => buildImages(images),
+    }));
+
+  getHistory = (id: Signal<string>) =>
+    injectQuery<ImageHistoryResponse[], ServerError, ImageHistory[]>(() => ({
+      queryKey: ['images', id(), 'history'],
+      queryFn: () =>
+        lastValueFrom(
+          this.#http.get<ImageHistoryResponse[]>(
+            `${API_URL}images/${id()}/history`,
+            {
+              withCredentials: true,
+            },
+          ),
+        ),
+      select: (response) => buildImageHistory(response),
     }));
 
   deleteImage = () =>

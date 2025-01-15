@@ -10,7 +10,17 @@ export function registerImages(fastify: FastifyInstance, sessions: Sessions) {
         return await session?.docker.listImages({ all: false });
       });
 
-      app.delete<{ Params: { id: string } }>("/:id", async (request, reply) => {
+      app.get<{ Params: { id: string } }>(
+        "/:id/history",
+        async (request, reply) => {
+          const id = request.params.id;
+          const session = sessions.fromContext(request);
+          const image = session?.docker.getImage(id);
+          return await image?.history();
+        }
+      );
+
+      app.delete<{ Params: { id: string } }>("/:id", async (request) => {
         const id = request.params.id;
         const session = sessions.fromContext(request);
         const image = session?.docker.getImage(id);

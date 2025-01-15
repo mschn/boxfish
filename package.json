@@ -3,7 +3,8 @@
     "@playwright/test": "^1.49.1",
     "@types/node": "^22.10.5",
     "husky": "^9.1.6",
-    "lint-staged": "^15.3.0"
+    "lint-staged": "^15.3.0",
+    "typescript": "~5.6.3"
   },
   "scripts": {
     "prepare": "husky",

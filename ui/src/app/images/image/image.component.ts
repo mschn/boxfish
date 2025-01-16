@@ -39,11 +39,11 @@ export class ImageComponent {
 
   links = [
     {
-      name: 'Image',
+      name: $localize`Image`,
       path: '',
     },
     {
-      name: 'History',
+      name: $localize`History`,
       path: 'history',
     },
   ];

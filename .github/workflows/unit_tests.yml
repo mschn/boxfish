@@ -22,5 +22,8 @@ jobs:
       - name: eslint
         run: npm run eslint:ci --prefix ui
 
+      - name: Validate i18n
+        run: npm run validate-i18n --prefix ui
+
       - name: Unit tests
         run: npm run test:coverage --prefix ui

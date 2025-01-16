@@ -19,6 +19,9 @@ jobs:
       - name: eslint
         run: npm run eslint:ci --prefix ui
 
+      - name: Validate i18n
+        run: npm run validate-i18n --prefix ui
+
       - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           working-directory: ui

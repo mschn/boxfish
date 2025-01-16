@@ -1,16 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
 # Default linux sock address
 SOCK="/var/run/docker.sock"
 
 # Windows Cygwin with docker desktop
-if [ $(uname -s) == MINGW* ]; then
+if echo "$(uname -s)" | grep "MINGW"; then
     SOCK="//var/run/docker.sock"  
 fi
 
 # Mac OS colima
-if [ -e "~/.colima/docker.sock" ]; then
-    SOCK="~/.colima/docker.sock"
+if [ -e "${HOME}/.colima/docker.sock" ]; then
+    SOCK="${HOME}/.colima/docker.sock"
 fi
 
 docker run -d \

@@ -17,6 +17,5 @@ COPY ./server/package* /app/server/
 RUN npm ci
 COPY ./server /app/server
 
-
 EXPOSE 3000
-ENTRYPOINT ["/usr/local/bin/npm", "run", "start"]
+ENTRYPOINT ["npm", "run", "start:prod"]

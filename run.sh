@@ -4,7 +4,7 @@
 SOCK="/var/run/docker.sock"
 
 # Windows Cygwin with docker desktop
-if [[ $(uname -s) == MINGW* ]]; then
+if [ $(uname -s) == MINGW* ]; then
     SOCK="//var/run/docker.sock"  
 fi
 
@@ -13,7 +13,7 @@ if [ -e "~/.colima/docker.sock" ]; then
     SOCK="~/.colima/docker.sock"
 fi
 
-docker run \
+docker run -d \
     --rm \
     --name boxfish \
     -p 3000:3000 \

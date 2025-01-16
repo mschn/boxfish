@@ -13,7 +13,7 @@ if [ -e "~/.colima/docker.sock" ]; then
     SOCK="~/.colima/docker.sock"
 fi
 
-docker run -d \
+docker run \
     --rm \
     --name boxfish \
     -p 3000:3000 \

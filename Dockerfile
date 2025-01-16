@@ -6,16 +6,19 @@ COPY ./ui/package*.json /app/ui/
 RUN npm ci
 COPY ./ui /app/ui
 RUN npm run build
-RUN npm prune --omit=dev
-
-FROM node:18-alpine
-WORKDIR /app
-COPY --from=build /app/ui/dist /app/ui/dist
 
 WORKDIR /app/server
 COPY ./server/package* /app/server/
 RUN npm ci
 COPY ./server /app/server
+RUN npx tsc
+RUN npm prune --production
+
+FROM node:18-alpine
+COPY --from=build /app/ui/dist /app/ui/dist
+COPY --from=build /app/server/dist /app/server/dist
+COPY --from=build /app/server/node_modules /app/server/node_modules
+WORKDIR /app/server
 
 EXPOSE 3000
-ENTRYPOINT ["npm", "run", "start:prod"]
+ENTRYPOINT ["node", "dist/server.js"]

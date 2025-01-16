@@ -19,7 +19,7 @@
             routerLink="{{ p.url }}"
             data-testid="breadcrumb-path"
             class="text-gray-700 dark:text-gray-300 underline max-w-48 inline-block truncate"
-            >{{ p.path }}</a
+            >{{ p.pathMap }}</a
           >
           <span class="text-gray-400 mx-2">
             <i class="mr-2 fa-regular fa-chevron-right"></i>
@@ -29,7 +29,7 @@
             class="text-gray-800 dark:text-gray-200 max-w-48 inline-block truncate"
             data-testid="breadcrumb-path"
           >
-            {{ p.path }}
+            {{ p.pathMap }}
           </span>
         }
       }

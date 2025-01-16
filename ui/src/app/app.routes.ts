@@ -47,6 +47,22 @@ export const routes: Routes = [
     path: 'images/:id',
     loadComponent: () =>
       import('./images/image/image.component').then((c) => c.ImageComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./images/image/image-info/image-info.component').then(
+            (c) => c.ImageInfoComponent,
+          ),
+      },
+      {
+        path: 'history',
+        loadComponent: () =>
+          import('./images/image/image-history/image-history.component').then(
+            (c) => c.ImageHistoryComponent,
+          ),
+      },
+    ],
   },
   {
     path: 'volumes',

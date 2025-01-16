@@ -27,9 +27,11 @@ describe('ImageHistoryComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of({
-              get: () => 'abc123',
-            }),
+            parent: {
+              paramMap: of({
+                get: () => 'abc123',
+              }),
+            },
           },
         },
       ],

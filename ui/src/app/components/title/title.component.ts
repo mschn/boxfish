@@ -27,7 +27,8 @@ export class TitleComponent {
       .filter((p) => p.length > 0)
       .map((p) => ({
         url: '',
-        path: this.pathMap()[p] ?? p,
+        path: p,
+        pathMap: this.pathMap()[p] ?? p,
       }));
     paths.reduce((acc, cur) => {
       const url = `${acc}/${cur.path}`;

@@ -13,7 +13,7 @@ export class ImageHistoryComponent {
   #imageService = inject(ImagesService);
   #route = inject(ActivatedRoute);
   #idFromRoute = toSignal(
-    this.#route.paramMap.pipe(
+    this.#route.parent!.paramMap.pipe(
       map((paramMap) => paramMap.get('id')),
       filter(Boolean),
     ),

@@ -11,30 +11,25 @@
 
 @let i = image();
 @if (i) {
-  <div class="flex flex-col gap-3">
-    <app-title [pathMap]="titlePathMap()">{{ i.name ?? i.shortId }}</app-title>
-
-    <table>
-      <tr>
-        <td class="p-2 border-b">Version</td>
-        <td class="p-2 border-b" data-testid="image-version">{{
-          i.version ?? "-"
-        }}</td>
-      </tr>
-      <tr>
-        <td class="p-2 border-b">ID</td>
-        <td class="p-2 border-b">{{ i.id }}</td>
-      </tr>
-      <tr>
-        <td class="p-2 border-b">Size</td>
-        <td class="p-2 border-b">{{ i.size }}</td>
-      </tr>
-      <tr>
-        <td class="p-2 border-b">Created</td>
-        <td class="p-2 border-b">{{ i.created }}</td>
-      </tr>
-    </table>
-
-    <app-image-history></app-image-history>
-  </div>
+  <app-title [pathMap]="titlePathMap()">{{ i.name ?? i.shortId }}</app-title>
 }
+
+<div class="mt-3">
+  @for (link of links; track link.name) {
+    <a
+      routerLink="/images/{{ idFromRoute() }}/{{ link.path }}"
+      class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4"
+      routerLinkActive="text-gray-900 dark:text-gray-200"
+      #rla="routerLinkActive"
+      [ngClass]="{
+        'border-blue-500': rla.isActive,
+        'border-transparent': !rla.isActive,
+      }"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{ link.name }}</a
+    >
+  }
+  <div class="border-t border-gray-200 dark:border-gray-700 py-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>

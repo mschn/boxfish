@@ -64,16 +64,6 @@ describe('ImageComponent', () => {
     expect(queryByTestId(fixture.nativeElement, 'image-version')).toBeFalsy();
   });
 
-  it('should show an image', () => {
-    fixture.detectChanges();
-    expect(
-      queryByTestId(fixture.nativeElement, 'image-placeholder'),
-    ).toBeFalsy();
-    expect(
-      getByTestId(fixture.nativeElement, 'image-version').textContent,
-    ).toBe('1.0.2');
-  });
-
   it('shows the image name in the title', () => {
     Object.defineProperty(window, 'location', {
       value: {

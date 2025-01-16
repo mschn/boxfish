@@ -40,15 +40,15 @@ export class ContainerComponent {
 
   links = [
     {
-      name: 'Container',
+      name: $localize`Container`,
       path: '',
     },
     {
-      name: 'Logs',
+      name: $localize`Logs`,
       path: 'logs',
     },
     {
-      name: 'Terminal',
+      name: $localize`Terminal`,
       path: 'terminal',
     },
   ];

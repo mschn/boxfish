@@ -1,6 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { Stream } from "stream";
 import { Sessions } from "../session";
+import { validateId } from "./validation";
 
 export function registerContainers(
   fastify: FastifyInstance,
@@ -29,6 +30,7 @@ export function registerContainers(
 
       app.put<{ Params: { id: string } }>(
         "/:id/stop",
+        { preValidation: validateId },
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);
@@ -37,15 +39,20 @@ export function registerContainers(
         }
       );
 
-      app.delete<{ Params: { id: string } }>("/:id", async (request, reply) => {
-        const id = request.params.id;
-        const session = sessions.fromContext(request);
-        const container = session?.docker.getContainer(id);
-        await container?.remove();
-      });
+      app.delete<{ Params: { id: string } }>(
+        "/:id",
+        { preValidation: validateId },
+        async (request, reply) => {
+          const id = request.params.id;
+          const session = sessions.fromContext(request);
+          const container = session?.docker.getContainer(id);
+          await container?.remove();
+        }
+      );
 
       app.put<{ Params: { id: string } }>(
         "/:id/start",
+        { preValidation: validateId },
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);
@@ -56,6 +63,7 @@ export function registerContainers(
 
       app.post<{ Params: { id: string }; Body: { cmd: string[] } }>(
         "/:id/exec",
+        { preValidation: validateId },
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);
@@ -74,6 +82,7 @@ export function registerContainers(
 
       app.get<{ Params: { id: string } }>(
         "/:id/logs",
+        { preValidation: validateId },
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);

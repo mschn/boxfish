@@ -1,13 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { getByTestId } from '@testing-library/dom';
-import { of } from 'rxjs';
 import { getImageHistoryMock } from '../../../model/image-history.model';
 import { getImageMock } from '../../../model/image.model';
 import { getQueryMock } from '../../../model/queries.mocks';
 import { ImagesService } from '../../../services/images.service';
+import { RouteService } from '../../../services/route.service';
 import { ImageInfoComponent } from './image-info.component';
 
 describe('ImageInfoComponent', () => {
@@ -17,7 +16,7 @@ describe('ImageInfoComponent', () => {
   const imagesServiceMock: Partial<ImagesService> = {
     getImages: () =>
       getQueryMock({
-        data: signal([getImageMock()]),
+        data: signal([getImageMock({ id: '123' })]),
       }),
     getHistory: () =>
       getQueryMock({
@@ -31,13 +30,8 @@ describe('ImageInfoComponent', () => {
       providers: [
         { provide: ImagesService, useValue: imagesServiceMock },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            paramMap: of({
-              get: () =>
-                '443a1db32605fecbfa36ebe1a86c7a5cc358476eeb3c06f37b3629bd43a1c1a0',
-            }),
-          },
+          provide: RouteService,
+          useValue: { idFromRoute: signal('123') },
         },
       ],
     }).compileComponents();

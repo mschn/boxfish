@@ -1,16 +1,10 @@
 import { NgClass } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import {
-  ActivatedRoute,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MessageModule } from 'primeng/message';
-import { filter, map } from 'rxjs';
 import { TitleComponent } from '../../components/title/title.component';
 import { ImagesService } from '../../services/images.service';
+import { RouteService } from '../../services/route.service';
 import { ImagePlaceholderComponent } from './image-placeholder.component';
 
 @Component({
@@ -25,24 +19,18 @@ import { ImagePlaceholderComponent } from './image-placeholder.component';
     NgClass,
     RouterOutlet,
   ],
+  providers: [RouteService],
   host: {
     class: 'w-full',
   },
 })
 export class ImageComponent {
-  #route = inject(ActivatedRoute);
   #imageService = inject(ImagesService);
+  routeService = inject(RouteService);
 
-  idFromRoute = toSignal(
-    this.#route.paramMap.pipe(
-      map((paramMap) => paramMap.get('id')),
-      filter(Boolean),
-    ),
-    { initialValue: '' },
-  );
   images = this.#imageService.getImages();
   image = computed(() =>
-    this.images.data()?.find((i) => i.id === this.idFromRoute()),
+    this.images.data()?.find((i) => i.id === this.routeService.idFromRoute()),
   );
 
   titlePathMap = computed<Record<string, string>>(() => ({

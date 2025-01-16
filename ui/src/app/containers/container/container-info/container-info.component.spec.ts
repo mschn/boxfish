@@ -11,9 +11,8 @@ import {
   getQueryMock,
 } from '../../../model/queries.mocks';
 import { ContainerService } from '../../../services/container.service';
+import { RouteService } from '../../../services/route.service';
 import { ContainerInfoComponent } from './container-info.component';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
 describe('ContainerInfoComponent', () => {
   let component: ContainerInfoComponent;
   let fixture: ComponentFixture<ContainerInfoComponent>;
@@ -31,8 +30,8 @@ describe('ContainerInfoComponent', () => {
       providers: [
         { provide: ContainerService, useValue: containerServiceMock },
         {
-          provide: ActivatedRoute,
-          useValue: { paramMap: of({ get: () => '123' }) },
+          provide: RouteService,
+          useValue: { idFromRoute: signal('123') },
         },
       ],
     }).compileComponents();

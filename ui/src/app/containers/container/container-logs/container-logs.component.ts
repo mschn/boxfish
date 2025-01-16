@@ -1,9 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ContainerService } from '../../../services/container.service';
 import { HtmlService } from '../../../services/html.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map } from 'rxjs';
+import { RouteService } from '../../../services/route.service';
 
 @Component({
   selector: 'app-container-logs',
@@ -11,18 +9,13 @@ import { filter, map } from 'rxjs';
   templateUrl: './container-logs.component.html',
 })
 export class ContainerLogsComponent {
-  #route = inject(ActivatedRoute);
+  #routeService = inject(RouteService);
   #containerService = inject(ContainerService);
   #htmlService = inject(HtmlService);
-  #idFromRoute = toSignal(
-    this.#route.parent!.paramMap.pipe(
-      map((paramMap) => paramMap.get('id')),
-      filter(Boolean),
-    ),
-    { initialValue: '' },
-  );
 
-  logs = this.#containerService.getContainerLogs(this.#idFromRoute);
+  logs = this.#containerService.getContainerLogs(
+    this.#routeService.idFromRoute,
+  );
 
   coloredLogs = computed(() => {
     if (this.logs.isSuccess()) {

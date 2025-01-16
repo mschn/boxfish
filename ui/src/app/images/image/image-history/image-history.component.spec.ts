@@ -1,12 +1,11 @@
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { getAllByTestId } from '@testing-library/dom';
 import { getImageHistoryMock } from '../../../model/image-history.model';
 import { getQueryMock } from '../../../model/queries.mocks';
 import { ImagesService } from '../../../services/images.service';
+import { RouteService } from '../../../services/route.service';
 import { ImageHistoryComponent } from './image-history.component';
-import { getAllByTestId } from '@testing-library/dom';
 
 describe('ImageHistoryComponent', () => {
   let component: ImageHistoryComponent;
@@ -25,14 +24,8 @@ describe('ImageHistoryComponent', () => {
       providers: [
         { provide: ImagesService, useValue: imagesServiceMock },
         {
-          provide: ActivatedRoute,
-          useValue: {
-            parent: {
-              paramMap: of({
-                get: () => 'abc123',
-              }),
-            },
-          },
+          provide: RouteService,
+          useValue: { idFromRoute: signal('123') },
         },
       ],
     }).compileComponents();

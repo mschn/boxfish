@@ -1,9 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ImagesService } from '../../../services/images.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map } from 'rxjs';
 import { MessageModule } from 'primeng/message';
+import { ImagesService } from '../../../services/images.service';
+import { RouteService } from '../../../services/route.service';
 
 @Component({
   selector: 'app-image-info',
@@ -11,18 +9,11 @@ import { MessageModule } from 'primeng/message';
   imports: [MessageModule],
 })
 export class ImageInfoComponent {
-  #route = inject(ActivatedRoute);
+  #routeService = inject(RouteService);
   #imageService = inject(ImagesService);
 
-  idFromRoute = toSignal(
-    this.#route.paramMap.pipe(
-      map((paramMap) => paramMap.get('id')),
-      filter(Boolean),
-    ),
-    { initialValue: '' },
-  );
   images = this.#imageService.getImages();
   image = computed(() =>
-    this.images.data()?.find((i) => i.id === this.idFromRoute()),
+    this.images.data()?.find((i) => i.id === this.#routeService.idFromRoute()),
   );
 }

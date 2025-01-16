@@ -8,11 +8,11 @@ import {
   queryByTestId,
 } from '@testing-library/dom';
 import { of } from 'rxjs';
+import { getImageHistoryMock } from '../../model/image-history.model';
 import { getImageMock } from '../../model/image.model';
 import { getLoadingQueryMock, getQueryMock } from '../../model/queries.mocks';
 import { ImagesService } from '../../services/images.service';
 import { ImageComponent } from './image.component';
-import { getImageHistoryMock } from '../../model/image-history.model';
 
 describe('ImageComponent', () => {
   let component: ImageComponent;

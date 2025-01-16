@@ -7,9 +7,8 @@ import {
 } from '../../../model/queries.mocks';
 import { ContainerService } from '../../../services/container.service';
 import { HtmlService } from '../../../services/html.service';
+import { RouteService } from '../../../services/route.service';
 import { ContainerTerminalComponent } from './container-terminal.component';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
 
 describe('ContainerTerminalComponent', () => {
   let component: ContainerTerminalComponent;
@@ -38,8 +37,8 @@ describe('ContainerTerminalComponent', () => {
         },
         { provide: HtmlService, useValue: htmlServiceMock },
         {
-          provide: ActivatedRoute,
-          useValue: { parent: { paramMap: of({ get: () => '123' }) } },
+          provide: RouteService,
+          useValue: { idFromRoute: signal('123') },
         },
       ],
     }).compileComponents();

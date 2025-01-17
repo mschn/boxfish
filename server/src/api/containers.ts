@@ -11,21 +11,33 @@ export function registerContainers(
     (app) => {
       app.get("", async (request, reply) => {
         const session = sessions.fromContext(request);
-        return await session?.docker.listContainers({ all: true });
+        try {
+          return await session?.docker.listContainers({ all: true });
+        } catch (err: any) {
+          throw new Error(`Docker API error: ${err.message}`);
+        }
       });
 
       app.post("/prune", async (request, reply) => {
         const session = sessions.fromContext(request);
-        return session?.docker.pruneContainers();
+        try {
+          return await session?.docker.pruneContainers();
+        } catch (err: any) {
+          throw new Error(`Docker API error: ${err.message}`);
+        }
       });
 
       app.get<{ Params: { id: string } }>("/:id", async (request, reply) => {
         const id = request.params.id;
         const session = sessions.fromContext(request);
-        const containers = await session?.docker.listContainers({
-          all: true,
-        });
-        return containers?.find((c) => c.Id === id);
+        try {
+          const containers = await session?.docker.listContainers({
+            all: true,
+          });
+          return containers?.find((c) => c.Id === id);
+        } catch (err: any) {
+          throw new Error(`Docker API error: ${err.message}`);
+        }
       });
 
       app.put<{ Params: { id: string } }>(
@@ -34,8 +46,12 @@ export function registerContainers(
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);
-          const container = session?.docker.getContainer(id);
-          await container?.stop();
+          try {
+            const container = session?.docker.getContainer(id);
+            await container?.stop();
+          } catch (err) {
+            throw new Error("Docker API error", { cause: err });
+          }
         }
       );
 
@@ -45,8 +61,12 @@ export function registerContainers(
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);
-          const container = session?.docker.getContainer(id);
-          await container?.remove();
+          try {
+            const container = session?.docker.getContainer(id);
+            await container?.remove();
+          } catch (err) {
+            throw new Error("Docker API error", { cause: err });
+          }
         }
       );
 
@@ -56,8 +76,12 @@ export function registerContainers(
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);
-          const container = session?.docker.getContainer(id);
-          await container?.start();
+          try {
+            const container = session?.docker.getContainer(id);
+            await container?.start();
+          } catch (err) {
+            throw new Error("Docker API error", { cause: err });
+          }
         }
       );
 
@@ -67,16 +91,20 @@ export function registerContainers(
         async (request, reply) => {
           const id = request.params.id;
           const session = sessions.fromContext(request);
-          const container = session?.docker.getContainer(id);
-          const exec = await container?.exec({
-            AttachStdout: true,
-            Tty: true,
-            Cmd: request.body.cmd,
-          });
-          return await exec?.start({
-            Detach: false,
-            Tty: true,
-          });
+          try {
+            const container = session?.docker.getContainer(id);
+            const exec = await container?.exec({
+              AttachStdout: true,
+              Tty: true,
+              Cmd: request.body.cmd,
+            });
+            return await exec?.start({
+              Detach: false,
+              Tty: true,
+            });
+          } catch (err) {
+            throw new Error("Docker API error", { cause: err });
+          }
         }
       );
 

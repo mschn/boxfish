@@ -2,9 +2,9 @@
   <app-container-logs-placeholder></app-container-logs-placeholder>
 } @else {
   <pre
-    class="bg-gray-100 dark:bg-gray-800 dark:text-gray-100 p-3 text-sm whitespace-pre-wrap mt-3 rounded-md border border-gray-200 dark:border-gray-700"
+    class="overflow-auto p-3 bg-gray-100 dark:bg-gray-800 dark:text-gray-100 text-sm whitespace-pre-wrap rounded-md border border-gray-200 dark:border-gray-700"
     [innerHTML]="coloredLogs()"
+    #logs
   >
   </pre>
-  <div #scrollbot></div>
 }

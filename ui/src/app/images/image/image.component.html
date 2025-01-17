@@ -1,35 +1,37 @@
-@if (images.isLoading()) {
-  <app-image-placeholder></app-image-placeholder>
-}
-
-@if (images.isError()) {
-  <p-message closable severity="error">
-    <span class="font-bold" i18n>Failed to retrieve image:</span><br />
-    {{ images.error().error.message }}
-  </p-message>
-}
-
-@let i = image();
-@if (i) {
-  <app-title [pathMap]="titlePathMap()">{{ i.name ?? i.shortId }}</app-title>
-}
-
-<div class="mt-3">
-  @for (link of links; track link.name) {
-    <a
-      routerLink="/images/{{ routeService.idFromRoute() }}/{{ link.path }}"
-      class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4"
-      routerLinkActive="text-gray-900 dark:text-gray-200"
-      #rla="routerLinkActive"
-      [ngClass]="{
-        'border-blue-500': rla.isActive,
-        'border-transparent': !rla.isActive,
-      }"
-      [routerLinkActiveOptions]="{ exact: true }"
-      >{{ link.name }}</a
-    >
+<div class="p-3 overflow-auto h-full">
+  @if (images.isLoading()) {
+    <app-image-placeholder></app-image-placeholder>
   }
-  <div class="border-t border-gray-200 dark:border-gray-700 py-3">
-    <router-outlet></router-outlet>
+
+  @if (images.isError()) {
+    <p-message closable severity="error">
+      <span class="font-bold" i18n>Failed to retrieve image:</span><br />
+      {{ images.error().error.message }}
+    </p-message>
+  }
+
+  @let i = image();
+  @if (i) {
+    <app-title [pathMap]="titlePathMap()">{{ i.name ?? i.shortId }}</app-title>
+  }
+
+  <div class="mt-3">
+    @for (link of links; track link.name) {
+      <a
+        routerLink="/images/{{ routeService.idFromRoute() }}/{{ link.path }}"
+        class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4"
+        routerLinkActive="text-gray-900 dark:text-gray-200"
+        #rla="routerLinkActive"
+        [ngClass]="{
+          'border-blue-500': rla.isActive,
+          'border-transparent': !rla.isActive,
+        }"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >{{ link.name }}</a
+      >
+    }
+    <div class="border-t border-gray-200 dark:border-gray-700 py-3">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

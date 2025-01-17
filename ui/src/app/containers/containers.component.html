@@ -1,145 +1,147 @@
-<div class="flex flex-row mb-3">
-  <app-title><span i18n>Containers</span></app-title>
+<div class="p-3 overflow-auto h-full">
+  <div class="flex flex-row mb-3">
+    <app-title><span i18n>Containers</span></app-title>
 
-  <p-button
-    class="ml-auto"
-    [loading]="prune.isPending()"
-    (onClick)="pruneContainers()"
-    ><i class="fa-solid fa-trash"></i><span i18n>Prune</span></p-button
-  >
-</div>
-@if (containers.isError()) {
-  <p-message closable severity="error">
-    <span class="font-bold" i18n>Failed to retrieve containers:</span><br />
-    {{ containers.error().error.message }}
-  </p-message>
-}
-
-@if (prune.isError()) {
-  <p-message closable styleClass="mb-3" severity="error">
-    <span class="font-bold" i18n>Failed to prune containers:</span><br />
-    {{ prune.error().error.message }}
-  </p-message>
-}
-
-@if (remove.isError()) {
-  <p-message closable styleClass="mb-3" severity="error">
-    <span class="font-bold" i18n>Failed to remove container:</span><br />
-    {{ remove.error().error.message }}
-  </p-message>
-}
-
-@if (prune.data()) {
-  <p-message closable styleClass="mb-3" severity="info">
-    <div i18n
-      >Pruned
-      {{ prune.data()?.ContainersDeleted?.length ?? 0 }} containers.</div
+    <p-button
+      class="ml-auto"
+      [loading]="prune.isPending()"
+      (onClick)="pruneContainers()"
+      ><i class="fa-solid fa-trash"></i><span i18n>Prune</span></p-button
     >
-    <div i18n
-      >Freed {{ prettyBytes(prune.data()?.SpaceReclaimed ?? 0) }} disk
-      space.</div
-    >
-  </p-message>
-}
+  </div>
+  @if (containers.isError()) {
+    <p-message closable severity="error">
+      <span class="font-bold" i18n>Failed to retrieve containers:</span><br />
+      {{ containers.error().error.message }}
+    </p-message>
+  }
 
-@if (containers.isLoading()) {
-  <app-containers-placeholder></app-containers-placeholder>
-}
+  @if (prune.isError()) {
+    <p-message closable styleClass="mb-3" severity="error">
+      <span class="font-bold" i18n>Failed to prune containers:</span><br />
+      {{ prune.error().error.message }}
+    </p-message>
+  }
 
-@if (containers.isSuccess()) {
-  <p-table
-    [value]="containers.data()"
-    tableStyleClass="table-fixed"
-    selectionMode="single"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th i18n class="w-1/6">Name</th>
-        <th i18n class="w-1/3">Image</th>
-        <th i18n class="w-1/6">Stack</th>
-        <th i18n class="w-1/6">Ports</th>
-        <th i18n class="w-1/6">Actions</th>
-      </tr>
-    </ng-template>
+  @if (remove.isError()) {
+    <p-message closable styleClass="mb-3" severity="error">
+      <span class="font-bold" i18n>Failed to remove container:</span><br />
+      {{ remove.error().error.message }}
+    </p-message>
+  }
 
-    <ng-template pTemplate="body" let-container>
-      <tr
-        data-testid="containers-row"
-        class="cursor-pointer"
-        routerLink="/containers/{{ container.id }}"
+  @if (prune.data()) {
+    <p-message closable styleClass="mb-3" severity="info">
+      <div i18n
+        >Pruned
+        {{ prune.data()?.ContainersDeleted?.length ?? 0 }} containers.</div
       >
-        <td
-          class="whitespace-nowrap overflow-ellipsis overflow-hidden"
-          data-testid="containers-name"
+      <div i18n
+        >Freed {{ prettyBytes(prune.data()?.SpaceReclaimed ?? 0) }} disk
+        space.</div
+      >
+    </p-message>
+  }
+
+  @if (containers.isLoading()) {
+    <app-containers-placeholder></app-containers-placeholder>
+  }
+
+  @if (containers.isSuccess()) {
+    <p-table
+      [value]="containers.data()"
+      tableStyleClass="table-fixed"
+      selectionMode="single"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th i18n class="w-1/6">Name</th>
+          <th i18n class="w-1/3">Image</th>
+          <th i18n class="w-1/6">Stack</th>
+          <th i18n class="w-1/6">Ports</th>
+          <th i18n class="w-1/6">Actions</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-container>
+        <tr
+          data-testid="containers-row"
+          class="cursor-pointer"
+          routerLink="/containers/{{ container.id }}"
         >
-          <span
-            [pTooltip]="container.state | titlecase"
-            tooltipPosition="bottom"
+          <td
+            class="whitespace-nowrap overflow-ellipsis overflow-hidden"
+            data-testid="containers-name"
           >
-            <app-status [status]="container.state"></app-status>
-          </span>
-          {{ container.name }}
-        </td>
-        <td
-          class="whitespace-nowrap overflow-ellipsis overflow-hidden"
-          data-testid="containers-image"
-          >{{ container.image }}</td
-        >
-        <td class="">{{ container.project }}</td>
-        <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
-          @for (port of container.ports; track port.url) {
-            <a
-              [href]="port.url"
-              target="_blank"
-              rel="noopener"
-              class="text-blue-800 dark:text-blue-300 mr-2 hover:underline"
-              (click)="$event.stopPropagation()"
-              >{{ port.publicPort }}</a
+            <span
+              [pTooltip]="container.state | titlecase"
+              tooltipPosition="bottom"
             >
-          }
-        </td>
-        <td>
-          @if (container.state === "running") {
-            <p-button
-              icon="pi"
-              severity="danger"
-              [text]="true"
-              [rounded]="true"
-              [loading]="start.isPending() || stop.isPending()"
-              (onClick)="stopContainer($event, container.id)"
-            >
-              @if (!(start.isPending() || stop.isPending())) {
-                <i class="fa-solid fa-stop"></i>
-              }
-            </p-button>
-          } @else {
-            <p-button
-              icon="pi"
-              severity="success"
-              [text]="true"
-              [rounded]="true"
-              [loading]="start.isPending() || stop.isPending()"
-              (onClick)="startContainer($event, container.id)"
-            >
-              @if (!(start.isPending() || stop.isPending())) {
-                <i class="fa-solid fa-play"></i>
-              }
-            </p-button>
-          }
-          <p-button
-            icon="pi"
-            severity="secondary"
-            [text]="true"
-            [rounded]="true"
-            [loading]="remove.isPending()"
-            (onClick)="removeContainer($event, container.id)"
+              <app-status [status]="container.state"></app-status>
+            </span>
+            {{ container.name }}
+          </td>
+          <td
+            class="whitespace-nowrap overflow-ellipsis overflow-hidden"
+            data-testid="containers-image"
+            >{{ container.image }}</td
           >
-            @if (!remove.isPending()) {
-              <i class="fa-solid fa-trash"></i>
+          <td class="">{{ container.project }}</td>
+          <td class="whitespace-nowrap overflow-ellipsis overflow-hidden">
+            @for (port of container.ports; track port.url) {
+              <a
+                [href]="port.url"
+                target="_blank"
+                rel="noopener"
+                class="text-blue-800 dark:text-blue-300 mr-2 hover:underline"
+                (click)="$event.stopPropagation()"
+                >{{ port.publicPort }}</a
+              >
             }
-          </p-button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-}
+          </td>
+          <td>
+            @if (container.state === "running") {
+              <p-button
+                icon="pi"
+                severity="danger"
+                [text]="true"
+                [rounded]="true"
+                [loading]="start.isPending() || stop.isPending()"
+                (onClick)="stopContainer($event, container.id)"
+              >
+                @if (!(start.isPending() || stop.isPending())) {
+                  <i class="fa-solid fa-stop"></i>
+                }
+              </p-button>
+            } @else {
+              <p-button
+                icon="pi"
+                severity="success"
+                [text]="true"
+                [rounded]="true"
+                [loading]="start.isPending() || stop.isPending()"
+                (onClick)="startContainer($event, container.id)"
+              >
+                @if (!(start.isPending() || stop.isPending())) {
+                  <i class="fa-solid fa-play"></i>
+                }
+              </p-button>
+            }
+            <p-button
+              icon="pi"
+              severity="secondary"
+              [text]="true"
+              [rounded]="true"
+              [loading]="remove.isPending()"
+              (onClick)="removeContainer($event, container.id)"
+            >
+              @if (!remove.isPending()) {
+                <i class="fa-solid fa-trash"></i>
+              }
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  }
+</div>

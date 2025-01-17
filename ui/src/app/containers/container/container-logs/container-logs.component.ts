@@ -2,10 +2,11 @@ import { Component, computed, inject } from '@angular/core';
 import { ContainerService } from '../../../services/container.service';
 import { HtmlService } from '../../../services/html.service';
 import { RouteService } from '../../../services/route.service';
+import { ContainerLogsPlaceholderComponent } from './container-logs-placeholder.component';
 
 @Component({
   selector: 'app-container-logs',
-  imports: [],
+  imports: [ContainerLogsPlaceholderComponent],
   templateUrl: './container-logs.component.html',
 })
 export class ContainerLogsComponent {

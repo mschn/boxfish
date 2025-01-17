@@ -49,8 +49,8 @@ export function registerContainers(
           try {
             const container = session?.docker.getContainer(id);
             await container?.stop();
-          } catch (err) {
-            throw new Error("Docker API error", { cause: err });
+          } catch (err: any) {
+            throw new Error(`Docker API error: ${err.message}`);
           }
         }
       );
@@ -64,8 +64,8 @@ export function registerContainers(
           try {
             const container = session?.docker.getContainer(id);
             await container?.remove();
-          } catch (err) {
-            throw new Error("Docker API error", { cause: err });
+          } catch (err: any) {
+            throw new Error(`Docker API error: ${err.message}`);
           }
         }
       );
@@ -79,8 +79,8 @@ export function registerContainers(
           try {
             const container = session?.docker.getContainer(id);
             await container?.start();
-          } catch (err) {
-            throw new Error("Docker API error", { cause: err });
+          } catch (err: any) {
+            throw new Error(`Docker API error: ${err.message}`);
           }
         }
       );
@@ -102,8 +102,8 @@ export function registerContainers(
               Detach: false,
               Tty: true,
             });
-          } catch (err) {
-            throw new Error("Docker API error", { cause: err });
+          } catch (err: any) {
+            throw new Error(`Docker API error: ${err.message}`);
           }
         }
       );

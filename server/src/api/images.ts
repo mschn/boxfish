@@ -24,8 +24,8 @@ export function registerImages(fastify: FastifyInstance, sessions: Sessions) {
           try {
             const image = session?.docker.getImage(id);
             return await image?.history();
-          } catch (err) {
-            throw new Error("Docker API error", { cause: err });
+          } catch (err: any) {
+            throw new Error(`Docker API error: ${err.message}`);
           }
         }
       );
@@ -39,8 +39,8 @@ export function registerImages(fastify: FastifyInstance, sessions: Sessions) {
           try {
             const image = session?.docker.getImage(id);
             await image?.remove();
-          } catch (err) {
-            throw new Error("Docker API error", { cause: err });
+          } catch (err: any) {
+            throw new Error(`Docker API error: ${err.message}`);
           }
         }
       );

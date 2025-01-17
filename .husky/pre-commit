@@ -1,2 +1,2 @@
 npx lint-staged
-npm run validate-i18n
+npm run validate-i18n --prefix ui

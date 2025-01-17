@@ -7,6 +7,7 @@ import { ServerService } from '../services/server.service';
 import { SettingsStore } from '../services/settings.store';
 import { HomePlaceholderComponent } from './home-placeholder.component';
 import { RouterLink } from '@angular/router';
+import { MessageModule } from 'primeng/message';
 @Component({
   selector: 'app-home',
   imports: [
@@ -15,6 +16,7 @@ import { RouterLink } from '@angular/router';
     StatusComponent,
     ButtonModule,
     RouterLink,
+    MessageModule,
   ],
   templateUrl: './home.component.html',
   host: {

@@ -29,17 +29,30 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
 
       app.get("/server", async (request, reply) => {
         const session = sessions.fromContext(request);
-        return { config: session?.config, info: await session?.docker.info() };
+        try {
+          const info = await session?.docker.info();
+          return { config: session?.config, info };
+        } catch (err: any) {
+          throw new Error(`Docker API error: ${err.message}`);
+        }
       });
 
       app.get("/df", async (request) => {
         const session = sessions.fromContext(request);
-        return session?.docker.df();
+        try {
+          return await session?.docker.df();
+        } catch (err: any) {
+          throw new Error(`Docker API error: ${err.message}`);
+        }
       });
 
       app.get("/volumes", async (request, reply) => {
         const session = sessions.fromContext(request);
-        return (await session?.docker.listVolumes())?.Volumes;
+        try {
+          return (await session?.docker.listVolumes())?.Volumes;
+        } catch (err: any) {
+          throw new Error(`Docker API error: ${err.message}`);
+        }
       });
     },
     { prefix: "/api" }

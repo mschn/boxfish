@@ -83,13 +83,16 @@
         <td>
           <p-button
             icon="pi"
-            severity="danger"
+            severity="secondary"
             [text]="true"
             [rounded]="true"
             [loading]="deleteImageMutation.isPending()"
             (onClick)="deleteImage($event, image)"
-            ><i class="fa-solid fa-trash"></i
-          ></p-button>
+          >
+            @if (!deleteImageMutation.isPending()) {
+              <i class="fa-solid fa-trash"></i>
+            }
+          </p-button>
         </td>
       </tr>
     </ng-template>

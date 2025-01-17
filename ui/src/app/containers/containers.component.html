@@ -107,8 +107,11 @@
               [rounded]="true"
               [loading]="start.isPending() || stop.isPending()"
               (onClick)="stopContainer($event, container.id)"
-              ><i class="fa-solid fa-stop"></i
-            ></p-button>
+            >
+              @if (!(start.isPending() || stop.isPending())) {
+                <i class="fa-solid fa-stop"></i>
+              }
+            </p-button>
           } @else {
             <p-button
               icon="pi"
@@ -117,8 +120,11 @@
               [rounded]="true"
               [loading]="start.isPending() || stop.isPending()"
               (onClick)="startContainer($event, container.id)"
-              ><i class="fa-solid fa-play"></i
-            ></p-button>
+            >
+              @if (!(start.isPending() || stop.isPending())) {
+                <i class="fa-solid fa-play"></i>
+              }
+            </p-button>
           }
           <p-button
             icon="pi"
@@ -127,8 +133,11 @@
             [rounded]="true"
             [loading]="remove.isPending()"
             (onClick)="removeContainer($event, container.id)"
-            ><i class="fa-solid fa-trash"></i
-          ></p-button>
+          >
+            @if (!remove.isPending()) {
+              <i class="fa-solid fa-trash"></i>
+            }
+          </p-button>
         </td>
       </tr>
     </ng-template>

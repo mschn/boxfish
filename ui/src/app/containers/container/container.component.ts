@@ -19,7 +19,7 @@ import { RouteService } from '../../services/route.service';
   providers: [RouteService],
   templateUrl: './container.component.html',
   host: {
-    class: 'flex-1 w-full',
+    class: 'flex-1 flex flex-col w-full',
   },
 })
 export class ContainerComponent {

@@ -15,13 +15,16 @@ import { ContainerLogsPlaceholderComponent } from './container-logs-placeholder.
   selector: 'app-container-logs',
   imports: [ContainerLogsPlaceholderComponent],
   templateUrl: './container-logs.component.html',
+  host: {
+    class: 'w-full h-full flex flex-1',
+  },
 })
 export class ContainerLogsComponent {
   #routeService = inject(RouteService);
   #containerService = inject(ContainerService);
   #htmlService = inject(HtmlService);
 
-  scrollBotLocation = viewChild<ElementRef<HTMLDivElement>>('scrollbot');
+  logsPreElement = viewChild<ElementRef<HTMLPreElement>>('logs');
 
   logs = this.#containerService.getContainerLogs(
     this.#routeService.idFromRoute,
@@ -37,7 +40,8 @@ export class ContainerLogsComponent {
   constructor() {
     effect(() => {
       if (this.logs.isSuccess()) {
-        this.scrollBotLocation()?.nativeElement.scrollIntoView();
+        const preElement = this.logsPreElement()?.nativeElement;
+        preElement?.scrollTo?.(0, preElement?.scrollHeight ?? 0);
       }
     });
   }

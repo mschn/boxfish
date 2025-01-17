@@ -1,25 +1,27 @@
-@let c = container();
-@if (c) {
-  <app-title [pathMap]="titlePathMap()">
-    <app-status [status]="c.state"></app-status>
-    {{ c.name }}</app-title
-  >
-}
+<div class="p-3 pb-0">
+  @let c = container();
+  @if (c) {
+    <app-title [pathMap]="titlePathMap()">
+      <app-status [status]="c.state"></app-status>
+      {{ c.name }}</app-title
+    >
+  }
 
-@for (link of links; track link.name) {
-  <a
-    routerLink="/containers/{{ routeService.idFromRoute() }}/{{ link.path }}"
-    class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4"
-    routerLinkActive="text-gray-900 dark:text-gray-200"
-    #rla="routerLinkActive"
-    [ngClass]="{
-      'border-blue-500': rla.isActive,
-      'border-transparent': !rla.isActive,
-    }"
-    [routerLinkActiveOptions]="{ exact: true }"
-    >{{ link.name }}</a
-  >
-}
-<div class="border-t border-gray-200 dark:border-gray-700 pb-3">
+  @for (link of links; track link.name) {
+    <a
+      routerLink="/containers/{{ routeService.idFromRoute() }}/{{ link.path }}"
+      class="py-2 px-3 inline-block no-underline text-gray-500 font-semibold border-b-4"
+      routerLinkActive="text-gray-900 dark:text-gray-200"
+      #rla="routerLinkActive"
+      [ngClass]="{
+        'border-blue-500': rla.isActive,
+        'border-transparent': !rla.isActive,
+      }"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >{{ link.name }}</a
+    >
+  }
+</div>
+<div class="border-t border-gray-200 dark:border-gray-700 p-3 overflow-hidden">
   <router-outlet></router-outlet>
 </div>

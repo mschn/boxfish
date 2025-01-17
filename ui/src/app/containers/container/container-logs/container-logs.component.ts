@@ -1,4 +1,11 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  viewChild,
+} from '@angular/core';
 import { ContainerService } from '../../../services/container.service';
 import { HtmlService } from '../../../services/html.service';
 import { RouteService } from '../../../services/route.service';
@@ -14,6 +21,8 @@ export class ContainerLogsComponent {
   #containerService = inject(ContainerService);
   #htmlService = inject(HtmlService);
 
+  scrollBotLocation = viewChild<ElementRef<HTMLDivElement>>('scrollbot');
+
   logs = this.#containerService.getContainerLogs(
     this.#routeService.idFromRoute,
   );
@@ -24,4 +33,12 @@ export class ContainerLogsComponent {
     }
     return '';
   });
+
+  constructor() {
+    effect(() => {
+      if (this.logs.isSuccess()) {
+        this.scrollBotLocation()?.nativeElement.scrollIntoView();
+      }
+    });
+  }
 }

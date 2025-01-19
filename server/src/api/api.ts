@@ -7,6 +7,7 @@ import { SESSION_ID } from "../model";
 import { Sessions } from "../session";
 import { registerContainers } from "./containers";
 import { registerImages } from "./images";
+import { registerVolumes } from "./volumes";
 
 export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
   fastify.register(
@@ -45,21 +46,13 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
           throw new Error(`Docker API error: ${err.message}`);
         }
       });
-
-      app.get("/volumes", async (request, reply) => {
-        const session = sessions.fromContext(request);
-        try {
-          return (await session?.docker.listVolumes())?.Volumes;
-        } catch (err: any) {
-          throw new Error(`Docker API error: ${err.message}`);
-        }
-      });
     },
     { prefix: "/api" }
   );
 
   registerContainers(fastify, sessions);
   registerImages(fastify, sessions);
+  registerVolumes(fastify, sessions);
 }
 
 function getDockerConfig(): Docker.DockerOptions {

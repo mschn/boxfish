@@ -70,6 +70,13 @@ export const routes: Routes = [
       import('./volumes/volumes.component').then((c) => c.VolumesComponent),
   },
   {
+    path: 'volumes/:id',
+    loadComponent: () =>
+      import('./volumes/volume/volume.component').then(
+        (c) => c.VolumeComponent,
+      ),
+  },
+  {
     path: 'settings',
     loadComponent: () =>
       import('./settings/settings.component').then((c) => c.SettingsComponent),

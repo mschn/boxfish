@@ -4,10 +4,11 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
 import { VolumesService } from '../services/volumes.service';
 import { TitleComponent } from '../components/title/title.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-volumes',
-  imports: [TableModule, Message, SkeletonModule, TitleComponent],
+  imports: [TableModule, Message, SkeletonModule, TitleComponent, RouterLink],
   templateUrl: './volumes.component.html',
   host: {
     class: 'flex-1',

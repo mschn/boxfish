@@ -21,9 +21,9 @@
     "6898114519523517720": "Échec de la suppression du conteneurs:",
     "1493210088525603758": "{$INTERPOLATION} containeurs nettoyés",
     "8413254109742685928": "{$INTERPOLATION} d'espace disque liberés.",
-    "7486908441884356107": null,
+    "7486908441884356107": "Aucun conteneurs",
     "2663037004246048823": "la UI pour Docker",
-    "4523482074660382943": null,
+    "4523482074660382943": "Échec de la récuperation des infos du serveur:",
     "2148238352809906449": "{$INTERPOLATION} conteneurs",
     "6487243331058023746": "{$INTERPOLATION} images",
     "5890121801612730821": "{$INTERPOLATION} taille des couches",
@@ -41,12 +41,12 @@
     "6982706490180820024": "Échec du nettoyage des images:",
     "9117233100614097073": "{$INTERPOLATION} images ont été supprimées.",
     "6252070156626006029": "Aucun",
-    "7212204909812241549": null,
+    "7212204909812241549": "Aucune image",
     "7278213602149834905": "Mode sombre",
     "2826581353496868063": "Langue",
     "5866254605255506989": "Anglais",
     "7633754075223722162": "Français",
     "3965435244975463358": "Échec de la récuperation des volumes:",
-    "2890852343470887429": null
+    "2890852343470887429": "Aucun volume"
   }
 }

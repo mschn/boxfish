@@ -4,6 +4,7 @@ import { signal } from '@angular/core';
 import {
   getAllByTestId,
   getByTestId,
+  getByText,
   queryByTestId,
 } from '@testing-library/dom';
 import { getDfMock } from '../model/df.model';
@@ -52,6 +53,14 @@ describe('ImagesComponent', () => {
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  it('should display an empty placeholder', () => {
+    component.images = getQueryMock();
+    fixture.detectChanges();
+    expect(
+      getByText(fixture.nativeElement, 'There are no images'),
+    ).toBeTruthy();
   });
 
   it('should show the loading placeholder', () => {

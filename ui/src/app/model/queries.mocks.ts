@@ -8,7 +8,7 @@ export const getQueryMock = <T, E>(
   mock: Partial<CreateQueryResult<T, E>> = {},
 ) =>
   ({
-    data: undefined,
+    data: signal(undefined),
     dataUpdatedAt: signal(0),
     error: null,
     errorUpdateCount: signal(0),

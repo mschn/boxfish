@@ -21,7 +21,9 @@
     "6898114519523517720": "Failed to remove container:",
     "1493210088525603758": "Pruned {$INTERPOLATION} containers.",
     "8413254109742685928": "Freed {$INTERPOLATION} disk space.",
+    "7486908441884356107": "There are no containers",
     "2663037004246048823": "the UI for Docker",
+    "4523482074660382943": "Failed to retrieve server info:",
     "2148238352809906449": "{$INTERPOLATION} containers",
     "6487243331058023746": "{$INTERPOLATION} images",
     "5890121801612730821": "{$INTERPOLATION} layers size",
@@ -39,10 +41,12 @@
     "6982706490180820024": "Failed to prune images:",
     "9117233100614097073": "Pruned {$INTERPOLATION} images.",
     "6252070156626006029": "None",
+    "7212204909812241549": "There are no images",
     "7278213602149834905": "Dark theme",
     "2826581353496868063": "Language",
     "5866254605255506989": "English",
     "7633754075223722162": "French",
-    "3965435244975463358": "Failed to retrieve volumes:"
+    "3965435244975463358": "Failed to retrieve volumes:",
+    "2890852343470887429": "There are no volumes"
   }
 }

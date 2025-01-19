@@ -35,6 +35,14 @@
           <td data-testid="volumes-name">{{ volume.Name }}</td>
         </tr>
       </ng-template>
+
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="2" class="italic text-muted-color" i18n
+            >There are no volumes</td
+          >
+        </tr>
+      </ng-template>
     </p-table>
   }
 </div>

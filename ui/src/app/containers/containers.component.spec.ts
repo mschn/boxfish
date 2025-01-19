@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import {
   getAllByTestId,
   getByTestId,
+  getByText,
   queryByTestId,
 } from '@testing-library/dom';
 import { Container, getContainerMock } from '../model/container.model';
@@ -56,6 +57,14 @@ describe('ContainersComponent', () => {
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  it('should display an empty placeholder', () => {
+    component.containers = getQueryMock();
+    fixture.detectChanges();
+    expect(
+      getByText(fixture.nativeElement, 'There are no containers'),
+    ).toBeTruthy();
   });
 
   it('should display 2 containers', () => {

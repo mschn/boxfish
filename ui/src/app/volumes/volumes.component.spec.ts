@@ -5,7 +5,7 @@ import Dockerode from 'dockerode';
 import { getQueryMock } from '../model/queries.mocks';
 import { VolumesService } from '../services/volumes.service';
 import { VolumesComponent } from './volumes.component';
-import { getAllByTestId } from '@testing-library/dom';
+import { getAllByTestId, getByText } from '@testing-library/dom';
 
 describe('VolumesComponent', () => {
   let component: VolumesComponent;
@@ -39,6 +39,14 @@ describe('VolumesComponent', () => {
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+  });
+
+  it('should display an empty placeholder', () => {
+    component.volumes = getQueryMock();
+    fixture.detectChanges();
+    expect(
+      getByText(fixture.nativeElement, 'There are no volumes'),
+    ).toBeTruthy();
   });
 
   it('should show 2 volumes', () => {

@@ -24,21 +24,27 @@
   }
 
   @if (volumes.isSuccess()) {
-    <p-table [value]="volumes.data()">
+    <p-table [value]="volumes.data()" selectionMode="single">
       <ng-template pTemplate="header">
         <tr>
           <th i18n>Name</th>
+          <th i18n>Created</th>
+          <th i18n>Mount point</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-volume>
-        <tr routerLink="/volumes/{{ volume.Name }}">
-          <td data-testid="volumes-name">{{ volume.Name }}</td>
+        <tr routerLink="/volumes/{{ volume.name }}" class="cursor-pointer">
+          <td data-testid="volumes-name">{{ volume.name }}</td>
+          <td>{{ volume.created }}</td>
+          <td>
+            <pre class="text-sm">{{ volume.mountPoint }}</pre>
+          </td>
         </tr>
       </ng-template>
 
       <ng-template #emptymessage>
         <tr>
-          <td colspan="2" class="italic text-muted-color" i18n
+          <td colspan="4" class="italic text-muted-color" i18n
             >There are no volumes</td
           >
         </tr>

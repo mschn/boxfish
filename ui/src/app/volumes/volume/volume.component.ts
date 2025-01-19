@@ -1,4 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
+import { TitleComponent } from '../../components/title/title.component';
 import { RouteService } from '../../services/route.service';
 import { VolumesService } from '../../services/volumes.service';
 
@@ -6,6 +7,7 @@ import { VolumesService } from '../../services/volumes.service';
   selector: 'app-volume',
   templateUrl: './volume.component.html',
   providers: [RouteService],
+  imports: [TitleComponent],
 })
 export class VolumeComponent {
   #volumeService = inject(VolumesService);
@@ -15,6 +17,6 @@ export class VolumeComponent {
   volume = computed(() =>
     this.volumes
       .data()
-      ?.find((i) => i.Name === this.#routeService.idFromRoute()),
+      ?.find((i) => i.name === this.#routeService.idFromRoute()),
   );
 }

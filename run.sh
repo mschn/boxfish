@@ -8,10 +8,9 @@ if echo "$(uname -s)" | grep "MINGW"; then
     SOCK="//var/run/docker.sock"  
 fi
 
-# Mac OS colima
-if [ -e "${HOME}/.colima/docker.sock" ]; then
-    SOCK="${HOME}/.colima/docker.sock"
-fi
+
+# for MacOS colima, using ~/.colima/default/docker.sock doesnt work
+# better to create a symlink to /var/run/docker.sock
 
 docker run -d \
     --rm \

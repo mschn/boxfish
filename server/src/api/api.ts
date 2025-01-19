@@ -14,6 +14,7 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
     (app) => {
       app.post("/login", async (request, reply) => {
         const config = getDockerConfig();
+        console.log("Detected docker config: ", JSON.stringify(config));
         const docker = new Docker(config);
         const sessionId = createId();
         sessions.add(sessionId, {
@@ -56,11 +57,6 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
 }
 
 function getDockerConfig(): Docker.DockerOptions {
-  const colimaSock = path.join(process.env.HOME ?? "", "/.colima/docker.sock");
-  if (existsSync(colimaSock)) {
-    return { socketPath: colimaSock };
-  }
-
   if (process.platform === "win32") {
     return { host: "localhost", port: 2375 };
   }

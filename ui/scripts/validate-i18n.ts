@@ -1,10 +1,12 @@
-const { writeFileSync } = require("fs");
-const en = require("../src/locale/messages.json");
-const path = require("path");
+import { writeFileSync } from 'fs';
+import en from '../src/locale/messages.json';
+import path from 'path';
 
-const langs = ["fr"];
-const keys = Object.keys(en.translations);
-const allErrors = [];
+const langs = ['fr'];
+const keys = Object.keys(en.translations) as Array<
+  keyof typeof en.translations
+>;
+const allErrors: string[] = [];
 
 for (const lang of langs) {
   const messagesPath = path.resolve(
@@ -12,7 +14,7 @@ for (const lang of langs) {
     `../src/locale/messages.${lang}.json`,
   );
   const messages = require(messagesPath);
-  const updatedTranslations = {};
+  const updatedTranslations: Record<string, string | null> = {};
   const errors = [];
 
   for (const key of keys) {
@@ -36,8 +38,8 @@ for (const lang of langs) {
   }
 }
 
-console.log("validate-i18n.js:");
-console.error(allErrors.join("\n"));
+console.log('validate-i18n.ts:');
+console.error(allErrors.join('\n'));
 if (allErrors.length > 0) {
   process.exitCode = 1;
 } else {

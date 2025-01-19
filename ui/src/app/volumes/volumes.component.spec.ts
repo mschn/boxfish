@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { signal } from '@angular/core';
-import Dockerode from 'dockerode';
+import { getAllByTestId, getByText } from '@testing-library/dom';
 import { getQueryMock } from '../model/queries.mocks';
+import { getVolumeMock } from '../model/volume.model';
 import { VolumesService } from '../services/volumes.service';
 import { VolumesComponent } from './volumes.component';
-import { getAllByTestId, getByText } from '@testing-library/dom';
+import { ActivatedRoute } from '@angular/router';
 
 describe('VolumesComponent', () => {
   let component: VolumesComponent;
@@ -15,9 +16,9 @@ describe('VolumesComponent', () => {
     getVolumes: () =>
       getQueryMock({
         data: signal([
-          { Name: 'foo' },
-          { Name: 'bar' },
-        ] as Dockerode.VolumeInspectInfo[]),
+          getVolumeMock({ name: 'foo' }),
+          getVolumeMock({ name: 'bar' }),
+        ]),
       }),
   };
 
@@ -29,6 +30,7 @@ describe('VolumesComponent', () => {
           provide: VolumesService,
           useValue: volumeServiceMock,
         },
+        { provide: ActivatedRoute, useValue: {} },
       ],
     }).compileComponents();
 

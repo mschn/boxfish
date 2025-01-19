@@ -1,6 +1,21 @@
-<h2>Volume</h2>
+<div class="p-3 overflow-auto h-full">
+  @let v = volume();
+  @if (v !== undefined) {
+    <app-title>{{ v.name }}</app-title>
 
-@let v = volume();
-@if (v !== undefined) {
-  {{ v.Name }}
-}
+    <table class="mt-3">
+      <tr>
+        <td class="p-2 border-b" i18n>Created</td>
+        <td class="p-2 border-b" data-testid="volume-created">{{
+          v.created
+        }}</td>
+      </tr>
+      <tr>
+        <td class="p-2 border-b" i18n>Mount point</td>
+        <td class="p-2 border-b">
+          <pre class="text-sm">{{ v.mountPoint }}</pre>
+        </td>
+      </tr>
+    </table>
+  }
+</div>

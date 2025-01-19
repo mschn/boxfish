@@ -31,7 +31,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-volume>
-        <tr>
+        <tr routerLink="/volumes/{{ volume.Name }}">
           <td data-testid="volumes-name">{{ volume.Name }}</td>
         </tr>
       </ng-template>

@@ -28,7 +28,7 @@ export function registerContainerExec(
           stream?.pipe(logStream);
 
           socket.on("message", (message) => {
-            stream?.write(message.toString() + "\n");
+            stream?.write(message.toString());
           });
         }
       );

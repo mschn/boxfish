@@ -9,6 +9,7 @@ import { ContainerService } from '../../../services/container.service';
 import { HtmlService } from '../../../services/html.service';
 import { RouteService } from '../../../services/route.service';
 import { ContainerTerminalComponent } from './container-terminal.component';
+import { Terminal } from '@xterm/xterm';
 
 describe('ContainerTerminalComponent', () => {
   let component: ContainerTerminalComponent;
@@ -45,10 +46,14 @@ describe('ContainerTerminalComponent', () => {
 
     fixture = TestBed.createComponent(ContainerTerminalComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    component.terminal = {
+      loadAddon: jest.fn(),
+      open: jest.fn(),
+    } as unknown as Terminal;
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });

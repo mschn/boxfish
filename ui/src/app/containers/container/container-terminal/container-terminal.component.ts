@@ -1,19 +1,20 @@
 import {
+  AfterViewInit,
   Component,
   computed,
   effect,
   ElementRef,
   inject,
-  signal,
   viewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SafeHtml } from '@angular/platform-browser';
+import { AttachAddon } from '@xterm/addon-attach';
+import { Terminal } from '@xterm/xterm';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { WS_API_URL } from '../../../model/server.model';
 import { ContainerService } from '../../../services/container.service';
-import { HtmlService } from '../../../services/html.service';
 import { RouteService } from '../../../services/route.service';
 
 @Component({
@@ -23,13 +24,13 @@ import { RouteService } from '../../../services/route.service';
   host: {
     class: 'flex flex-1',
   },
+  encapsulation: ViewEncapsulation.None,
 })
-export class ContainerTerminalComponent {
+export class ContainerTerminalComponent implements AfterViewInit {
   #routeService = inject(RouteService);
   #containerService = inject(ContainerService);
-  #htmlService = inject(HtmlService);
 
-  inputElement = viewChild<ElementRef<HTMLElement>>('input');
+  terminalElement = viewChild<ElementRef<HTMLDivElement>>('terminal');
 
   containers = this.#containerService.getContainers();
   container = computed(() =>
@@ -38,10 +39,10 @@ export class ContainerTerminalComponent {
       ?.find((container) => container.id === this.#routeService.idFromRoute()),
   );
   exec = this.#containerService.exec();
-  outputHistory = signal<SafeHtml[]>([]);
 
-  cmd = '';
+  // TODO destroy cleanup of the WS resources
   ws: WebSocket | undefined;
+  terminal = new Terminal();
 
   constructor() {
     effect(() => {
@@ -54,17 +55,8 @@ export class ContainerTerminalComponent {
               this.ws = new WebSocket(
                 `${WS_API_URL}containers/${container.id}/exec/ws`,
               );
-              this.ws.onmessage = (message) => {
-                const out = this.#htmlService.formatAnsi(message.data);
-                const history = this.outputHistory();
-                this.outputHistory.set([...history, out]);
-                setTimeout(() => {
-                  this.inputElement()?.nativeElement.scrollIntoView();
-                });
-                return false;
-              };
-              this.ws.onclose = (e) => console.log('on close ', e);
-              this.ws.onerror = (e) => console.log('on error', e);
+              const attachAddon = new AttachAddon(this.ws);
+              this.terminal.loadAddon(attachAddon);
             },
           },
         );
@@ -72,8 +64,10 @@ export class ContainerTerminalComponent {
     });
   }
 
-  onExec() {
-    this.ws?.send(this.cmd);
-    this.cmd = '';
+  ngAfterViewInit() {
+    const terminalElt = this.terminalElement()?.nativeElement;
+    if (terminalElt) {
+      this.terminal.open(terminalElt);
+    }
   }
 }

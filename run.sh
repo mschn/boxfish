@@ -15,6 +15,6 @@ fi
 docker run -d \
     --rm \
     --name boxfish \
-    -p 3001:3000 \
+    -p 3000:3000 \
     -v ${SOCK}:/var/run/docker.sock \
     mschnr/boxfish:latest

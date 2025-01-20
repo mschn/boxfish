@@ -1,11 +1,10 @@
 import { createId } from "@paralleldrive/cuid2";
 import Docker from "dockerode";
 import { FastifyInstance } from "fastify";
-import { existsSync } from "fs";
-import path from "node:path";
 import { SESSION_ID } from "../model";
 import { Sessions } from "../session";
 import { registerContainers } from "./containers";
+import { registerContainerExec } from "./exec";
 import { registerImages } from "./images";
 import { registerVolumes } from "./volumes";
 
@@ -52,6 +51,7 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
   );
 
   registerContainers(fastify, sessions);
+  registerContainerExec(fastify, sessions);
   registerImages(fastify, sessions);
   registerVolumes(fastify, sessions);
 }

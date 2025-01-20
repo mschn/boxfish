@@ -129,19 +129,17 @@ export class ContainerService {
     }));
 
   exec = () =>
-    injectMutation<string, ServerError, { id: string; cmd: string[] }, unknown>(
-      () => ({
-        mutationFn: ({ id, cmd }) =>
-          lastValueFrom(
-            this.#http.post(
-              `${API_URL}containers/${id}/exec`,
-              { cmd },
-              {
-                withCredentials: true,
-                responseType: 'text',
-              },
-            ),
+    injectMutation<string, ServerError, { id: string }, unknown>(() => ({
+      mutationFn: ({ id }) =>
+        lastValueFrom(
+          this.#http.post(
+            `${API_URL}containers/${id}/exec`,
+            {},
+            {
+              withCredentials: true,
+              responseType: 'text',
+            },
           ),
-      }),
-    );
+        ),
+    }));
 }

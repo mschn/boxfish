@@ -1,10 +1,9 @@
 import Fastify from "fastify";
 import { registerApi } from "./api/api";
 import { addCorsHook } from "./cors";
-import { Sessions } from "./session";
 import { DEV_LOGGER } from "./model";
 import { registerStatic } from "./public";
-
+import { Sessions } from "./session";
 const fastify = Fastify({
   logger: DEV_LOGGER,
 });

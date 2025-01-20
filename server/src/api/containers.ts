@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { Stream } from "stream";
 import { Sessions } from "../session";
 import { validateId } from "./validation";
+import Dockerode from "dockerode";
 
 export function registerContainers(
   fastify: FastifyInstance,
@@ -79,29 +80,6 @@ export function registerContainers(
           try {
             const container = session?.docker.getContainer(id);
             await container?.start();
-          } catch (err: any) {
-            throw new Error(`Docker API error: ${err.message}`);
-          }
-        }
-      );
-
-      app.post<{ Params: { id: string }; Body: { cmd: string[] } }>(
-        "/:id/exec",
-        { preValidation: validateId },
-        async (request, reply) => {
-          const id = request.params.id;
-          const session = sessions.fromContext(request);
-          try {
-            const container = session?.docker.getContainer(id);
-            const exec = await container?.exec({
-              AttachStdout: true,
-              Tty: true,
-              Cmd: request.body.cmd,
-            });
-            return await exec?.start({
-              Detach: false,
-              Tty: true,
-            });
           } catch (err: any) {
             throw new Error(`Docker API error: ${err.message}`);
           }

@@ -16,7 +16,7 @@ import { ContainerLogsPlaceholderComponent } from './container-logs-placeholder.
   imports: [ContainerLogsPlaceholderComponent],
   templateUrl: './container-logs.component.html',
   host: {
-    class: 'w-full h-full flex flex-1',
+    class: ' flex flex-1',
   },
 })
 export class ContainerLogsComponent {

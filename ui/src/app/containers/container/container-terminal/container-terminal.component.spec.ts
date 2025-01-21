@@ -58,7 +58,7 @@ describe('ContainerTerminalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show empty placeholder when container is not running', () => {
+  it('should show an empty placeholder when the container is not running', () => {
     component.containers = getQueryMock({
       data: signal([getContainerMock({ id: '123', state: 'exited' })]),
     });

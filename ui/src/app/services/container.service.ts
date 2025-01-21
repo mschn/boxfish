@@ -142,4 +142,25 @@ export class ContainerService {
           ),
         ),
     }));
+
+  resize = () =>
+    injectMutation<
+      unknown,
+      ServerError,
+      { id: string; rows: number; cols: number }
+    >(() => ({
+      mutationFn: ({ id, rows, cols }) =>
+        lastValueFrom(
+          this.#http.post(
+            `${API_URL}containers/${id}/exec/resize`,
+            {
+              rows,
+              cols,
+            },
+            {
+              withCredentials: true,
+            },
+          ),
+        ),
+    }));
 }

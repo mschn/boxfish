@@ -33,6 +33,7 @@
     "@tanstack/angular-query-devtools-experimental": "^5.60.5",
     "@tanstack/angular-query-experimental": "^5.60.5",
     "@xterm/addon-attach": "^0.11.0",
+    "@xterm/addon-fit": "^0.10.0",
     "@xterm/xterm": "^5.5.0",
     "ansi_up": "^6.0.2",
     "date-fns": "^4.1.0",

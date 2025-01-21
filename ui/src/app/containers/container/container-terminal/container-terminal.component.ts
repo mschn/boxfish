@@ -17,6 +17,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { WS_API_URL } from '../../../model/server.model';
 import { ContainerService } from '../../../services/container.service';
 import { RouteService } from '../../../services/route.service';
+import { XtermOptions } from './xterm.config';
 
 @Component({
   selector: 'app-container-terminal',
@@ -42,7 +43,7 @@ export class ContainerTerminalComponent implements AfterViewInit, OnDestroy {
   exec = this.#containerService.exec();
 
   ws: WebSocket | undefined;
-  terminal = new Terminal();
+  terminal = new Terminal(XtermOptions);
 
   constructor() {
     effect(() => {

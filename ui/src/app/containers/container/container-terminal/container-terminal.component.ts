@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   computed,
   effect,
@@ -27,8 +26,13 @@ import { XtermOptions } from './xterm.config';
     class: 'flex flex-1',
   },
   encapsulation: ViewEncapsulation.None,
+  styles: `
+    .xterm {
+      padding: 0.75rem;
+    }
+  `,
 })
-export class ContainerTerminalComponent implements AfterViewInit, OnDestroy {
+export class ContainerTerminalComponent implements OnDestroy {
   #routeService = inject(RouteService);
   #containerService = inject(ContainerService);
 
@@ -51,6 +55,12 @@ export class ContainerTerminalComponent implements AfterViewInit, OnDestroy {
       if (container?.state !== 'running') {
         return;
       }
+
+      const terminalElt = this.terminalElement()?.nativeElement;
+      if (terminalElt) {
+        this.terminal.open(terminalElt);
+      }
+
       if (container !== undefined) {
         this.exec.mutate(
           { id: container.id },
@@ -70,12 +80,5 @@ export class ContainerTerminalComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.ws?.close();
-  }
-
-  ngAfterViewInit() {
-    const terminalElt = this.terminalElement()?.nativeElement;
-    if (terminalElt) {
-      this.terminal.open(terminalElt);
-    }
   }
 }

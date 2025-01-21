@@ -4,10 +4,6 @@ import { Duplex, Stream } from "stream";
 import { Sessions } from "../session";
 import { validateId } from "./validation";
 
-// TODO store this in session
-// TODO clean up exec
-let stream: Duplex | undefined;
-
 export function registerContainerExec(
   fastify: FastifyInstance,
   sessions: Sessions
@@ -20,15 +16,21 @@ export function registerContainerExec(
         "/:id/exec/ws",
         { websocket: true },
         async (socket, request) => {
-          var logStream = new Stream.PassThrough();
+          const session = sessions.fromContext(request);
+          const id = request.params.id;
+          const stream = session.execStreams[id];
+
+          // send shell stdout on the Websocket
+          const logStream = new Stream.PassThrough();
           logStream.on("data", function (chunk) {
             const execOutput = chunk.toString("utf8");
             socket.send(execOutput);
           });
-          stream?.pipe(logStream);
+          stream.pipe(logStream);
 
+          // send Websocket messages to the shell stdin
           socket.on("message", (message) => {
-            stream?.write(message.toString());
+            stream.write(message.toString());
           });
         }
       );
@@ -40,20 +42,25 @@ export function registerContainerExec(
           const id = request.params.id;
           const session = sessions.fromContext(request);
           try {
-            const container = session?.docker.getContainer(id);
-            const exec = await container?.exec({
+            const container = session.docker.getContainer(id);
+            const exec = await container.exec({
               AttachStdin: true,
               AttachStdout: true,
               AttachStderr: true,
               Tty: true,
               Cmd: ["sh"],
             });
-            stream = await exec?.start({
+            const stream = await exec.start({
               hijack: true,
               stdin: true,
               Detach: false,
               Tty: true,
             });
+            if (session.execStreams[id]) {
+              session.execStreams[id].write("exit\n");
+              session.execStreams[id].end();
+            }
+            session.execStreams[id] = stream;
           } catch (err: any) {
             throw new Error(`Docker API error: ${err.message}`);
           }

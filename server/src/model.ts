@@ -1,5 +1,6 @@
 import Docker from "dockerode";
 import { PinoLoggerOptions } from "fastify/types/logger";
+import { Duplex } from "stream";
 
 export interface SessionStats {
   lastUsed: number;
@@ -8,6 +9,7 @@ export interface Session {
   stats: SessionStats;
   config: Docker.DockerOptions;
   docker: Docker;
+  execStreams: Record<string, Duplex>;
 }
 
 export const SESSION_ID = "sessionId";

@@ -18,7 +18,7 @@ import { XtermOptions } from './xterm.config';
 
 @Component({
   selector: 'app-xterm',
-  template: '<div id="terminal" #terminal></div>',
+  template: '<div id="terminal" #terminal class="h-full w-full"></div>',
   host: {
     class: 'w-full flex-1',
   },

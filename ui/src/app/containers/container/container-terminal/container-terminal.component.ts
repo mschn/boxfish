@@ -11,7 +11,7 @@ import { XtermComponent } from './xterm.component';
   imports: [ButtonModule, InputTextModule, FormsModule, XtermComponent],
   templateUrl: './container-terminal.component.html',
   host: {
-    class: 'flex flex-1',
+    class: 'flex flex-1 h-full w-full',
   },
 })
 export class ContainerTerminalComponent {

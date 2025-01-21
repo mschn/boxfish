@@ -32,6 +32,13 @@ export function registerContainerExec(
           socket.on("message", (message) => {
             stream.write(message.toString());
           });
+
+          // cleanup when the client is navigating away
+          socket.on("close", () => {
+            stream.write("exit\n");
+            stream.end();
+            delete session.execStreams[id];
+          });
         }
       );
 

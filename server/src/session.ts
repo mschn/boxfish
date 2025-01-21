@@ -70,12 +70,10 @@ export class Sessions {
         console.log(" timing out ", sessionId);
 
         // cleanup container exec shells
-        Object.values(this.sessions[sessionId].execStreams).forEach(
-          (stream) => {
-            stream.write("exit\n");
-            stream.end();
-          }
-        );
+        Object.values(this.sessions[sessionId].exec).forEach(({ stream }) => {
+          stream.write("exit\n");
+          stream.end();
+        });
 
         delete this.sessions[sessionId];
       }

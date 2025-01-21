@@ -22,7 +22,7 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
           },
           docker,
           config,
-          execStreams: {},
+          exec: {},
         });
         reply.cookie(SESSION_ID, sessionId, {
           domain: "localhost",

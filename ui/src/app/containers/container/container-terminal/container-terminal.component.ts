@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AttachAddon } from '@xterm/addon-attach';
+import { FitAddon } from '@xterm/addon-fit';
 import { Terminal } from '@xterm/xterm';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -45,12 +46,14 @@ export class ContainerTerminalComponent implements OnDestroy {
       ?.find((container) => container.id === this.#routeService.idFromRoute()),
   );
   exec = this.#containerService.exec();
+  resize = this.#containerService.resize();
 
   ws: WebSocket | undefined;
   terminal = new Terminal(XtermOptions);
 
   constructor() {
     effect(() => {
+      // TODO effect runs twice
       const container = this.container();
       if (container?.state !== 'running') {
         return;
@@ -71,11 +74,28 @@ export class ContainerTerminalComponent implements OnDestroy {
               );
               const attachAddon = new AttachAddon(this.ws);
               this.terminal.loadAddon(attachAddon);
+              this.loadFitAddon();
             },
           },
         );
       }
     });
+  }
+
+  loadFitAddon() {
+    const containerId = this.container()?.id;
+    if (!containerId) {
+      return;
+    }
+    const fitAddon = new FitAddon();
+    this.terminal.loadAddon(fitAddon);
+    fitAddon.fit();
+    this.terminal.onResize(({ rows, cols }) => {
+      // TODO debounce this mutation
+      this.resize.mutate({ id: containerId, rows, cols });
+    });
+    const resizeObserver = new ResizeObserver(() => fitAddon.fit());
+    resizeObserver.observe(document.querySelector('app-container-terminal')!);
   }
 
   ngOnDestroy() {

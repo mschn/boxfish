@@ -55,7 +55,11 @@ export class Sessions {
   }
 
   fromContext(request: FastifyRequest) {
-    return request.requestContext.get("session");
+    const session = request.requestContext.get("session");
+    if (session == null) {
+      throw new Error("No session in context");
+    }
+    return session;
   }
 
   timeout() {
@@ -64,6 +68,15 @@ export class Sessions {
       const session = this.get(sessionId);
       if (now - session.stats.lastUsed > SESSION_TIMEOUT_MS) {
         console.log(" timing out ", sessionId);
+
+        // cleanup container exec shells
+        Object.values(this.sessions[sessionId].execStreams).forEach(
+          (stream) => {
+            stream.write("exit\n");
+            stream.end();
+          }
+        );
+
         delete this.sessions[sessionId];
       }
     });

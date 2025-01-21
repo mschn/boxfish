@@ -66,7 +66,7 @@ describe('ContainerLogsComponent', () => {
     fixture.detectChanges();
     expect(queryByText(fixture.nativeElement, 'log result')).toBeFalsy();
     expect(
-      getByTestId(fixture.nativeElement, 'contaier-logs-placeholder'),
+      getByTestId(fixture.nativeElement, 'container-logs-placeholder'),
     ).toBeTruthy();
   });
 

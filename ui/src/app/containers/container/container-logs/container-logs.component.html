@@ -5,10 +5,12 @@
     >This container does not have any logs yet.</div
   >
 } @else {
-  <pre
-    class="p-3 bg-gray-100 dark:bg-gray-800 dark:text-gray-100 text-sm whitespace-pre-wrap break-all"
-    [innerHTML]="coloredLogs()"
-    #logs
-  >
-  </pre>
+  <div class="flex flex-col">
+    <pre
+      class="p-3 bg-gray-100 dark:bg-gray-800 dark:text-gray-100 text-sm whitespace-pre-wrap break-all"
+      [innerHTML]="coloredLogs()"
+    >
+    </pre>
+    <div #logend></div>
+  </div>
 }

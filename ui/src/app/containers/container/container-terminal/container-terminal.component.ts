@@ -48,6 +48,9 @@ export class ContainerTerminalComponent implements AfterViewInit, OnDestroy {
   constructor() {
     effect(() => {
       const container = this.container();
+      if (container?.state !== 'running') {
+        return;
+      }
       if (container !== undefined) {
         this.exec.mutate(
           { id: container.id },

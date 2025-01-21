@@ -5,6 +5,7 @@ import {
   effect,
   ElementRef,
   inject,
+  OnDestroy,
   viewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -26,7 +27,7 @@ import { RouteService } from '../../../services/route.service';
   },
   encapsulation: ViewEncapsulation.None,
 })
-export class ContainerTerminalComponent implements AfterViewInit {
+export class ContainerTerminalComponent implements AfterViewInit, OnDestroy {
   #routeService = inject(RouteService);
   #containerService = inject(ContainerService);
 
@@ -40,7 +41,6 @@ export class ContainerTerminalComponent implements AfterViewInit {
   );
   exec = this.#containerService.exec();
 
-  // TODO destroy cleanup of the WS resources
   ws: WebSocket | undefined;
   terminal = new Terminal();
 
@@ -62,6 +62,10 @@ export class ContainerTerminalComponent implements AfterViewInit {
         );
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.ws?.close();
   }
 
   ngAfterViewInit() {

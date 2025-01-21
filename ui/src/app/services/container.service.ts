@@ -21,19 +21,29 @@ import { API_URL, ServerError } from '../model/server.model';
 export class ContainerService {
   #http = inject(HttpClient);
   #client = inject(QueryClient);
+
   getContainers = () =>
     injectQuery<Dockerode.ContainerInfo[], ServerError, Container[], string[]>(
-      () => ({
-        queryKey: ['containers'],
-        queryFn: () =>
-          lastValueFrom(
-            this.#http.get<Dockerode.ContainerInfo[]>(`${API_URL}containers`, {
-              withCredentials: true,
-            }),
-          ),
-        select: (containers) => buildContainers(containers),
-      }),
+      () => this.getContainersQuery(),
     );
+
+  fetchContainers() {
+    return this.#client.fetchQuery(this.getContainersQuery());
+  }
+
+  getContainersQuery() {
+    return {
+      queryKey: ['containers'],
+      queryFn: () =>
+        lastValueFrom(
+          this.#http.get<Dockerode.ContainerInfo[]>(`${API_URL}containers`, {
+            withCredentials: true,
+          }),
+        ),
+      select: (containers: Dockerode.ContainerInfo[]) =>
+        buildContainers(containers),
+    };
+  }
 
   getStacks = () =>
     injectQuery<Dockerode.ContainerInfo[], ServerError, Stack[], string[]>(

@@ -1,7 +1,6 @@
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { getByText } from '@testing-library/dom';
-import { Terminal } from '@xterm/xterm';
 import { getContainerMock } from '../../../model/container.model';
 import {
   getMutationQueryMock,
@@ -23,6 +22,7 @@ describe('ContainerTerminalComponent', () => {
       }),
     exec: () =>
       getMutationQueryMock({ mutate: jest.fn(), data: signal('exec result') }),
+    resize: () => getMutationQueryMock(),
   };
 
   const htmlServiceMock: Partial<HtmlService> = {
@@ -47,10 +47,6 @@ describe('ContainerTerminalComponent', () => {
 
     fixture = TestBed.createComponent(ContainerTerminalComponent);
     component = fixture.componentInstance;
-    component.terminal = {
-      loadAddon: jest.fn(),
-      open: jest.fn(),
-    } as unknown as Terminal;
   });
 
   it('should create', () => {

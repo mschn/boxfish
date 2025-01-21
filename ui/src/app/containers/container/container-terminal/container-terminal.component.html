@@ -1,5 +1,6 @@
-@if (container()?.state === "running") {
-  <div #terminal id="terminal" class="flex-1"></div>
+@let c = container();
+@if (c !== undefined && c?.state === "running") {
+  <app-xterm [container]="c"></app-xterm>
 } @else {
   <div class="p-3 text-muted-color italic" i18n
     >The terminal is only available for running containers</div

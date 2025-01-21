@@ -1,3 +1,9 @@
-<div class="p-3 rounded-md" style="background-color: #282a36">
-  <div #terminal id="terminal"></div>
-</div>
+@if (container()?.state === "running") {
+  <div class="p-3 rounded-md" style="background-color: #282a36">
+    <div #terminal id="terminal"></div>
+  </div>
+} @else {
+  <div class="text-muted-color italic" i18n
+    >The terminal is only available for running containers</div
+  >
+}

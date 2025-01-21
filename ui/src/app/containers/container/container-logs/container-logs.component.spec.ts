@@ -1,6 +1,6 @@
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { getByText, queryByText } from '@testing-library/dom';
+import { getByTestId, getByText, queryByText } from '@testing-library/dom';
 import {
   getLoadingQueryMock,
   getQueryMock,
@@ -50,10 +50,24 @@ describe('ContainerLogsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should not display logs', () => {
+  it('should display empty state', () => {
+    component.logs = getQueryMock();
+    fixture.detectChanges();
+    expect(
+      getByText(
+        fixture.nativeElement,
+        'This container does not have any logs yet.',
+      ),
+    ).toBeTruthy();
+  });
+
+  it('should display loading state', () => {
     component.logs = getLoadingQueryMock();
     fixture.detectChanges();
     expect(queryByText(fixture.nativeElement, 'log result')).toBeFalsy();
+    expect(
+      getByTestId(fixture.nativeElement, 'contaier-logs-placeholder'),
+    ).toBeTruthy();
   });
 
   it('should display logs', () => {

@@ -24,7 +24,7 @@ export class ContainerLogsComponent {
   #containerService = inject(ContainerService);
   #htmlService = inject(HtmlService);
 
-  logsPreElement = viewChild<ElementRef<HTMLPreElement>>('logs');
+  logEndAnchor = viewChild<ElementRef<HTMLPreElement>>('logend');
 
   logs = this.#containerService.getContainerLogs(
     this.#routeService.idFromRoute,
@@ -40,8 +40,8 @@ export class ContainerLogsComponent {
   constructor() {
     effect(() => {
       if (this.logs.isSuccess()) {
-        const preElement = this.logsPreElement()?.nativeElement;
-        preElement?.scrollTo?.(0, preElement?.scrollHeight ?? 0);
+        const preElement = this.logEndAnchor()?.nativeElement;
+        preElement?.scrollIntoView?.();
       }
     });
   }

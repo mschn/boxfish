@@ -114,16 +114,18 @@ export function registerContainers(
                   resolve();
                 }
                 container.modem.demuxStream(stream, logStream, logStream);
-                stream?.on("end", function () {
-                  logStream.end("");
-                  reply.send(output);
-                  resolve();
-                });
 
-                setTimeout(function () {
+                const tid = setTimeout(function () {
                   reply.send(output);
                   resolve();
                 }, 500);
+
+                stream?.on("end", function () {
+                  logStream.end("");
+                  reply.send(output);
+                  clearTimeout(tid);
+                  resolve();
+                });
               }
             );
           });

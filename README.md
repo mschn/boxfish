@@ -2,14 +2,32 @@
 
 [![Unit tests](https://github.com/mschn/boxfish/actions/workflows/unit_tests.yml/badge.svg)](https://github.com/mschn/boxfish/actions/workflows/unit_tests.yml) [![E2E tests](https://github.com/mschn/boxfish/actions/workflows/e2e_tests.yml/badge.svg)](https://github.com/mschn/boxfish/actions/workflows/e2e_tests.yml)
 
-Boxfish is a web app that can view and manipulate your Docker containers and images.
+Boxfish is a UI for Docker that runs in a browser.\
+You can use it to view images and containers running in your Docker platform.
 
 <img src="ui/public/boxfish.svg" width="128" />
 
 ## Startup
 
-To run Boxfish you need to have Docker running.\
-Assuming Docker is running, here's how you can build and run the image:
+You can run boxfish with the following command:
+
+```bash
+docker run -d --rm \
+    --name boxfish \
+    -p 3000:3000 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    mschnr/boxfish
+```
+
+Boxfish needs to access your docker socket at `/var/run/docker.sock`.\
+On some platforms this location can be different.\
+See the `run.sh` helper script.
+
+The boxfish image is hosted here: https://hub.docker.com/repository/docker/mschnr/boxfish/general
+
+## Docker build
+
+You can build and run the docker image from source instead of pulling from Dockerhub:
 
 ```bash
 # build a docker image
@@ -37,15 +55,6 @@ npm i
 npm run start
 ```
 
-## Docker
-
-Some helpful docker commands:
-
-```bash
-# Inspect the docker image
-docker run --rm -it --entrypoint /bin/sh mschnr/boxfish
-```
-
 ## Built with
 
 - [Angular](https://angular.dev/)
@@ -53,3 +62,4 @@ docker run --rm -it --entrypoint /bin/sh mschnr/boxfish
 - [PrimeNG](https://primeng.org/)
 - [Fastify](https://fastify.dev/)
 - [dockerode](https://github.com/apocas/dockerode)
+- [Xterm.js](https://github.com/xtermjs/xterm.js)

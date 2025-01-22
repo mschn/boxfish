@@ -6,7 +6,12 @@ import {
 } from '@tanstack/angular-query-experimental';
 import { lastValueFrom } from 'rxjs';
 import { buildDf, Df, DfResponse } from '../model/df.model';
-import { API_URL, ServerError, ServerInfo } from '../model/server.model';
+import {
+  API_URL,
+  SERVER_BASE,
+  ServerError,
+  ServerInfo,
+} from '../model/server.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +25,18 @@ export class ServerService {
         lastValueFrom(
           this.#http.post(`${API_URL}login`, {}, { withCredentials: true }),
         ),
+    }));
+
+  version = () =>
+    injectQuery(() => ({
+      queryKey: ['version'],
+      queryFn: () =>
+        lastValueFrom(
+          this.#http.get(`http://${SERVER_BASE}/version`, {
+            responseType: 'text',
+          }),
+        ),
+      select: (version) => (version.trim().length > 0 ? version : '0.0.0'),
     }));
 
   getServerInfo = () =>

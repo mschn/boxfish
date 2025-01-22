@@ -18,6 +18,7 @@ FROM node:18-alpine
 COPY --from=build /app/ui/dist /app/ui/dist
 COPY --from=build /app/server/dist /app/server/dist
 COPY --from=build /app/server/node_modules /app/server/node_modules
+COPY ./version.txt /app/server/dist/
 WORKDIR /app/server
 
 EXPOSE 3000

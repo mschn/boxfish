@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -6,8 +6,10 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
-import { getByAltText, getByText } from '@testing-library/dom';
+import { getByAltText, getByRole, getByText } from '@testing-library/dom';
 import { AppComponent } from './app.component';
+import { ServerService } from './services/server.service';
+import { getQueryMock } from './model/queries.mocks';
 
 @Component({
   template: 'Oink',
@@ -20,6 +22,10 @@ describe('AppComponent', () => {
   let component: AppComponent;
   let router: Router;
 
+  const serverServiceMock: Partial<ServerService> = {
+    version: () => getQueryMock({ data: signal('1.2.3') }),
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -27,7 +33,7 @@ describe('AppComponent', () => {
         TestComponent,
         RouterModule.forRoot([{ path: '**', component: TestComponent }]),
       ],
-      providers: [],
+      providers: [{ provide: ServerService, useValue: serverServiceMock }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
@@ -58,5 +64,12 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const img = getByAltText(fixture.nativeElement, 'logo') as HTMLImageElement;
     expect(img.src).toContain('boxfish.svg');
+  });
+
+  it('should show the version', () => {
+    fixture.detectChanges();
+    expect(
+      getByRole(fixture.nativeElement, 'link', { name: 'boxfish 1.2.3' }),
+    ).toBeTruthy();
   });
 });

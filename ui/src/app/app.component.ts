@@ -7,6 +7,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { isDarkTheme, setDarkTheme } from './model/darktheme';
 import { getDateFnsLocale } from './model/lang.model';
 import { SettingsStore } from './services/settings.store';
+import { ServerService } from './services/server.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import { SettingsStore } from './services/settings.store';
 })
 export class AppComponent implements OnInit {
   settingsStore = inject(SettingsStore);
+  version = inject(ServerService).version();
 
   routes = [
     {

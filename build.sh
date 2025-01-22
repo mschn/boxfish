@@ -5,4 +5,5 @@ printf $TAG > version.txt
 
 docker build . \
     -t mschnr/boxfish:${TAG} \
+    -t mschnr/boxfish:latest \
     --force-rm

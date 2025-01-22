@@ -43,3 +43,4 @@ jobs:
         run: |
           TAG=$(cat version.txt)
           docker push mschnr/boxfish:${TAG}
+          docker push mschnr/boxfish:latest

@@ -40,4 +40,6 @@ jobs:
         run: sh build.sh
 
       - name: Push boxfish docker image
-        run: docker push mschnr/boxfish
+        run: |
+          TAG=$(cat version.txt)
+          docker push mschnr/boxfish:${TAG}

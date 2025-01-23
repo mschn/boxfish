@@ -4,19 +4,21 @@ import {
   effect,
   ElementRef,
   inject,
+  signal,
   viewChild,
 } from '@angular/core';
 import { ContainerService } from '../../../services/container.service';
 import { HtmlService } from '../../../services/html.service';
 import { RouteService } from '../../../services/route.service';
 import { ContainerLogsPlaceholderComponent } from './container-logs-placeholder.component';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-container-logs',
-  imports: [ContainerLogsPlaceholderComponent],
+  imports: [ContainerLogsPlaceholderComponent, NgClass],
   templateUrl: './container-logs.component.html',
   host: {
-    class: 'w-full flex flex-1',
+    class: 'flex flex-1 flex-col',
   },
 })
 export class ContainerLogsComponent {
@@ -25,6 +27,8 @@ export class ContainerLogsComponent {
   #htmlService = inject(HtmlService);
 
   logEndAnchor = viewChild<ElementRef<HTMLPreElement>>('logend');
+
+  wrapLogLines = signal(false);
 
   logs = this.#containerService.getContainerLogs(
     this.#routeService.idFromRoute,

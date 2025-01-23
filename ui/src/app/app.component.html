@@ -16,7 +16,7 @@
         <a
           [routerLink]="route.link"
           routerLinkActive="text-gray-900 dark:text-gray-200"
-          class="p-3 font-bold rounded-md bg-transparent border-transparent no-underline w-full hover:bg-gray-300 hover:dark:bg-gray-600"
+          class="p-3 font-bold rounded-md bg-transparent border-transparent no-underline w-full hover:bg-gray-300 hover:dark:bg-gray-600 whitespace-nowrap"
         >
           <i class="fa-solid {{ route.icon }} mr-2"></i>
           {{ route.name }}
@@ -41,7 +41,7 @@
     </div>
 
     <div
-      class="flex-1 flex w-full h-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200"
+      class="flex-1 flex bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 overflow-auto"
     >
       <router-outlet></router-outlet>
     </div>

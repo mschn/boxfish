@@ -9,7 +9,7 @@ import { SkeletonModule } from 'primeng/skeleton';
    bg-gray-100 dark:bg-gray-800 dark:text-gray-100"
       data-testid="container-logs-placeholder"
     >
-      <p-skeleton width="100%" height="20rem"></p-skeleton>
+      <p-skeleton width="100%" height="100vh"></p-skeleton>
     </div>
   `,
   host: {

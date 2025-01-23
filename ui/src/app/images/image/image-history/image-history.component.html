@@ -2,17 +2,21 @@
   <table class="text-sm">
     @for (h of history.data(); track h.createdAt; let index = $index) {
       <tr>
-        <td class="border-b p-2 text-nowrap align-text-top"
+        <td class="border-b dark:border-gray-700 p-2 text-nowrap align-text-top"
           ><span>{{ index }}.</span></td
         >
 
-        <td class="border-b p-2 text-nowrap align-text-top pt-3"
+        <td
+          class="border-b p-2 dark:border-gray-700 text-nowrap align-text-top pt-3"
           ><span>{{ h.size }}</span></td
         >
 
-        <td class="border-b p-2" data-testid="image-history-command">
+        <td
+          class="border-b p-2 dark:border-gray-700"
+          data-testid="image-history-command"
+        >
           <pre
-            class="px-2 py-1 border bg-gray-100 dark:bg-gray-900 whitespace-pre-wrap rounded-md"
+            class="px-2 py-1 border bg-gray-100 dark:bg-gray-900 dark:border-gray-700 whitespace-pre-wrap rounded-md"
             >{{ h.command }}</pre
           >
         </td>

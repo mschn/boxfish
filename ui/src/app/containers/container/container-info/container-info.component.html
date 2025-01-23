@@ -3,24 +3,32 @@
 @if (c) {
   <table class="m-3">
     <tr>
-      <td class="p-2 border-b" i18n>Image</td>
-      <td class="p-2 border-b" data-testid="container-image">{{ c.image }}</td>
+      <td class="p-2 border-b dark:border-gray-700" i18n>Image</td>
+      <td
+        class="p-2 border-b dark:border-gray-700"
+        data-testid="container-image"
+        >{{ c.image }}</td
+      >
     </tr>
     <tr>
-      <td class="p-2 border-b" i18n>Status</td>
-      <td class="p-2 border-b" data-testid="container-status">{{
-        c.status
-      }}</td>
+      <td class="p-2 border-b dark:border-gray-700" i18n>Status</td>
+      <td
+        class="p-2 border-b dark:border-gray-700"
+        data-testid="container-status"
+        >{{ c.status }}</td
+      >
     </tr>
     <tr>
-      <td class="p-2 border-b" i18n>Created</td>
-      <td class="p-2 border-b" data-testid="container-date">{{
-        c.createdDate | date
-      }}</td>
+      <td class="p-2 border-b dark:border-gray-700" i18n>Created</td>
+      <td
+        class="p-2 border-b dark:border-gray-700"
+        data-testid="container-date"
+        >{{ c.createdDate | date }}</td
+      >
     </tr>
     <tr>
-      <td class="p-2 border-b" i18n>Ports</td>
-      <td class="p-2 border-b">
+      <td class="p-2 border-b dark:border-gray-700" i18n>Ports</td>
+      <td class="p-2 border-b dark:border-gray-700">
         @for (port of c.ports; track port.url) {
           <div data-testid="container-port">
             {{ port.ip }}:{{ port.publicPort }} → {{ port.privatePort }}/{{

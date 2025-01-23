@@ -1,24 +1,35 @@
+import { NgClass } from '@angular/common';
 import {
   Component,
   computed,
   effect,
   ElementRef,
   inject,
-  signal,
+  model,
   viewChild,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { Popover } from 'primeng/popover';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { ContainerService } from '../../../services/container.service';
 import { HtmlService } from '../../../services/html.service';
 import { RouteService } from '../../../services/route.service';
 import { ContainerLogsPlaceholderComponent } from './container-logs-placeholder.component';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-container-logs',
-  imports: [ContainerLogsPlaceholderComponent, NgClass],
+  imports: [
+    ContainerLogsPlaceholderComponent,
+    NgClass,
+    FormsModule,
+    Popover,
+    ButtonModule,
+    ToggleSwitchModule,
+  ],
   templateUrl: './container-logs.component.html',
   host: {
-    class: 'flex flex-1 flex-col',
+    class: 'flex flex-1 flex-col h-full',
   },
 })
 export class ContainerLogsComponent {
@@ -28,7 +39,8 @@ export class ContainerLogsComponent {
 
   logEndAnchor = viewChild<ElementRef<HTMLPreElement>>('logend');
 
-  wrapLogLines = signal(false);
+  wrapLogLines = model(false);
+  wrapLinesLabel = $localize`Wrap lines`;
 
   logs = this.#containerService.getContainerLogs(
     this.#routeService.idFromRoute,

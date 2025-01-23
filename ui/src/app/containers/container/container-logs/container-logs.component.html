@@ -5,7 +5,19 @@
     >This container does not have any logs yet.</div
   >
 } @else {
-  <div class="flex flex-1 flex-col">
+  <div class="absolute right-2 mt-2">
+    <p-button (click)="op.toggle($event)" severity="secondary"
+      ><i class="fa-solid fa-bars"></i
+    ></p-button>
+  </div>
+  <p-popover #op>
+    <div class="flex flex-row gap-3">
+      <label for="wrapLogLines">Line wrap</label>
+      <p-toggleswitch inputId="wrapLogLines" [(ngModel)]="wrapLogLines" />
+    </div>
+  </p-popover>
+
+  <div class="flex flex-1 flex-col overflow-auto">
     <pre
       class="p-3 bg-gray-800 text-gray-100 text-sm flex-1 w-fit"
       [ngClass]="{ 'whitespace-pre-wrap break-all': wrapLogLines() }"

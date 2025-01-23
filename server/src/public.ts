@@ -21,8 +21,12 @@ export function registerStatic(fastify: FastifyInstance) {
 
   fastify.get("/version", async (request, reply) => {
     const versionFile = path.join(__dirname, "version.txt");
-    const file = readFileSync(versionFile);
-    reply.send(file.toString("utf8"));
+    try {
+      const file = readFileSync(versionFile);
+      reply.send(file.toString("utf8"));
+    } catch (e) {
+      reply.send("0.0.0");
+    }
   });
 
   // the angular app has a router,

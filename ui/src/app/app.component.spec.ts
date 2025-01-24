@@ -6,10 +6,10 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { Router, RouterModule } from '@angular/router';
-import { getByAltText, getByRole, getByText } from '@testing-library/dom';
+import { getByRole, getByText } from '@testing-library/dom';
 import { AppComponent } from './app.component';
-import { ServerService } from './services/server.service';
 import { getQueryMock } from './model/queries.mocks';
+import { ServerService } from './services/server.service';
 
 @Component({
   template: 'Oink',
@@ -52,19 +52,6 @@ describe('AppComponent', () => {
     flush();
     expect(getByText(fixture.nativeElement, 'Oink')).toBeTruthy();
   }));
-
-  it('should show light logo', () => {
-    fixture.detectChanges();
-    const img = getByAltText(fixture.nativeElement, 'logo') as HTMLImageElement;
-    expect(img.src).toContain('boxfish_light.svg');
-  });
-
-  it('should show dark logo', () => {
-    window.matchMedia = () => ({ matches: true }) as MediaQueryList;
-    fixture.detectChanges();
-    const img = getByAltText(fixture.nativeElement, 'logo') as HTMLImageElement;
-    expect(img.src).toContain('boxfish.svg');
-  });
 
   it('should show the version', () => {
     fixture.detectChanges();

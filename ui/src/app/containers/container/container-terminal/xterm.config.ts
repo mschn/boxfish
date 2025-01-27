@@ -22,4 +22,5 @@ export const XtermOptions: ITerminalOptions = {
     brightWhite: '#eff0eb',
   },
   cursorBlink: true,
+  fontFamily: 'JetBrains Mono',
 };

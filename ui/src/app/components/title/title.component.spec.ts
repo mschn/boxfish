@@ -8,6 +8,7 @@ describe('TitleComponent', () => {
   let component: TitleComponent;
   let fixture: ComponentFixture<TitleComponent>;
   const events$ = new Subject();
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,6 +20,9 @@ describe('TitleComponent', () => {
             events: events$,
             createUrlTree: jest.fn(),
             serializeUrl: jest.fn(),
+            get url() {
+              return '';
+            },
           },
         },
         {
@@ -30,6 +34,7 @@ describe('TitleComponent', () => {
 
     fixture = TestBed.createComponent(TitleComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
   });
 
   it('should create', () => {
@@ -38,11 +43,7 @@ describe('TitleComponent', () => {
   });
 
   it('should load path from url', () => {
-    Object.defineProperty(window, 'location', {
-      value: {
-        pathname: 'images/32/logs',
-      },
-    });
+    jest.spyOn(router, 'url', 'get').mockReturnValue('/images/32/logs');
     fixture.detectChanges();
     expect(
       getAllByTestId(fixture.nativeElement, 'breadcrumb-path').map((e) =>
@@ -62,11 +63,7 @@ describe('TitleComponent', () => {
   });
 
   it('should replace path elements', () => {
-    Object.defineProperty(window, 'location', {
-      value: {
-        pathname: 'images/32/logs',
-      },
-    });
+    jest.spyOn(router, 'url', 'get').mockReturnValue('/images/32/logs');
     fixture.componentRef.setInput('pathMap', { '32': 'abc' });
     fixture.detectChanges();
     expect(

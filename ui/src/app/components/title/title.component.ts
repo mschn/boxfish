@@ -18,11 +18,11 @@ export class TitleComponent {
   ) as Signal<NavigationEnd>;
 
   paths = computed(() => {
-    let path = window.location.pathname;
+    let url = this.#router.url;
     if (this.routerNavigationEnd()) {
-      path = this.routerNavigationEnd().urlAfterRedirects;
+      url = this.routerNavigationEnd().urlAfterRedirects;
     }
-    const paths = path
+    const paths = url
       .split('/')
       .filter((p) => p.length > 0)
       .map((p) => ({

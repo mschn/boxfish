@@ -15,7 +15,7 @@ export interface ServerInfo {
   };
 }
 
-export const SERVER_BASE = 'localhost:3000';
+export const SERVER_BASE = `${window.location.hostname}:3000`;
 export const API_URL = `http://${SERVER_BASE}/api/`;
 export const WS_API_URL = `ws://${SERVER_BASE}/api/`;
 

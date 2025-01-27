@@ -7,8 +7,6 @@ import { registerContainers } from "./containers";
 import { registerContainerExec } from "./exec";
 import { registerImages } from "./images";
 import { registerVolumes } from "./volumes";
-import { readFile, readFileSync } from "fs";
-import path from "path";
 
 export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
   fastify.register(
@@ -26,8 +24,9 @@ export function registerApi(fastify: FastifyInstance, sessions: Sessions) {
           config,
           exec: {},
         });
+
         reply.cookie(SESSION_ID, sessionId, {
-          domain: "localhost",
+          domain: request.hostname,
         });
       });
 

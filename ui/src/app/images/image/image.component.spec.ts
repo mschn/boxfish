@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   getAllByTestId,
   getByTestId,
@@ -17,6 +17,7 @@ import { ImageComponent } from './image.component';
 describe('ImageComponent', () => {
   let component: ImageComponent;
   let fixture: ComponentFixture<ImageComponent>;
+  let router: Router;
 
   const imagesServiceMock: Partial<ImagesService> = {
     getImages: () =>
@@ -35,6 +36,17 @@ describe('ImageComponent', () => {
       providers: [
         { provide: ImagesService, useValue: imagesServiceMock },
         {
+          provide: Router,
+          useValue: {
+            events: of(undefined),
+            createUrlTree: jest.fn(),
+            serializeUrl: jest.fn(),
+            get url() {
+              return '';
+            },
+          },
+        },
+        {
           provide: ActivatedRoute,
           useValue: {
             paramMap: of({
@@ -48,6 +60,7 @@ describe('ImageComponent', () => {
 
     fixture = TestBed.createComponent(ImageComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
   });
 
   it('should create', () => {
@@ -65,12 +78,11 @@ describe('ImageComponent', () => {
   });
 
   it('shows the image name in the title', () => {
-    Object.defineProperty(window, 'location', {
-      value: {
-        pathname:
-          'images/443a1db32605fecbfa36ebe1a86c7a5cc358476eeb3c06f37b3629bd43a1c1a0',
-      },
-    });
+    jest
+      .spyOn(router, 'url', 'get')
+      .mockReturnValue(
+        '/images/443a1db32605fecbfa36ebe1a86c7a5cc358476eeb3c06f37b3629bd43a1c1a0',
+      );
     fixture.detectChanges();
     expect(
       getAllByTestId(fixture.nativeElement, 'breadcrumb-path').map((e) =>
@@ -80,12 +92,11 @@ describe('ImageComponent', () => {
   });
 
   it('shows the image short id in the title', () => {
-    Object.defineProperty(window, 'location', {
-      value: {
-        pathname:
-          'images/443a1db32605fecbfa36ebe1a86c7a5cc358476eeb3c06f37b3629bd43a1c1a0',
-      },
-    });
+    jest
+      .spyOn(router, 'url', 'get')
+      .mockReturnValue(
+        '/images/443a1db32605fecbfa36ebe1a86c7a5cc358476eeb3c06f37b3629bd43a1c1a0',
+      );
     component.images = getQueryMock({
       data: signal([getImageMock({ name: undefined })]),
     });

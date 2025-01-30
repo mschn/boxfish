@@ -13,7 +13,7 @@ export interface Session {
 }
 
 export const SESSION_ID = "sessionId";
-export const SESSION_TIMEOUT_MS = 60 * 1000; // 1mn session timeout
+export const SESSION_TIMEOUT_MS = 12 * 60 * 60 * 1000; // 1 day session timeout
 
 export const DEV_LOGGER: PinoLoggerOptions = {
   transport: {

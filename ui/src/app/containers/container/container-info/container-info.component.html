@@ -11,6 +11,14 @@
       >
     </tr>
     <tr>
+      <td class="p-2 border-b dark:border-gray-700" i18n>Command</td>
+      <td
+        class="p-2 border-b dark:border-gray-700 font-mono text-sm"
+        data-testid="container-command"
+        >{{ c.command }}</td
+      >
+    </tr>
+    <tr>
       <td class="p-2 border-b dark:border-gray-700" i18n>Status</td>
       <td
         class="p-2 border-b dark:border-gray-700"
@@ -29,13 +37,48 @@
     <tr>
       <td class="p-2 border-b dark:border-gray-700" i18n>Ports</td>
       <td class="p-2 border-b dark:border-gray-700">
+        @if (c.ports.length === 0) {
+          -
+        }
         @for (port of c.ports; track port.url) {
-          <div data-testid="container-port">
-            {{ port.ip }}:{{ port.publicPort }} → {{ port.privatePort }}/{{
-              port.type
-            }}
+          <div data-testid="container-port" class="flex flex-row gap-2">
+            <span class="font-mono text-sm" data-testid="container-port-from"
+              >{{ port.ip }}:{{ port.publicPort }}</span
+            >
+            <i class="fa-solid fa-arrow-right-long"></i>
+            <span class="font-mono text-sm" data-testid="container-port-to"
+              >{{ port.privatePort }}/{{ port.type }}</span
+            >
           </div>
         }
+      </td>
+    </tr>
+    <tr>
+      <td class="p-2 border-b dark:border-gray-700" i18n>Mounts</td>
+      <td class="p-2 border-b dark:border-gray-700">
+        <table>
+          @if (c.mounts.length === 0) {
+            -
+          }
+          @for (mount of c.mounts; track mount.source) {
+            <tr data-testid="container-mount">
+              <td>
+                <p-tag class="mr-2" [value]="mount.type"></p-tag>
+              </td>
+              <span class="font-mono text-sm">
+                @if (mount.type === "volume") {
+                  {{ mount.name }}
+                } @else {
+                  {{ mount.source }}
+                }
+              </span>
+              <i class="fa-solid fa-arrow-right-long"></i>
+              <span class="font-mono text-sm ml-2">{{
+                mount.destination
+              }}</span>
+            </tr>
+          }
+        </table>
       </td>
     </tr>
   </table>

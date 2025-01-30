@@ -14,8 +14,23 @@ export interface Container {
   status: string;
   ports: Port[];
   createdDate: Date;
+  command: string;
+  mounts: Mount[];
 }
 
+export interface Mount {
+  source: string;
+  destination: string;
+  name?: string;
+  type: 'bind' | 'volume' | string;
+}
+
+interface MountResponse {
+  Source: string;
+  Destination: string;
+  Name?: string;
+  Type: 'bind' | 'volume' | string;
+}
 export interface Port {
   ip: string;
   publicPort: number;
@@ -59,6 +74,8 @@ export function buildContainer(container: Dockerode.ContainerInfo): Container {
     ports: container.Ports.filter(
       (port) => port.PublicPort && port.IP !== '::',
     ).map((port) => buildPort(port)),
+    command: container.Command,
+    mounts: container.Mounts.map((m) => buildMount(m)),
   };
 }
 
@@ -82,6 +99,15 @@ function buildPort(port: Dockerode.Port): Port {
     privatePort: port.PrivatePort,
     type: port.Type,
     url: `http://${port.IP}:${port.PublicPort}/`,
+  };
+}
+
+function buildMount(mount: MountResponse): Mount {
+  return {
+    source: mount.Source,
+    destination: mount.Destination,
+    name: mount.Name,
+    type: mount.Type,
   };
 }
 
@@ -110,6 +136,15 @@ export function getContainerMock(props: Partial<Container> = {}): Container {
         url: 'http://0.0.0.0:4200/',
       },
     ],
+    mounts: [
+      {
+        source: '/foo/bar',
+        destination: '/bar/baz',
+        type: 'volume',
+        name: 'foo_bar',
+      },
+    ],
+    command: '/bin/bash',
     ...props,
   };
 }

@@ -3,10 +3,11 @@ import { Component, computed, inject } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { ContainerService } from '../../../services/container.service';
 import { RouteService } from '../../../services/route.service';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-container-info',
-  imports: [DatePipe, BadgeModule],
+  imports: [DatePipe, BadgeModule, TagModule],
   templateUrl: './container-info.component.html',
 })
 export class ContainerInfoComponent {

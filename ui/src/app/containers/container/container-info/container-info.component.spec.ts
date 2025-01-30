@@ -63,9 +63,20 @@ describe('ContainerInfoComponent', () => {
       getByTestId(fixture.nativeElement, 'container-date').textContent,
     ).toBe('Dec 12, 2024');
     expect(
-      getAllByTestId(fixture.nativeElement, 'container-port').map((e) =>
+      getAllByTestId(fixture.nativeElement, 'container-port-from').map((e) =>
         e.textContent?.trim(),
       ),
-    ).toEqual(['0.0.0.0:3000 → 3000/tcp', '0.0.0.0:4200 → 4200/tcp']);
+    ).toEqual(['0.0.0.0:3000', '0.0.0.0:4200']);
+    expect(
+      getAllByTestId(fixture.nativeElement, 'container-port-to').map((e) =>
+        e.textContent?.trim(),
+      ),
+    ).toEqual(['3000/tcp', '4200/tcp']);
+
+    expect(
+      getAllByTestId(fixture.nativeElement, 'container-mount').map((e) =>
+        e.textContent?.trim(),
+      ),
+    ).toEqual(['volume foo_bar /bar/baz']);
   });
 });

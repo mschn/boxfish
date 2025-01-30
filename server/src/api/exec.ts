@@ -14,7 +14,7 @@ export function registerContainerExec(
     (app) => {
       app.get<{ Params: { id: string } }>(
         "/:id/exec/ws",
-        { websocket: true },
+        { preValidation: validateId, websocket: true },
         async (socket, request) => {
           const session = sessions.fromContext(request);
           const id = request.params.id;

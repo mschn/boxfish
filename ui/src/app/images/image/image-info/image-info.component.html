@@ -2,24 +2,36 @@
 @if (i) {
   <table>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Version</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Version</td
+      >
       <td
-        class="p-2 border-b dark:border-gray-700"
+        class="p-2 border-b border-gray-200 dark:border-gray-700"
         data-testid="image-version"
         >{{ i.version ?? "-" }}</td
       >
     </tr>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>ID</td>
-      <td class="p-2 border-b dark:border-gray-700">{{ i.id }}</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n>ID</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700">{{
+        i.id
+      }}</td>
     </tr>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Size</td>
-      <td class="p-2 border-b dark:border-gray-700">{{ i.size }}</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Size</td
+      >
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700">{{
+        i.size
+      }}</td>
     </tr>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Created</td>
-      <td class="p-2 border-b dark:border-gray-700">{{ i.created }}</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Created</td
+      >
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700">{{
+        i.created
+      }}</td>
     </tr>
   </table>
 }

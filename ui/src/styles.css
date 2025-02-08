@@ -18,4 +18,7 @@ body {
 
 @theme {
   --font-jetbrains-mono: "JetBrains Mono";
+
+  --color-primary: var(--p-primary-500);
+  --color-primary-50: var(--p-primary-50);
 }

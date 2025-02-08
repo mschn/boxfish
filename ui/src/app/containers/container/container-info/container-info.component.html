@@ -3,40 +3,50 @@
 @if (c) {
   <table class="m-3">
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Image</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Image</td
+      >
       <td
-        class="p-2 border-b dark:border-gray-700"
+        class="p-2 border-b border-gray-200 dark:border-gray-700"
         data-testid="container-image"
         >{{ c.image }}</td
       >
     </tr>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Command</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Command</td
+      >
       <td
-        class="p-2 border-b dark:border-gray-700 font-mono text-sm"
+        class="p-2 border-b border-gray-200 dark:border-gray-700 font-mono text-sm"
         data-testid="container-command"
         >{{ c.command }}</td
       >
     </tr>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Status</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Status</td
+      >
       <td
-        class="p-2 border-b dark:border-gray-700"
+        class="p-2 border-b border-gray-200 dark:border-gray-700"
         data-testid="container-status"
         >{{ c.status }}</td
       >
     </tr>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Created</td>
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Created</td
+      >
       <td
-        class="p-2 border-b dark:border-gray-700"
+        class="p-2 border-b border-gray-200 dark:border-gray-700"
         data-testid="container-date"
         >{{ c.createdDate | date }}</td
       >
     </tr>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Ports</td>
-      <td class="p-2 border-b dark:border-gray-700">
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Ports</td
+      >
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700">
         @if (c.ports.length === 0) {
           -
         }
@@ -54,8 +64,10 @@
       </td>
     </tr>
     <tr>
-      <td class="p-2 border-b dark:border-gray-700" i18n>Mounts</td>
-      <td class="p-2 border-b dark:border-gray-700">
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700" i18n
+        >Mounts</td
+      >
+      <td class="p-2 border-b border-gray-200 dark:border-gray-700">
         <table>
           @if (c.mounts.length === 0) {
             -

@@ -16,7 +16,7 @@
     "@fastify/websocket": "^11.0.2",
     "@paralleldrive/cuid2": "^2.2.2",
     "dockerode": "^4.0.2",
-    "fastify": "^5.0.0",
+    "fastify": "^5.3.1",
     "pino-pretty": "^11.3.0"
   },
   "devDependencies": {
